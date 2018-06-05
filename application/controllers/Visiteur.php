@@ -22,4 +22,12 @@ class Visiteur extends CI_Controller
     $this->load->view("visiteur/Contact", $DonneesInjectees);
     $this->load->view('templates/PiedDePage');
    }// Page d'acceuil
+
+   public function MentionsLegales()
+   {
+    $DonneesInjectees['TitreDeLaPage'] = "Contact";
+    $this->load->view('templates/Entete');
+    $this->load->view("MentionsLegales", $DonneesInjectees);
+    $this->load->view('templates/PiedDePage');
+   }
 }
