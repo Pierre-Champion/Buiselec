@@ -1,11 +1,35 @@
 .PiedDePage
 {
     position: absolute;
-    background-color: rgb(50,0,0);
-    bottom: 0px
+    width: 95%;
+    background-color: rgb(220,220,220);
+    bottom: 0px;
+    left: 0px;
+    padding-top: 46px;
+    padding-bottom: 46px;
+    padding-left: 5%;
+    font-size: 25px;
 }
 .ok
 {
-    background-color: black;
-    color: white;
+    border-radius: 25px;
+    position: absolute;
+    display:block;
+    right: 7.5px;
+    bottom: 7.5px;
+    background-color: rgb(255,230,0);
+    text-align: center;
+    padding: 35px;
+    color: blue;
+    border: 5px solid blue
+}
+.PiedDePage:hover
+{
+    background-color: rgb(210,210,210);
+}
+.ok:hover
+{
+    background-color: rgb(255,255,50);
+    color: rgb(50,50,255);
+    border: 5px solid rgb(50,50,255);
 }

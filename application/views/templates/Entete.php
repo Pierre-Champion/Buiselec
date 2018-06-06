@@ -1,7 +1,7 @@
 <html>
 <head>
 <title>Buiselec</title>
-<link rel="stylesheet" href="C:\xampp\htdocs\Buiselec\assets\css\Styles.css">
+<link rel="stylesheet" href="<?=base_url();?>assets/css/Styles.css">
 </head>
 <body>
 <a href="<?php echo site_url('visiteur/Home') ?>">Page d'acceuil</a>&nbsp;&nbsp;
