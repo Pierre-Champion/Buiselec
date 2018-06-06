@@ -7,7 +7,7 @@ class ModeleUtilisateur extends CI_Model
     } // __construct 
     public function RecupererLesClients()
      {
-        return $this->db->get('Client');
+        return $this->db->get('Client')->result_array();
      } // récupérerLesClients
     public function InsererUnPersonnel($pDonneesAInserer)
      {

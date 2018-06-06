@@ -13,7 +13,8 @@ class ModeleChantier extends CI_Model
 
     public function RecupererLesCategories()
      {
-        return $this->db->get('Categorie');
+        $requete = $this->db->get('categorie');
+        return $requete->result_array();
      } // récupérerLesCatégories
 
 }

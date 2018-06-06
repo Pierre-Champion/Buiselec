@@ -21,7 +21,6 @@ class Administrateur extends CI_Controller
       {   // formulaire non validé, on renvoie le formulaire
         $this->load->view('templates/Entete');
         $this->load->view('Administrateur/AjouterUneCategorie', $DonneesInjectees);
-        $this->load->view('templates/PiedDePage');
       }
       else
       {
@@ -59,7 +58,6 @@ class Administrateur extends CI_Controller
       {
         $this->load->view('templates/Entete');
         $this->load->view('Administrateur/AjouterPersonnel', $DonneesInjectees);
-        $this->load->view('templates/PiedDePage');
       }
     } // ajouterUnPersonnel
 
@@ -90,7 +88,6 @@ class Administrateur extends CI_Controller
       {
         $this->load->view('templates/Entete');
         $this->load->view('Administrateur/AjouterUnClient', $DonneesInjectees);
-        $this->load->view('templates/PiedDePage');
       }
     } // ajouterUnPersonnel
 
@@ -123,10 +120,9 @@ class Administrateur extends CI_Controller
           "Cave / Garage / Grenier" => "Cave / Garage / Grenier",
           "Chambre" => "Chambre"
         );
-        $DonneesInjectees['Categories']=$this->ModeleUtilisateur->RecupererLesClients();
+        $DonneesInjectees['Clients']=$this->ModeleUtilisateur->RecupererLesClients();
         $this->load->view('templates/Entete');
         $this->load->view('Administrateur/AjouterUnChantier', $DonneesInjectees);
-        $this->load->view('templates/PiedDePage');
       }
     } // ajouterUnChantier
 }

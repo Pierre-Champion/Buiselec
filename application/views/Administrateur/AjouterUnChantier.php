@@ -13,7 +13,7 @@ echo form_label("Client concerné : ", 'lbltCategorie');
 <?php
 foreach ($Clients as $unClient)
 {
-    echo '<option value ="'.$uneClient['NOCLIENT'].'">'.$unClient['PRENOM']."&nbsp;".$unClient['NOM'].'</option>';
+    echo '<option value ="'.$unClient['NOCLIENT'].'">'.$unClient['PRENOM']."&nbsp;".$unClient['NOM'].'</option>';
 }
 ?>
 </select><BR>
