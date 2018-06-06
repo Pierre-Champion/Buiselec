@@ -10,4 +10,10 @@ class ModeleChantier extends CI_Model
      {
          return $this->db->insert('categorie', $pDonneesAInserer);
      } // insererUneCatégorie
+
+    public function RecupererLesCategories()
+     {
+        return $this->db->get('Categorie');
+     } // récupérerLesCatégories
+
 }

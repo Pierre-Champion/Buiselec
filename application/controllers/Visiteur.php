@@ -26,6 +26,13 @@ class Visiteur extends CI_Controller
     $this->load->view('templates/PiedDePage');
    }// Contact
 
+   public function Inscription() {
+    $DonneesInjectees['TitreDeLaPage'] = "Inscription";
+    $this->load->view('templates/Entete');
+    $this->load->view("visiteur/Inscription", $DonneesInjectees);
+    $this->load->view('templates/PiedDePage');
+   }// Image
+
    public function SeConnecter() {
     $this->load->helper('form');
     $this->load->library('form_validation');
