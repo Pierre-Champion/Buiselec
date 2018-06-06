@@ -1,0 +1,11 @@
+.PiedDePage
+{
+    position: absolute;
+    background-color: rgb(50,0,0);
+    bottom: 0px
+}
+.ok
+{
+    background-color: black;
+    color: white;
+}

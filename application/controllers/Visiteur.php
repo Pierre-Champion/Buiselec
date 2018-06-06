@@ -48,6 +48,13 @@ class Visiteur extends CI_Controller
     $this->load->view("visiteur/Image", $DonneesInjectees);
     $this->load->view('templates/PiedDePage');
    }// Image
-
+   
+   public function MentionsLegales()
+   {
+    $DonneesInjectees['TitreDeLaPage'] = "Contact";
+    $this->load->view('templates/Entete');
+    $this->load->view("MentionsLegales", $DonneesInjectees);
+    $this->load->view('templates/PiedDePage');
+   }//Mentions légales
 
 }
