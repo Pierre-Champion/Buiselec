@@ -77,7 +77,7 @@ class Administrateur extends CI_Controller
           'CP' => $this->input->post('CPClient'),
           'VILLE' => $this->input->post('VilleClient'),
           'MDP' => $this->input->post('MdpClient'),
-          'STATUT' => '1',
+          'STATUT' => $this->input->post('StatutClient'),
         );
         $this->ModeleUtilisateur->InsererUnClient($donneesAInserer); // appel du modèle
         $this->load->helper('url'); // helper chargé pour utilisation de site_url (dans la vue)
@@ -86,11 +86,50 @@ class Administrateur extends CI_Controller
       }
       else
       {
+        $DonneesInjectees['Statuts']=array
+        (
+          "Propriétaire" => "Propriétaire",
+          "Locataire" => "Locataire",
+        );
         $this->load->view('templates/Entete');
         $this->load->view('Administrateur/AjouterUnClient', $DonneesInjectees);
       }
     } // ajouterUnPersonnel
 
+    public function SelectionnerUnClient()
+    {
+    $this->load->helper('form');
+    $this->load->library('form_validation');
+    $DonneesInjectees['TitreDeLaPage'] = 'Selectionner un Client';
+    If ($this->input->post('boutonSelectionClient'))
+      {
+        $DonneesClient['TitreDeLaPage'] = 'Ajouter Un Chantier';
+        $DonneesClient['Categories']=$this->ModeleChantier->RecupererLesCategories();
+        $DonneesClient['Pieces']=array
+        (
+          "Salon" => "Salon",
+          "Salle à manger" => "Salle à manger",
+          "Cuisine" => "Cuisine",
+          "Salle de bain" => "Salle de bain",
+          "Extérieur" => "Extérieur",
+          "Cave / Garage / Grenier" => "Cave / Garage / Grenier",
+          "Chambre" => "Chambre"
+        );
+        $DonneesClient['Client'] = $this->ModeleUtilisateur->RecupererUnClient($this->input->post('ClientSelectionner'));
+        $this->load->helper('url'); // helper chargé pour utilisation de site_url (dans la vue)
+        $this->load->view('templates/Entete');
+      $this->load->view('Administrateur/AjouterUnChantier', $DonneesClient/*adresse*/);
+        
+      }
+      else
+      {
+        $DonneesInjectees['Clients']=$this->ModeleUtilisateur->RecupererLesClients();
+        $this->load->view('templates/Entete');
+        $this->load->view('Administrateur/SelectionnerUnClient', $DonneesInjectees);
+      }
+    }
+    
+    
     public function AjouterUnChantier()
     {
     $this->load->helper('form');
@@ -99,10 +138,21 @@ class Administrateur extends CI_Controller
     If ($this->input->post('boutonAjouterChantier'))
       {
         $donneesAInserer = array(
-          'NOM' => $this->input->post('NomClient'),
+          
+          'NOCLIENT' => $this->input->post('Noclient'),
+          'NOCATEGORIE'=> $this->input->post('CategorieChantier'),
+          'NOM'=> $this->input->post('NomChantier'),
+          'TYPE'=> $this->input->post('TypeChantier'),
+          'PIECE'=> $this->input->post('PieceChantier'),
+          'DETAIL'=> $this->input->post('DetailsChantier'),
+          'STATUT'=> 'Attente',
+          'ACCORD'=> $this->input->post('AccordImage'),
+          'ADRESSE' => $this->input->post('AdresseClient'),
+          'CP' => $this->input->post('CPClient'),
+          'VILLE' => $this->input->post('VilleClient'),
           
         );
-        $this->ModeleUtilisateur->InsererUnChantier($donneesAInserer); // appel du modèle
+        $this->ModeleChantier->InsererUnChantier($donneesAInserer); // appel du modèle
         $this->load->helper('url'); // helper chargé pour utilisation de site_url (dans la vue)
         $this->load->view('templates/Entete');
         $this->load->view('Administrateur/InsertionReussie');
@@ -120,9 +170,35 @@ class Administrateur extends CI_Controller
           "Cave / Garage / Grenier" => "Cave / Garage / Grenier",
           "Chambre" => "Chambre"
         );
-        $DonneesInjectees['Clients']=$this->ModeleUtilisateur->RecupererLesClients();
         $this->load->view('templates/Entete');
         $this->load->view('Administrateur/AjouterUnChantier', $DonneesInjectees);
       }
     } // ajouterUnChantier
+
+    public function ModifierUnChantier()
+    {
+      $this->load->helper('form');
+      $DonneesInjectees['TitreDeLaPage'] = 'Modifier un Chantier';
+      $DonneesInjectees['lesChantiers'] = $this->ModeleChantier->RecupererLesChantiers();
+      $DonneesInjectees['lesCategories'] = $this->ModeleChantier->RecupererLesCategories();
+      If ($this->input->post('boutonModification'))
+      {
+        $donneesAInserer = array(
+          'NOCHANTIER' => $this->input->post('NoChantier'),
+          'NOCATEGORIE' => $this->input->post('NoCategorie'),
+          
+        );
+        $id = $this->input->post('NoProduit');
+        $this->ModeleChantier->ModifierUnChantier($donneesAInserer, $id);// appel du modèle
+        $this->load->helper('url'); // helper chargé pour utilisation de site_url (dans la vue)
+        $this->load->view('templates/Entete');
+        $this->load->view('Administrateur/InsertionReussie');
+      }
+      else
+      {
+        $this->load->view('templates/Entete');
+        $this->load->view('Administrateur/ModifierUnChantier', $DonneesInjectees);
+        $this->load->view('templates/PiedDePage');
+      }
+    } // ModificationUnProduit
 }

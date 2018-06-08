@@ -16,6 +16,8 @@
 <a href="<?php echo site_url('Administrateur/AjouterUnClient') ?>">Ajouter un client</a>&nbsp;&nbsp;
 <a href="<?php echo site_url('Administrateur/AjouterPersonnel') ?>">Ajouter un personnel</a>&nbsp;&nbsp;
 <a href="<?php echo site_url('Administrateur/AjouterUneCategorie') ?>">Ajouter une catégorie</a>&nbsp;&nbsp;
-<a href="<?php echo site_url('Administrateur/AjouterUnChantier') ?>">Ajouter un chantier</a>&nbsp;&nbsp;
+<a href="<?php echo site_url('Administrateur/SelectionnerUnClient') ?>">Ajouter un chantier</a>&nbsp;&nbsp;
+<a href="<?php echo site_url('Administrateur/ModifierUnChantier') ?>">Modifier un chantier</a>&nbsp;&nbsp;
+
 
 </body>

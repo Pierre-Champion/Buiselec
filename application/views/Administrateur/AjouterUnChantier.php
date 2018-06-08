@@ -1,23 +1,15 @@
 <h2><?php echo $TitreDeLaPage ?></h2>
 
+
+
 <?php
 echo form_open('Administrateur/AjouterUnChantier');
+echo 
+form_hidden('Noclient', $Client['NOCLIENT']);
+
 
 echo form_label("Nom du chantier : ", 'lbltNom');
 echo form_input('NomChantier','',array('pattern' =>'^[a-zA-Z]{3,24}$','required'=>'required')).'<BR>';
-
-echo form_label("Client concerné : ", 'lbltCategorie');
-?>
-<select name="ClientConcerne" required>
-<option value="" selected>Selectionner</option>
-<?php
-foreach ($Clients as $unClient)
-{
-    echo '<option value ="'.$unClient['NOCLIENT'].'">'.$unClient['PRENOM']."&nbsp;".$unClient['NOM'].'</option>';
-}
-?>
-</select><BR>
-<?php
 
 echo form_label("Catégorie : ", 'lbltCategorie');
 ?>
@@ -31,7 +23,7 @@ foreach ($Categories as $uneCategorie)
 ?>
 </select><BR>
 <?php
-echo form_label("Type de chantier : ", 'lbltType');
+echo form_label("Type de chantier : ", 'lbltType').'<BR>';
 echo form_radio('TypeChantier',"0", 'checked').'Renovation<BR>';
 echo form_radio('TypeChantier',"1", '').'Neuf<BR>';
 
@@ -48,9 +40,19 @@ foreach ($Pieces as $unePiece)
 </select><BR>
 
 <?php
-echo form_label("Détails du chantier : ", 'lbltChantier');
-echo form_input('DetailsChantier','').'<BR>';
+echo form_label("Détails du chantier : ", 'lbltChantier').'<BR>';
+echo form_textarea('DetailsChantier','').'<BR>';
 
-echo form_submit('boutonAjouterChantier', 'Inscription').'<BR>';
+echo form_label("Adresse : ", 'lbltAdresse');
+echo form_input('AdresseClient',$Client["ADRESSE"],array('required'=>'required')).'<BR>';
+
+echo form_label("Code Postale : ", 'lbltCP');
+echo form_input('CPClient',$Client["CP"],array('pattern' =>'^[0-9]{5,5}$','required'=>'required')).'<BR>';
+
+echo form_label("Ville : ", 'lbltAdresse');
+echo form_input('VilleClient',$Client["VILLE"],array('pattern' =>'^[a-zA-Z]{3,24}$','required'=>'required')).'<BR>';
+
+
+echo form_submit('boutonAjouterChantier', 'Ajouter Un chantier').'<BR>';
 echo form_close();
 ?>

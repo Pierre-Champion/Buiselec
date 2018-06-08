@@ -27,6 +27,18 @@ echo form_input('CPClient','',array('pattern' =>'^[0-9]{5,5}$','required'=>'requ
 echo form_label("Ville : ", 'lbltAdresse');
 echo form_input('VilleClient','',array('pattern' =>'^[a-zA-Z]{3,24}$','required'=>'required')).'<BR>';
 
+echo form_label("Statut du client : ", 'lbltPiece');
+?>
+<select name="StatutClient" required>
+<option value="" selected>Selectionner</option>
+<?php
+foreach ($Statuts as $unstatut)
+{
+    echo '<option value ="'.$unstatut.'">'.$unstatut.'</option>';
+}
+?>
+</select><BR>
+<?php
 echo form_submit('boutonAjouterClient', 'Inscription').'<BR>';
 echo form_close();
 ?>
