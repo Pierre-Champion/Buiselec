@@ -23,10 +23,15 @@ else
 <div onclick="document.getElementById('id02').style.display='block'" class="Buiselec-Button">Deconnexion</div>
 <?php
 }
-?>
+if(isset($this->session->Profil) && $this->session->Profil!=1 && $this->session->Profil!=2)
+{?>
 <a class="Buiselec-Button" href="<?php echo site_url('visiteur/Contact') ?>">Contactez-nous</a>
-</div>
+
 <?php 
+}
+?>
+</div>
+<?php
 if (isset($this->session->Profil) && $this->session->Profil==2)
 {?>
 <div class="Admin">
@@ -107,6 +112,10 @@ if (isset($this->session->Profil) && $this->session->Profil==2)
 
             echo form_label("Ville : ", 'lbltAdresse').'<BR>';
             echo form_input('VilleClient','',array('pattern' =>'^[a-zA-Z]{3,24}$','required'=>'required')).'<BR><BR>';
+
+            echo form_label("Etes-vous : ", 'lbltStatut').'<BR>';
+            echo form_radio('SatutClient','1', TRUE, 'required').'Propriétaire<BR><BR>';
+            echo form_radio('SatutClient','0', False, 'required').'Locataire<BR><BR>';
             ?>
             <table class="consent">
                 <tr>

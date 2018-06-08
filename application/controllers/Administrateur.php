@@ -33,7 +33,11 @@ class Administrateur extends CI_Controller
         $this->load->view('Administrateur/InsertionReussie');
       }
     } // ajouterUneCatégorie
-
+    public function Home()
+    {
+      $this->load->view('templates/Entete');
+      $this->load->view('administrateur/home');
+    }
     public function AjouterPersonnel()
     {
     $this->load->helper('form');

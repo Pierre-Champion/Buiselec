@@ -21,11 +21,15 @@ class ModeleUtilisateur extends CI_Model
             return $this->db->get_where('Client', array("NOCLIENT"=>$DonneesClient))->row_array();
         }
      } // récupérerLesClients
+
     public function InsererUnPersonnel($pDonneesAInserer)
      {
          return $this->db->insert('personnel', $pDonneesAInserer);
-     } // insererUneCatégorie
-
+     } // insererUnPersonnel
+    public function RecupererUnPersonnel($pDonneesPersonnel)
+     {
+         return $this->db->get_where('personnel', $pDonneesPersonnel)->row_array();
+     } // recupererUnPersonnel
      public function InsererUnClient($pDonneesAInserer)
      {
          return $this->db->insert('client', $pDonneesAInserer);

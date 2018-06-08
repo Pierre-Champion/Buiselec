@@ -70,7 +70,7 @@ class Visiteur extends CI_Controller
           'ADRESSE' => $this->input->post('AdresseClient'),
           'CP' => $this->input->post('CPClient'),
           'VILLE' => $this->input->post('VilleClient'),
-          'STATUT' => '1',
+          'STATUT' => $this->input->post('StatutClient'),
         );
         $this->ModeleUtilisateur->InsererUnClient($donneesAInserer); // appel du modèle
         
@@ -83,12 +83,43 @@ class Visiteur extends CI_Controller
             'ADRESSE' => $this->input->post('AdresseClient'),
             'CP' => $this->input->post('CPClient'),
             'VILLE' => $this->input->post('VilleClient'),
-            'STATUT' => '1',
+            'STATUT' => $this->input->post('StatutClient'),
         );
         redirect('Visiteur/SeConnecter');
         
     }// Inscription
-
+    public function personnel()
+    {
+        $this->load->helper('form');
+        $this->load->library('form_validation');
+        $DonneesInjectees['TitreDeLaPage'] = 'Se connecter (personnel)';
+        If ($this->input->post('boutonPersonnel'))
+        {
+            $donneesPersonnel = array(
+                'MAIL' => $this->input->post('MailClient'),
+                'MDP' => $this->input->post('MDP'),
+            );
+            $personnel=$this->ModeleUtilisateur->RecupererUnPersonnel($donneesPersonnel);
+            if($personnel!=null)
+            {
+                $DonneesInjectees['Connexion']=true;
+                $this->session->personnel=$personnel;
+                $this->session->Profil=$personnel['STATUT'];
+                redirect('Administrateur/Home');
+            }
+            else
+            {
+                $DonneesInjectees['Connexion']=false;
+                $this->load->view('templates/Entete');
+                $this->load->view('Administrateur/SeConnecter', $DonneesInjectees);
+            }
+        }
+        else
+        {
+            $this->load->view('templates/Entete');
+            $this->load->view('Administrateur/SeConnecter', $DonneesInjectees);
+        }
+    }
    public function SeConnecter() {
     if (isset($this->session->Client))
     {
@@ -103,15 +134,15 @@ class Visiteur extends CI_Controller
         if($Client)
         {
             $this->session->Client=array(
-                'NOM' => $Client['NomClient'],
-                'PRENOM' => $Client['PrenomClient'],
-                'MAIL' => $Client['MailClient'],
+                'NOM' => $Client['NOM'],
+                'PRENOM' => $Client['PRENOM'],
+                'MAIL' => $Client['MAIL'],
                 'MDP' => $Client['MDP'],
-                'TELEPHONE' => $Client['TelClient'],
-                'ADRESSE' => $Client['AdresseClient'],
-                'CP' => $Client['CPClient'],
-                'VILLE' => $Client['VilleClient'],
-                'STATUT' => '1',
+                'TELEPHONE' => $Client['TEL'],
+                'ADRESSE' => $Client['ADRESSE'],
+                'CP' => $Client['CP'],
+                'VILLE' => $Client['VILLE'],
+                'STATUT' => $Client['STATUT'],
             );
             $this->session->Profil=0;
             $this->session->Connexion="Reussite";

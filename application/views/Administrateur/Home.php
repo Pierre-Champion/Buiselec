@@ -1,0 +1,1 @@
+Welcome home <?php echo $this->session->personnel['NOM']; ?>
