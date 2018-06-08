@@ -9,10 +9,17 @@ class ModeleUtilisateur extends CI_Model
      {
         return $this->db->get('Client')->result_array();
      } // récupérerLesClients
-
-    public function RecupererUnClient($pnoClient)
+    
+    public function RecupererUnClient($DonneesClient)
      {
-        return $this->db->get_where('Client', array("NOCLIENT"=>$pnoClient))->row_array();
+        if(is_array($DonneesClient))
+        {
+            return $this->db->get_where('Client', $DonneesClient)->row_array();
+        }
+        else
+        {
+            return $this->db->get_where('Client', array("NOCLIENT"=>$DonneesClient))->row_array();
+        }
      } // récupérerLesClients
     public function InsererUnPersonnel($pDonneesAInserer)
      {

@@ -1,7 +1,8 @@
 .PiedDePage
 {
     position: absolute;
-    width: 95%;
+    display:block;
+    width: 100%;
     background-color: rgb(220,220,220);
     bottom: 0px;
     left: 0px;
@@ -18,16 +19,46 @@
     top: 7.5px;
     right: 7.5px;
     bottom: 7.5px;
-    width: 50px;
+    width: 100px;
     background-color: rgb(255,230,0);
     text-align: center;
     padding: 15px;
     color: blue;
     border: 5px solid blue
 }
+.Buiselec-Button
+{
+    background-color: rgb(50, 50, 250);
+    color: rgb(200, 200, 125);
+    border:none;
+    display:inline-block;
+    padding:8px 16px;
+    vertical-align:middle;
+    text-decoration:none;
+    text-align:center;
+    cursor:pointer;
+    white-space:nowrap
+}
+.Buiselec-Button:hover
+{
+    background-color: rgb(25, 25, 255);
+    color: rgb(255, 255, 255);
+}
+.close
+{
+    position: absolute; 
+    color: #000;
+    top: 0px;
+    right: 0px;
+    padding: 22px;
+}
 .PiedDePage:hover
 {
     background-color: rgb(210,210,210);
+}
+.PiedDePage a:hover
+{
+    color: grey
 }
 .ok:hover
 {
@@ -70,4 +101,22 @@
 .consent td:first-child
 {
     width: 90%
+}
+.Entete
+{
+    width: 100%;
+    max-height: 20%;
+    background-color: rgb(50, 50, 250);
+}
+.Admin
+{
+    width: 100%;
+    max-height: 20%;
+    background-color: rgb(50, 50, 250);
+}
+.echec
+{
+    color: red;
+    text-decoration: underline;
+    padding-bottom: 25px;
 }

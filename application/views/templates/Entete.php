@@ -9,27 +9,51 @@
 </head>
 <body>
 
-<a href="<?php echo site_url('visiteur/Home') ?>">Page d'acceuil</a>&nbsp;&nbsp;
-<a href="<?php echo site_url('visiteur/Image') ?>">Image</a>&nbsp;&nbsp;
-<div onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-black">Connexion / Inscription</div>&nbsp;&nbsp;
-<a href="<?php echo site_url('visiteur/Contact') ?>">Contactez-nous</a>&nbsp;&nbsp;
-
-
-<a href="<?php echo site_url('Administrateur/AjouterUnClient') ?>">Ajouter un client</a>&nbsp;&nbsp;
-<a href="<?php echo site_url('Administrateur/AjouterPersonnel') ?>">Ajouter un personnel</a>&nbsp;&nbsp;
-<a href="<?php echo site_url('Administrateur/AjouterUneCategorie') ?>">Ajouter une catégorie</a>&nbsp;&nbsp;
-<a href="<?php echo site_url('Administrateur/SelectionnerUnClient') ?>">Ajouter un chantier</a>&nbsp;&nbsp;
-<a href="<?php echo site_url('Administrateur/ModifierUnChantier') ?>">Modifier un chantier</a>&nbsp;&nbsp;
-
-<a href="<?php echo site_url('Administrateur/AjouterUnChantier') ?>">Ajouter un chantier</a>&nbsp;&nbsp;
+<div class="Entete">
+<a class="Buiselec-Button" href="<?php echo site_url('visiteur/Home') ?>">Page d'acceuil</a>
+<a class="Buiselec-Button" href="<?php echo site_url('visiteur/Image') ?>">Image</a>
+<?php if (!isset($this->session->Profil))
+{?>
+<div onclick="document.getElementById('id01').style.display='block'" class="Buiselec-Button">Connexion / Inscription</div>
+<?php
+}
+else
+{
+?>
+<div onclick="document.getElementById('id02').style.display='block'" class="Buiselec-Button">Deconnexion</div>
+<?php
+}
+?>
+<a class="Buiselec-Button" href="<?php echo site_url('visiteur/Contact') ?>">Contactez-nous</a>
+</div>
+<?php 
+if (isset($this->session->Profil) && $this->session->Profil==2)
+{?>
+<div class="Admin">
+<a class="Buiselec-Button" href="<?php echo site_url('Administrateur/AjouterUnClient') ?>">Ajouter un client</a>
+<a class="Buiselec-Button" href="<?php echo site_url('Administrateur/AjouterPersonnel') ?>">Ajouter un personnel</a>
+<a class="Buiselec-Button" href="<?php echo site_url('Administrateur/AjouterUneCategorie') ?>">Ajouter une catégorie</a>
+<a class="Buiselec-Button" href="<?php echo site_url('Administrateur/SelectionnerUnClient') ?>">Ajouter un chantier</a>
+<a class="Buiselec-Button" href="<?php echo site_url('Administrateur/ModifierUnChantier') ?>">Modifier un chantier</a>
+<a class="Buiselec-Button" href="<?php echo site_url('Administrateur/AjouterUnChantier') ?>">Ajouter un chantier</a>
+</div>
+<?php
+}
+?>
 <div class="w3-container">
   
   
 
   <div id="id01" class="w3-modal">
+      <?php
+      if($this->session->Connexion=="Echec")
+      {
+        echo "<script> document.getElementById('id01').style.display='block' </script>";
+      }
+      ?>
     <div class="w3-modal-content w3-animate-top w3-card-4">
-      <header class="w3-container w3-black"> 
-        <span onclick="document.getElementById('id01').style.display='none'" 
+      <header class="w3-container"> 
+        <span class="close" onclick="document.getElementById('id01').style.display='none'" 
         class="w3-button w3-display-topright">&times;</span>
         <h2>Connexion / Inscription</h2>
       </header>
@@ -38,21 +62,26 @@
         <tr>
             <td>
         <?php
-            
             echo form_open('Visiteur/SeConnecter');
             
             echo form_label('Mail : ', 'Mail')."<BR/>";
-            echo form_input('MailClient', '')."<BR/>";
+            echo form_input('MailClient', $this->session->DonneesConnexion['MAIL'],array('pattern' =>'^[a-zA-Z0-9\-_]+[a-zA-Z0-9\.\-_]*@[a-zA-Z0-9\-_]+\.[a-zA-Z\.\-_]{1,}[a-zA-Z\-_]+','required'=>'required'))."<BR/>";
 
             echo form_label('Mot de passe : ', 'MDP')."<BR/>";
-            echo form_password('MDP', '')."<BR/><BR/>";
+            echo form_password('MDP', $this->session->DonneesConnexion['MDP'], "required")."<BR/><BR/>";
 
-            echo form_submit('submit', 'Se connecter');
+            if($this->session->Connexion=="Echec")
+            {
+                echo "<div class='echec'>Mail ou mot de passe incorrect.</div>";
+            }
+            echo form_submit('boutonConnexion', 'Se connecter');
             
 
             echo form_close();
             
+            $this->session->Connexion="";
         ?>    
+            En vous connectant, vous pouvez faire une demande de chantier ou voir les demandes de chantiers que vous avez en cours avec nous.
             </td>
             <td>
             <?php
@@ -83,7 +112,7 @@
                 <tr>
                     <td>
             <?php
-            echo form_label("En continuant, vous acceptez que nous collections vos données.", 'lbltConsent');
+            echo form_label("En continuant, vous acceptez la collecte de vos données.", 'lbltConsent');
             ?>
                     </td>
                     <td>
@@ -96,11 +125,30 @@
             <?php
             echo form_submit('boutonInscription', 'Inscription').'<BR>';
             echo form_close();
-            
         ?>
             </td>
         </tr>
       </table>
+      </div>
+    </div>
+  </div>
+  <div id="id02" class="w3-modal">
+    <div class="w3-modal-content w3-animate-top w3-card-4">
+      <header class="w3-container w3-black"> 
+        <span onclick="document.getElementById('id02').style.display='none'" 
+        class="w3-button w3-display-topright">&times;</span>
+        <h2>Déconnexion</h2>
+      </header>
+      <div class="w3-container">
+        <h4>Voulez-vous vraiment vous déconnecter?</h4>
+        <?php
+        echo form_open('Visiteur/Deconnexion');
+        echo form_submit('btnSubmit', 'Oui');
+        ?>
+            <button type="button" onclick="document.getElementById('id02').style.display='none'">Non</button>
+        <?php
+        echo form_close();
+        ?>
       </div>
     </div>
   </div>

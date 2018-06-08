@@ -9,23 +9,26 @@ class Visiteur extends CI_Controller
       $this->load->library("pagination");
       $this->load->library('form_validation');
       $this->load->library('session');
-      
+      if (!isset($this->session))
+      {
+          session_start();
+      }
       $this->load->model('ModeleChantier');
       $this->load->model('ModeleUtilisateur');
    } // __construct
 
    public function Home() {
-    $DonneesInjectees['TitreDeLaPage'] = "Page d'acceuil";
+    $this->session->TitreDeLaPage = "Page d'acceuil";
     $config["base_url"] = site_url('visiteur/Home');  
     $this->load->view('templates/Entete');
-    $this->load->view("visiteur/Home", $DonneesInjectees);
+    $this->load->view("visiteur/Home");
     $this->load->view('templates/PiedDePage');
    }// Page d'acceuil
 
    public function Contact() {
-    $DonneesInjectees['TitreDeLaPage'] = "Contact";
+    $this->session->TitreDeLaPage = "Contact";
     $this->load->view('templates/Entete');
-    $this->load->view("visiteur/Contact", $DonneesInjectees);
+    $this->load->view("visiteur/Contact");
    }// Contact
 
    public function Inscription()
@@ -87,24 +90,76 @@ class Visiteur extends CI_Controller
     }// Inscription
 
    public function SeConnecter() {
-    $this->load->helper('form');
-    $DonneesInjectees['TitreDeLaPage'] = "Connexion";
-    $this->load->view('templates/Entete');
-    print_r($this->session->Client);
-    echo $this->session->Client["NOM"]."/".$this->session->Client["MAIL"]."/".$this->session->Client["MDP"];
+    if (isset($this->session->Client))
+    {
+        $this->session->Profil=0;
+        $this->session->Connexion="Reussite";
+        redirect("Visiteur/Home");
+    }
+    elseif(!isset($this->session->Client))
+    {
+        $this->session->DonneesConnexion=array("MAIL"=>$this->input->post('MailClient'), "MDP"=>$this->input->post('MDP'));
+        $Client=$this->ModeleUtilisateur->RecupererUnClient($this->session->DonneesConnexion);
+        if($Client)
+        {
+            $this->session->Client=array(
+                'NOM' => $Client['NomClient'],
+                'PRENOM' => $Client['PrenomClient'],
+                'MAIL' => $Client['MailClient'],
+                'MDP' => $Client['MDP'],
+                'TELEPHONE' => $Client['TelClient'],
+                'ADRESSE' => $Client['AdresseClient'],
+                'CP' => $Client['CPClient'],
+                'VILLE' => $Client['VilleClient'],
+                'STATUT' => '1',
+            );
+            $this->session->Profil=0;
+            $this->session->Connexion="Reussite";
+            redirect("Visiteur/Home");
+        } 
+        else
+        {
+
+            $this->session->Connexion="Echec";
+            redirect("Visiteur/Home");
+        }
+    }
    }// Connexion
 
    public function Image() {
-    $DonneesInjectees['TitreDeLaPage'] = "Image";
+    $this->session->TitreDeLaPage = "Image";
     $this->load->view('templates/Entete');
-    $this->load->view("visiteur/Image", $DonneesInjectees);
+    $this->load->view("visiteur/Image");
    }// Image
    
    public function MentionsLegales()
    {
-    $DonneesInjectees['TitreDeLaPage'] = "Contact";
+    $this->session->TitreDeLaPage = "Mentions légales";
     $this->load->view('templates/Entete');
-    $this->load->view("MentionsLegales", $DonneesInjectees);
+    $this->load->view("MentionsLegales");
    }//Mentions légales
+   public function Deconnexion()
+   {
+       session_destroy();
+       redirect('Visiteur/Home');
+   }
 
+   public function upload()
+   {
+    if(isset($_FILES['avatar']))
+    { 
+        $dossier = base_url()."assets/images/";
+        echo $dossier;
+        $fichier = basename($_FILES['avatar']['name']);
+        echo $fichier;
+        if(move_uploaded_file($_FILES['avatar']['tmp_name'], $dossier . $fichier)) //Si la fonction renvoie TRUE, c'est que ça a fonctionné...
+        {
+            echo 'Upload effectué avec succès !';
+        }
+        else //Sinon (la fonction renvoie FALSE).
+        {
+            echo 'Echec de l\'upload !';
+        }
+    }
+   }
 }
