@@ -9,7 +9,7 @@ form_hidden('Noclient', $Client['NOCLIENT']);
 
 
 echo form_label("Nom du chantier : ", 'lbltNom');
-echo form_input('NomChantier','',array('pattern' =>'^[a-zA-Z]{3,24}$','required'=>'required')).'<BR>';
+echo form_input('NomChantier','',array('pattern' =>'^[A-Z][a-zA-Z \-]{3,24}$','required'=>'required')).'<BR>';
 
 echo form_label("Catégorie : ", 'lbltCategorie');
 ?>
@@ -22,6 +22,8 @@ foreach ($Categories as $uneCategorie)
 }
 ?>
 </select><BR>
+
+<a class="Buiselec-Button" href="<?php echo site_url('Administrateur/AjouterUneCategorie') ?>">Ajouter une catégorie</a>
 <?php
 echo form_label("Type de chantier : ", 'lbltType').'<BR>';
 echo form_radio('TypeChantier',"0", 'checked').'Renovation<BR>';
@@ -50,7 +52,7 @@ echo form_label("Code Postale : ", 'lbltCP');
 echo form_input('CPClient',$Client["CP"],array('pattern' =>'^[0-9]{5,5}$','required'=>'required')).'<BR>';
 
 echo form_label("Ville : ", 'lbltAdresse');
-echo form_input('VilleClient',$Client["VILLE"],array('pattern' =>'^[a-zA-Z]{3,24}$','required'=>'required')).'<BR>';
+echo form_input('VilleClient',$Client["VILLE"],array('pattern' =>'^[A-Z][a-zA-Z \-]{3,24}$','required'=>'required')).'<BR>';
 
 
 echo form_submit('boutonAjouterChantier', 'Ajouter Un chantier').'<BR>';

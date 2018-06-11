@@ -36,10 +36,9 @@ if (isset($this->session->Profil) && $this->session->Profil==2)
 {?>
 <div class="Admin">
 <a class="Buiselec-Button" href="<?php echo site_url('administrateur/Home') ?>">Page d'acceuil personnel</a>
-<a class="Buiselec-Button" href="<?php echo site_url('Administrateur/AjouterUnClient') ?>">Ajouter un client</a>
-<a class="Buiselec-Button" href="<?php echo site_url('Administrateur/AjouterPersonnel') ?>">Ajouter un personnel</a>
-<a class="Buiselec-Button" href="<?php echo site_url('Administrateur/AjouterUneCategorie') ?>">Ajouter une catégorie</a>
-<a class="Buiselec-Button" href="<?php echo site_url('Administrateur/SelectionnerUnClient') ?>">Selectionner un client</a>
+<a class="Buiselec-Button" href="<?php echo site_url('Administrateur/Clients') ?>">Liste des clients</a>
+<a class="Buiselec-Button" href="<?php echo site_url('Administrateur/Personnel') ?>">Liste du personnel</a>
+<a class="Buiselec-Button" href="<?php echo site_url('Administrateur/Chantiers') ?>">Liste des chantiers</a>
 <!--<a class="Buiselec-Button" href="<//?php echo site_url('Administrateur/ModifierUnChantier') ?>">Modifier un chantier</a>
 <a class="Buiselec-Button" href="<//?php echo site_url('Administrateur/AjouterUnChantier') ?>">Ajouter un chantier</a>-->
 </div>
@@ -115,8 +114,8 @@ if (isset($this->session->Profil) && $this->session->Profil==2)
             echo form_input('VilleClient','',array('pattern' =>'^[a-zA-Z\-]{3,24}$','required'=>'required')).'<BR><BR>';
 
             echo form_label("Etes-vous : ", 'lbltStatut').'<BR>';
-            echo form_radio('SatutClient','1', TRUE, 'required').'Propriétaire<BR><BR>';
-            echo form_radio('SatutClient','0', False, 'required').'Locataire<BR><BR>';
+            echo form_radio('StatutClient','1', "checked", 'required').'Propriétaire<BR><BR>';
+            echo form_radio('StatutClient','0', "", 'required').'Locataire<BR><BR>';
             ?>
             <table class="consent">
                 <tr>
@@ -163,3 +162,4 @@ if (isset($this->session->Profil) && $this->session->Profil==2)
     </div>
   </div>
 </div>
+<div class="Page">

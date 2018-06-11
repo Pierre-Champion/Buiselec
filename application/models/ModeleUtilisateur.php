@@ -9,7 +9,10 @@ class ModeleUtilisateur extends CI_Model
      {
         return $this->db->get('Client')->result_array();
      } // récupérerLesClients
-    
+     public function RecupererLePersonnel()
+     {
+        return $this->db->get('personnel')->result_array();
+     } // récupérerLePersonnel
     public function RecupererUnClient($DonneesClient)
      {
         if(is_array($DonneesClient))

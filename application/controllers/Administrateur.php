@@ -58,9 +58,7 @@ class Administrateur extends CI_Controller
           'STATUT' => $this->input->post('StatutPersonnel'),
         );
         $this->ModeleUtilisateur->InsererUnPersonnel($donneesAInserer); // appel du modèle
-        $this->load->helper('url'); // helper chargé pour utilisation de site_url (dans la vue)
-        $this->load->view('templates/Entete');
-        $this->load->view('Administrateur/InsertionReussie');
+        redirect('administrateur/Personnel');
       }
       else
       {
@@ -88,9 +86,7 @@ class Administrateur extends CI_Controller
           'STATUT' => $this->input->post('StatutClient'),
         );
         $this->ModeleUtilisateur->InsererUnClient($donneesAInserer); // appel du modèle
-        $this->load->helper('url'); // helper chargé pour utilisation de site_url (dans la vue)
-        $this->load->view('templates/Entete');
-        $this->load->view('Administrateur/InsertionReussie');
+        redirect("administrateur/Clients");
       }
       else
       {
@@ -104,41 +100,28 @@ class Administrateur extends CI_Controller
       }
     } // ajouterUnPersonnel
 
-    public function SelectionnerUnClient()
+    public function Clients()
     {
-    $this->load->helper('form');
-    $this->load->library('form_validation');
-    $DonneesInjectees['TitreDeLaPage'] = 'Selectionner un Client';
-    If ($this->input->post('boutonSelectionClient'))
-      {
-        $DonneesClient['TitreDeLaPage'] = 'Ajouter Un Chantier';
-        $DonneesClient['Categories']=$this->ModeleChantier->RecupererLesCategories();
-        $DonneesClient['Pieces']=array
-        (
-          "Salon" => "Salon",
-          "Salle à manger" => "Salle à manger",
-          "Cuisine" => "Cuisine",
-          "Salle de bain" => "Salle de bain",
-          "Extérieur" => "Extérieur",
-          "Cave / Garage / Grenier" => "Cave / Garage / Grenier",
-          "Chambre" => "Chambre"
-        );
-        $DonneesClient['Client'] = $this->ModeleUtilisateur->RecupererUnClient($this->input->post('ClientSelectionner'));
-        $this->load->helper('url'); // helper chargé pour utilisation de site_url (dans la vue)
-        $this->load->view('templates/Entete');
-      $this->load->view('Administrateur/AjouterUnChantier', $DonneesClient/*adresse*/);
-        
-      }
-      else
-      {
-        $DonneesInjectees['Clients']=$this->ModeleUtilisateur->RecupererLesClients();
-        $this->load->view('templates/Entete');
-        $this->load->view('Administrateur/SelectionnerUnClient', $DonneesInjectees);
-      }
+      $DonneesInjectees['TitreDeLaPage'] = 'Liste des clients';
+      $DonneesInjectees['Clients']=$this->ModeleUtilisateur->RecupererLesClients();
+      $this->load->view('templates/Entete');
+      $this->load->view('Administrateur/Clients', $DonneesInjectees);
     }
-    
-    
-    public function AjouterUnChantier()
+    public function Personnel()
+    {
+      $DonneesInjectees['TitreDeLaPage'] = 'Liste du personnel';
+      $DonneesInjectees['Personnel']=$this->ModeleUtilisateur->RecupererLePersonnel();
+      $this->load->view('templates/Entete');
+      $this->load->view('Administrateur/Personnel', $DonneesInjectees);
+    }
+    public function Chantiers()
+    {
+      $DonneesInjectees['TitreDeLaPage'] = 'Liste des chantiers';
+      $DonneesInjectees['Personnel']=$this->ModeleChantier->RecupererLesChantiers();
+      $this->load->view('templates/Entete');
+      $this->load->view('Administrateur/Chantiers', $DonneesInjectees);
+    }
+    public function AjouterUnChantier($noclient=null)
     {
     $this->load->helper('form');
     $this->load->library('form_validation');
@@ -167,6 +150,14 @@ class Administrateur extends CI_Controller
       }
       else
       {
+        if(isset($noclient) && is_string($noclient))
+        {
+          $DonneesInjectees['Client']=$this->ModeleUtilisateur->RecupererUnClient($noclient);
+        }
+        else
+        {
+          redirect("administrateur/Clients");
+        }
         $DonneesInjectees['Categories']=$this->ModeleChantier->RecupererLesCategories();
         $DonneesInjectees['Pieces']=array
         (
