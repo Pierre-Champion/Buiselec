@@ -9,6 +9,10 @@ class Administrateur extends CI_Controller
       $this->load->library("pagination");
       $this->load->model('ModeleUtilisateur');
        $this->load->model('ModeleChantier');
+       if (isset($this->session->Profil) && ($this->session->Profil==1 || $this->session->Profil==2))
+       {
+         redirect("/visiteur/Home");
+       }
     } // __construct
 
     public function ajouterUneCategorie()
@@ -204,5 +208,21 @@ class Administrateur extends CI_Controller
         $this->load->view('Administrateur/ModifierUnChantier', $DonneesInjectees);
         $this->load->view('templates/PiedDePage');
       }
-    } // ModificationUnProduit
+    } // ModificationUnChantier
+    public function AjouterImageAvant()
+    {
+      if(isset($_FILES['avatar']))
+      { 
+        $dossier = "C:/xampp/htdocs/buiselec/assets/images/";
+        $fichier = basename($_FILES['avatar']['name']);
+        if(move_uploaded_file($_FILES['avatar']['tmp_name'], $dossier . $fichier)) //Si la fonction renvoie TRUE, c'est que ça a fonctionné...
+        {
+
+        }
+        else //Sinon (la fonction renvoie FALSE).
+        {
+            
+        }
+      }
+    }
 }

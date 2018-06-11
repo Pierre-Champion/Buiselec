@@ -1,0 +1,139 @@
+DROP DATABASE IF EXISTS buiselec;
+
+CREATE DATABASE IF NOT EXISTS buiselec;
+USE buiselec;
+# -----------------------------------------------------------------------------
+#       TABLE : PERSONNEL
+# -----------------------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS PERSONNEL
+ (
+   NOPERSONNEL INTEGER NOT NULL AUTO_INCREMENT ,
+   NOM VARCHAR(30) NOT NULL  ,
+   PRENOM VARCHAR(30) NOT NULL  ,
+   MAIL VARCHAR(50) NOT NULL  ,
+   MDP VARCHAR(30) NOT NULL  ,
+   TELEPHONE CHAR(10) NULL  ,
+   STATUT SMALLINT NOT NULL  
+   , PRIMARY KEY (NOPERSONNEL) 
+ ) 
+ comment = "";
+
+# -----------------------------------------------------------------------------
+#       TABLE : CLIENT
+# -----------------------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS CLIENT
+ (
+   NOCLIENT INTEGER NOT NULL AUTO_INCREMENT ,
+   NOM VARCHAR(30) NOT NULL  ,
+   PRENOM VARCHAR(30) NOT NULL  ,
+   MAIL VARCHAR(50) NOT NULL  ,
+   MDP VARCHAR(30) NOT NULL  ,
+   TELEPHONE CHAR(10) NULL  ,
+   ADRESSE VARCHAR(50) NOT NULL  ,
+   CP CHAR(5) NOT NULL  ,
+   VILLE VARCHAR(30) NOT NULL  ,
+   STATUT VARCHAR(12) NULL  
+   , PRIMARY KEY (NOCLIENT) 
+ ) 
+ comment = "";
+
+# -----------------------------------------------------------------------------
+#       TABLE : CATEGORIE
+# -----------------------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS CATEGORIE
+ (
+   NOCATEGORIE INTEGER NOT NULL AUTO_INCREMENT ,
+   NOM VARCHAR(30) NOT NULL  
+   , PRIMARY KEY (NOCATEGORIE) 
+ ) 
+ comment = "";
+
+# -----------------------------------------------------------------------------
+#       TABLE : CHANTIER
+# -----------------------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS CHANTIER
+ (
+   NOCHANTIER INTEGER NOT NULL AUTO_INCREMENT ,
+   NOCLIENT INTEGER NOT NULL  ,
+   NOCATEGORIE INTEGER NOT NULL  ,
+   NOM VARCHAR(30) NOT NULL  ,
+   TYPE SMALLINT NULL  ,
+   PIECE VARCHAR(30) NOT NULL  ,
+   DETAIL VARCHAR(255) NULL  ,
+   ADRESSE VARCHAR(50) NOT NULL  ,
+   CP CHAR(5) NOT NULL  ,
+   VILLE VARCHAR(30) NOT NULL  ,
+   DATEDEBUT DATE NULL  ,
+   DATEFIN DATE NULL  ,
+   IMAGEAVANT CHAR(32) NULL  ,
+   IMAGEAPRES CHAR(32) NULL  ,
+   STATUT VARCHAR(10) NULL  ,
+   ACCORD VARCHAR(10) NULL  
+   , PRIMARY KEY (NOCHANTIER) 
+ ) 
+ comment = "";
+
+# -----------------------------------------------------------------------------
+#       INDEX DE LA TABLE CHANTIER
+# -----------------------------------------------------------------------------
+
+
+CREATE  INDEX I_FK_CHANTIER_CLIENT
+     ON CHANTIER (NOCLIENT ASC);
+
+CREATE  INDEX I_FK_CHANTIER_CATEGORIE
+     ON CHANTIER (NOCATEGORIE ASC);
+
+# -----------------------------------------------------------------------------
+#       TABLE : PARTICIPE
+# -----------------------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS PARTICIPE
+ (
+   NOPERSONNEL INTEGER NOT NULL  ,
+   NOCHANTIER INTEGER NOT NULL  ,
+   HORAIRE DECIMAL(10,2) NULL  
+   , PRIMARY KEY (NOPERSONNEL,NOCHANTIER) 
+ ) 
+ comment = "";
+
+# -----------------------------------------------------------------------------
+#       INDEX DE LA TABLE PARTICIPE
+# -----------------------------------------------------------------------------
+
+
+CREATE  INDEX I_FK_PARTICIPE_PERSONNEL
+     ON PARTICIPE (NOPERSONNEL ASC);
+
+CREATE  INDEX I_FK_PARTICIPE_CHANTIER
+     ON PARTICIPE (NOCHANTIER ASC);
+
+
+# -----------------------------------------------------------------------------
+#       CREATION DES REFERENCES DE TABLE
+# -----------------------------------------------------------------------------
+
+
+ALTER TABLE CHANTIER 
+  ADD FOREIGN KEY FK_CHANTIER_CLIENT (NOCLIENT)
+      REFERENCES CLIENT (NOCLIENT) ;
+
+
+ALTER TABLE CHANTIER 
+  ADD FOREIGN KEY FK_CHANTIER_CATEGORIE (NOCATEGORIE)
+      REFERENCES CATEGORIE (NOCATEGORIE) ;
+
+
+ALTER TABLE PARTICIPE 
+  ADD FOREIGN KEY FK_PARTICIPE_PERSONNEL (NOPERSONNEL)
+      REFERENCES PERSONNEL (NOPERSONNEL) ;
+
+
+ALTER TABLE PARTICIPE 
+  ADD FOREIGN KEY FK_PARTICIPE_CHANTIER (NOCHANTIER)
+      REFERENCES CHANTIER (NOCHANTIER) ;
+
