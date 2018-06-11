@@ -3,7 +3,7 @@
 <?php
 echo form_open('Administrateur/ModifierUnChantier');
 
-echo form_label("Le chantier à modifier : ", 'lbltNoProduit');
+echo form_label("Le chantier à modifier : ", 'lbltNoChantier');
 ?>
 <select name="NoChantier" required>
 <option value="" selected>Selectionner</option>

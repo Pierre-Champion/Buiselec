@@ -1,2 +1,2 @@
 Insertion réussie !
-<p><a href="<?php echo site_url('Visiteur/Home') ?>">Page d'acceuil</a></p>
+<p><a href="<?php echo site_url('administrateur/Home') ?>">Page d'acceuil</a></p>

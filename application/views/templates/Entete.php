@@ -10,7 +10,7 @@
 <body>
 
 <div class="Entete">
-<a class="Buiselec-Button" href="<?php echo site_url('visiteur/Home') ?>">Page d'acceuil</a>
+<a class="Buiselec-Button" href="<?php echo site_url('visiteur/Home') ?>">Page d'acceuil<?php if (isset($this->session->Profil) && ($this->session->Profil==1 || $this->session->Profil==2)) echo " des clients";?></a>
 <a class="Buiselec-Button" href="<?php echo site_url('visiteur/Image') ?>">Image</a>
 <?php if (!isset($this->session->Profil))
 {?>
@@ -35,12 +35,13 @@ if(isset($this->session->Profil) && $this->session->Profil!=1 && $this->session-
 if (isset($this->session->Profil) && $this->session->Profil==2)
 {?>
 <div class="Admin">
+<a class="Buiselec-Button" href="<?php echo site_url('administrateur/Home') ?>">Page d'acceuil personnel</a>
 <a class="Buiselec-Button" href="<?php echo site_url('Administrateur/AjouterUnClient') ?>">Ajouter un client</a>
 <a class="Buiselec-Button" href="<?php echo site_url('Administrateur/AjouterPersonnel') ?>">Ajouter un personnel</a>
 <a class="Buiselec-Button" href="<?php echo site_url('Administrateur/AjouterUneCategorie') ?>">Ajouter une catégorie</a>
-<a class="Buiselec-Button" href="<?php echo site_url('Administrateur/SelectionnerUnClient') ?>">Ajouter un chantier</a>
-<a class="Buiselec-Button" href="<?php echo site_url('Administrateur/ModifierUnChantier') ?>">Modifier un chantier</a>
-<a class="Buiselec-Button" href="<?php echo site_url('Administrateur/AjouterUnChantier') ?>">Ajouter un chantier</a>
+<a class="Buiselec-Button" href="<?php echo site_url('Administrateur/SelectionnerUnClient') ?>">Selectionner un client</a>
+<!--<a class="Buiselec-Button" href="<//?php echo site_url('Administrateur/ModifierUnChantier') ?>">Modifier un chantier</a>
+<a class="Buiselec-Button" href="<//?php echo site_url('Administrateur/AjouterUnChantier') ?>">Ajouter un chantier</a>-->
 </div>
 <?php
 }
@@ -111,7 +112,7 @@ if (isset($this->session->Profil) && $this->session->Profil==2)
             echo form_input('CPClient','',array('pattern' =>'^[0-9]{5,5}$','required'=>'required')).'<BR>';
 
             echo form_label("Ville : ", 'lbltAdresse').'<BR>';
-            echo form_input('VilleClient','',array('pattern' =>'^[a-zA-Z]{3,24}$','required'=>'required')).'<BR><BR>';
+            echo form_input('VilleClient','',array('pattern' =>'^[a-zA-Z\-]{3,24}$','required'=>'required')).'<BR><BR>';
 
             echo form_label("Etes-vous : ", 'lbltStatut').'<BR>';
             echo form_radio('SatutClient','1', TRUE, 'required').'Propriétaire<BR><BR>';
