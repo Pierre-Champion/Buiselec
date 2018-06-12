@@ -11,7 +11,7 @@ class Administrateur extends CI_Controller
        $this->load->model('ModeleChantier');
        if (!isset($this->session->Profil) || $this->session->Profil != 1 && $this->session->Profil != 2)
        {
-         redirect("/visiteur/Home");
+         redirect("/Visiteur/Home");
        }
     } // __construct
 
@@ -40,7 +40,7 @@ class Administrateur extends CI_Controller
     public function Home()
     {
       $this->load->view('templates/Entete');
-      $this->load->view('administrateur/home');
+      $this->load->view('Administrateur/home');
     }
     public function AjouterPersonnel()
     {
@@ -58,7 +58,7 @@ class Administrateur extends CI_Controller
           'STATUT' => $this->input->post('StatutPersonnel'),
         );
         $this->ModeleUtilisateur->InsererUnPersonnel($donneesAInserer); // appel du modèle
-        redirect('administrateur/Personnel');
+        redirect('Administrateur/Personnel');
       }
       else
       {
@@ -86,7 +86,7 @@ class Administrateur extends CI_Controller
           'STATUT' => $this->input->post('StatutClient'),
         );
         $this->ModeleUtilisateur->InsererUnClient($donneesAInserer); // appel du modèle
-        redirect("administrateur/Clients");
+        redirect("Administrateur/Clients");
       }
       else
       {
@@ -167,7 +167,7 @@ class Administrateur extends CI_Controller
           
         );
         $this->ModeleChantier->InsererUnChantier($donneesAInserer); // appel du modèle
-        redirect("administrateur/chantiers");
+        redirect("Administrateur/chantiers");
       }
       else
       {
@@ -177,7 +177,7 @@ class Administrateur extends CI_Controller
         }
         else
         {
-          redirect("administrateur/Clients");
+          redirect("Administrateur/Clients");
         }
         $DonneesInjectees['Categories']=$this->ModeleChantier->RecupererLesCategories();
         $DonneesInjectees['Pieces']=array

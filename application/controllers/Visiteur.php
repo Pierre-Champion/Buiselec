@@ -18,17 +18,16 @@ class Visiteur extends CI_Controller
    } // __construct
 
    public function Home() {
-    $this->session->TitreDeLaPage = "Page d'acceuil";
-    $config["base_url"] = site_url('visiteur/Home');  
+    $this->session->TitreDeLaPage = "Page d'acceuil"; 
     $this->load->view('templates/Entete');
-    $this->load->view("visiteur/Home");
+    $this->load->view("Visiteur/Home");
     $this->load->view('templates/PiedDePage');
    }// Page d'acceuil
 
    public function Contact() {
     $this->session->TitreDeLaPage = "Contact";
     $this->load->view('templates/Entete');
-    $this->load->view("visiteur/Contact");
+    $this->load->view("Visiteur/Contact");
    }// Contact
 
    public function Inscription()
@@ -159,7 +158,7 @@ class Visiteur extends CI_Controller
    public function Image() {
     $this->session->TitreDeLaPage = "Image";
     $this->load->view('templates/Entete');
-    $this->load->view("visiteur/Image");
+    $this->load->view("Visiteur/Image");
    }// Image
    
    public function MentionsLegales()
