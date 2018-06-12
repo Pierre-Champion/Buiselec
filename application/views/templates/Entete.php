@@ -23,7 +23,7 @@ else
 <div onclick="document.getElementById('id02').style.display='block'" class="Buiselec-Button">Deconnexion</div>
 <?php
 }
-if(isset($this->session->Profil) && $this->session->Profil!=1 && $this->session->Profil!=2)
+if($this->session->Profil!=1 && $this->session->Profil!=2)
 {?>
 <a class="Buiselec-Button" href="<?php echo site_url('visiteur/Contact') ?>">Contactez-nous</a>
 
@@ -59,7 +59,7 @@ if (isset($this->session->Profil) && $this->session->Profil==2)
     <div class="w3-modal-content w3-animate-top w3-card-4">
       <header class="w3-container"> 
         <span class="close" onclick="document.getElementById('id01').style.display='none'" 
-        class="w3-button w3-display-topright">&times;</span>
+          class="w3-button w3-display-topright">&times;</span>
         <h2>Connexion / Inscription</h2>
       </header>
       <div class="w3-container">

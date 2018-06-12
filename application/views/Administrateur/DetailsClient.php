@@ -8,7 +8,9 @@
 <tr><td>Adresse :</td><td><?php echo $Client["ADRESSE"]."&nbsp;".$Client["CP"]."&nbsp;".$Client["VILLE"]; ?></td></tr>
 <tr><td>Statut :</td><td><?php if($Client["STATUT"]==0){ echo "Locataire"; } elseif($Client["STATUT"]==1) { echo "Propriétaire"; } ?></td></tr>
 </table>
+<br/>
 <table>
+<tr><th>Chantiers du client</th></tr>
 <?php 
 foreach ($Chantiers as $key => $UnChantier) 
 {

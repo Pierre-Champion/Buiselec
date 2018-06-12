@@ -129,11 +129,20 @@ class Administrateur extends CI_Controller
       foreach ($DonneesInjectees['Chantiers'] as $key => $UnChantier) 
       {
         $UnClient=$this->ModeleUtilisateur->RecupererUnClient($UnChantier["NOCLIENT"]);
-        $UnChantier=array("NOCLIENT"=>$UnClient["NOCLIENT"],"NOM"=>$UnClient["NOM"],"PRENOM"=>$UnClient["PRENOM"]);
-        $DonneesInjectees['Chantiers'][$key]["NOCLIENT"]=$UnChantier;
+        $UnClient=array("NOCLIENT"=>$UnClient["NOCLIENT"],"NOM"=>$UnClient["NOM"],"PRENOM"=>$UnClient["PRENOM"]);
+        $DonneesInjectees['Chantiers'][$key]["NOCLIENT"]=$UnClient;
       }
       $this->load->view('templates/Entete');
       $this->load->view('Administrateur/Chantiers', $DonneesInjectees);
+    }
+    public function DetailsChantier($NoChantier)
+    {
+      $DonneesInjectees['TitreDeLaPage'] = 'Détails du chantier';
+      $DonneesInjectees['Chantier']=$this->ModeleChantier->RecupererUnChantier($NoChantier);
+      $DonneesInjectees['Categorie']=$this->ModeleChantier->RecupererUneCategorie($DonneesInjectees['Chantier']["NOCATEGORIE"])["NOM"];
+      $DonneesInjectees['Client']=$this->ModeleUtilisateur->RecupererUnClient($DonneesInjectees['Chantier']["NOCLIENT"]);
+      $this->load->view('templates/Entete');
+      $this->load->view('Administrateur/DetailsChantier', $DonneesInjectees);
     }
     public function AjouterUnChantier($noclient=null)
     {

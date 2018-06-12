@@ -16,7 +16,11 @@ class ModeleChantier extends CI_Model
         $requete = $this->db->get('categorie');
         return $requete->result_array();
      } // récupérerLesCatégories
-
+    public function RecupererUneCategorie($NoCategorie)
+     {
+        $requete = $this->db->get_where('categorie', array("nocategorie"=>$NoCategorie));
+        return $requete->row_array();
+     } // récupérerUneCatégorie
     public function RecupererLesChantiers()
      {
         $requete = $this->db->get('chantier');
@@ -37,7 +41,10 @@ class ModeleChantier extends CI_Model
     public function RecupererLesChantiersDUnClient($NoClient)
      {
          return $this->db->get_where('chantier', array("NOCLIENT"=>$NoClient))->result_array();
-         
+     }
+    public function RecupererUnChantier($NoChantier)
+     {
+         return $this->db->get_where('chantier', array("NOCHANTIER"=>$NoChantier))->row_array();
      }
 
 }
