@@ -17,21 +17,27 @@ class ModeleChantier extends CI_Model
         return $requete->result_array();
      } // récupérerLesCatégories
 
-     public function RecupererLesChantiers()
+    public function RecupererLesChantiers()
      {
         $requete = $this->db->get('chantier');
         return $requete->result_array();
      } // récupérerLesCatégories
-
-     public function ModifierUnChantier($pDonneesAInserer, $id)
+    
+    public function ModifierUnChantier($pDonneesAInserer, $id)
      {
         $this->db->where('NOCHANTIER', $id);
         return $this->db->update('chantier', $pDonneesAInserer);
      } // modifierUnChantier
 
-     public function InsererUnChantier($pDonneesAInserer)
+    public function InsererUnChantier($pDonneesAInserer)
      {
          return $this->db->insert('chantier', $pDonneesAInserer);
      } // insererUnChantier
+
+    public function RecupererLesChantiersDUnClient($NoClient)
+     {
+         return $this->db->get_where('chantier', array("NOCLIENT"=>$NoClient))->result_array();
+         
+     }
 
 }

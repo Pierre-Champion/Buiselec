@@ -4,10 +4,10 @@
 echo form_open('Administrateur/AjouterUnClient');
 
 echo form_label("Nom : ", 'lbltNom');
-echo form_input('NomClient','',array('pattern' =>'^[a-zA-Z]{3,24}$','required'=>'required')).'<BR>';
+echo form_input('NomClient','',array('pattern' =>'^[A-Z][a-zA-Z \-]{3,24}$','required'=>'required')).'<BR>';
 
 echo form_label("Prenom : ", 'lbltPrenom');
-echo form_input('PrenomClient','',array('pattern' =>'^[a-zA-Z]{3,24}$','required'=>'required')).'<BR>';
+echo form_input('PrenomClient','',array('pattern' =>'^[A-Z][a-zA-Z \-]{3,24}$','required'=>'required')).'<BR>';
 
 echo form_label("Email : ", 'lbltEmail');
 echo form_input('MailClient','',array('pattern' =>'^[a-zA-Z0-9\-_]+[a-zA-Z0-9\.\-_]*@[a-zA-Z0-9\-_]+\.[a-zA-Z\.\-_]{1,}[a-zA-Z\-_]+','required'=>'required')).'<BR>';
@@ -25,7 +25,7 @@ echo form_label("Code Postale : ", 'lbltCP');
 echo form_input('CPClient','',array('pattern' =>'^[0-9]{5,5}$','required'=>'required')).'<BR>';
 
 echo form_label("Ville : ", 'lbltAdresse');
-echo form_input('VilleClient','',array('pattern' =>'^[a-zA-Z]{3,24}$','required'=>'required')).'<BR>';
+echo form_input('VilleClient','',array('pattern' =>'^[A-Z][a-zA-Z \-]{3,24}$','required'=>'required')).'<BR>';
 
 echo form_label("Statut du client : ", 'lbltPiece');
 ?>

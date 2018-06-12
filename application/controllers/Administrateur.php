@@ -107,6 +107,14 @@ class Administrateur extends CI_Controller
       $this->load->view('templates/Entete');
       $this->load->view('Administrateur/Clients', $DonneesInjectees);
     }
+    public function DetailsClient($NoClient)
+    {
+      $DonneesInjectees['TitreDeLaPage'] = 'Détails du client';
+      $DonneesInjectees['Client']=$this->ModeleUtilisateur->RecupererUnClient($NoClient);
+      $DonneesInjectees['Chantiers']=$this->ModeleChantier->RecupererLesChantiersDUnClient($NoClient);
+      $this->load->view('templates/Entete');
+      $this->load->view('Administrateur/DetailsClient', $DonneesInjectees);
+    }
     public function Personnel()
     {
       $DonneesInjectees['TitreDeLaPage'] = 'Liste du personnel';
@@ -117,7 +125,13 @@ class Administrateur extends CI_Controller
     public function Chantiers()
     {
       $DonneesInjectees['TitreDeLaPage'] = 'Liste des chantiers';
-      $DonneesInjectees['Personnel']=$this->ModeleChantier->RecupererLesChantiers();
+      $DonneesInjectees['Chantiers']=$this->ModeleChantier->RecupererLesChantiers();
+      foreach ($DonneesInjectees['Chantiers'] as $key => $UnChantier) 
+      {
+        $UnClient=$this->ModeleUtilisateur->RecupererUnClient($UnChantier["NOCLIENT"]);
+        $UnChantier=array("NOCLIENT"=>$UnClient["NOCLIENT"],"NOM"=>$UnClient["NOM"],"PRENOM"=>$UnClient["PRENOM"]);
+        $DonneesInjectees['Chantiers'][$key]["NOCLIENT"]=$UnChantier;
+      }
       $this->load->view('templates/Entete');
       $this->load->view('Administrateur/Chantiers', $DonneesInjectees);
     }
@@ -144,9 +158,7 @@ class Administrateur extends CI_Controller
           
         );
         $this->ModeleChantier->InsererUnChantier($donneesAInserer); // appel du modèle
-        $this->load->helper('url'); // helper chargé pour utilisation de site_url (dans la vue)
-        $this->load->view('templates/Entete');
-        $this->load->view('Administrateur/InsertionReussie');
+        redirect("administrateur/chantiers");
       }
       else
       {

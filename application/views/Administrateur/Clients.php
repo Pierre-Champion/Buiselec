@@ -1,7 +1,7 @@
 <h2><?php echo $TitreDeLaPage ?></h2>
 <table>
     <tr>
-        <th>Actions:</th><th>Nom</th><th>Prénom</th><th>Adresse mail</th><th>N° de téléphone</th><th>Adresse</th><th>Code postal</th><th>Ville</th><th>Statut</th>
+        <th>Actions:</th><th>Nom</th><th>Prénom</th><th>Adresse mail</th><th>N° de téléphone</th><th>Adresse</th><th>Statut</th>
     </tr>
     <?php
     foreach ($Clients as $UnClient) {
@@ -21,7 +21,19 @@
             }
             elseif($key=="NOCLIENT")
             {
-                echo "<td>".anchor('administrateur/AjouterUnChantier/'.$value, 'Ajouter un chantier')."</td>";
+                echo "<td>".anchor('administrateur/DetailsClient/'.$value, 'Détails du client')."<br/>".anchor('administrateur/AjouterUnChantier/'.$value, 'Ajouter un chantier')."</td>";
+            }
+            elseif($key=="ADRESSE")
+            {
+                echo "<td>".$value;
+            }
+            elseif($key=="CP")
+            {
+                echo "&nbsp;".$value."&nbsp;";
+            }
+            elseif($key=="VILLE")
+            {
+                echo $value."</td>";
             }
             elseif($key!="MDP")
             {
