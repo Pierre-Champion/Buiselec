@@ -14,7 +14,7 @@ if(isset($Chantiers) && $Chantiers!=null)
         {
             if($key=="NOCHANTIER") 
             {
-                echo "<td>".anchor("administrateur/DetailsChantier/".$value, "Détails du chantier")."</td>";
+                echo "<td>".anchor("visiteur/DetailsChantier/".$value, "Détails du chantier")."</td>";
             }
             elseif($key=="NOM"||$key=="STATUT")
             {

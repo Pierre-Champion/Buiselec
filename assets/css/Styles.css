@@ -2,14 +2,15 @@
 {
     position: absolute;
     display:block;
-    width: 100%;
     background-color: rgb(220,220,220);
-    bottom: 0px;
-    left: 0px;
     padding-top: 26px;
     padding-bottom: 26px;
     padding-left: 5%;
     font-size: 25px;
+}
+.Pub
+{
+    height: 50%
 }
 .Page
 {
