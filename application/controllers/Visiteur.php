@@ -6,6 +6,7 @@ class Visiteur extends CI_Controller
       parent::__construct();
       $this->load->helper('url');
       $this->load->helper('assets');
+      $this->load->helper('form');
       $this->load->library("pagination");
       $this->load->library('form_validation');
       $this->load->library('session');
@@ -73,24 +74,15 @@ class Visiteur extends CI_Controller
         );
         $this->ModeleUtilisateur->InsererUnClient($donneesAInserer); // appel du modèle
         
-        $this->session->Client=array(
-            'NOM' => $this->input->post('NomClient'),
-            'PRENOM' => $this->input->post('PrenomClient'),
+        $this->session->DonneesConnexion=array(
             'MAIL' => $this->input->post('MailClient'),
             'MDP' => $MDP,
-            'TELEPHONE' => $this->input->post('TelClient'),
-            'ADRESSE' => $this->input->post('AdresseClient'),
-            'CP' => $this->input->post('CPClient'),
-            'VILLE' => $this->input->post('VilleClient'),
-            'STATUT' => $this->input->post('StatutClient'),
         );
         redirect('Visiteur/SeConnecter');
         
     }// Inscription
     public function personnel()
     {
-        $this->load->helper('form');
-        $this->load->library('form_validation');
         $DonneesInjectees['TitreDeLaPage'] = 'Se connecter (personnel)';
         If ($this->input->post('boutonPersonnel'))
         {
@@ -120,19 +112,15 @@ class Visiteur extends CI_Controller
         }
     }
    public function SeConnecter() {
-    if (isset($this->session->Client))
-    {
-        $this->session->Profil=0;
-        $this->session->Connexion="Reussite";
-        redirect("Visiteur/Home");
-    }
-    elseif(!isset($this->session->Client))
+    if(!isset($this->session->DonneesConnexion))
     {
         $this->session->DonneesConnexion=array("MAIL"=>$this->input->post('MailClient'), "MDP"=>$this->input->post('MDP'));
+    }
         $Client=$this->ModeleUtilisateur->RecupererUnClient($this->session->DonneesConnexion);
         if($Client)
         {
             $this->session->Client=array(
+                'NOCLIENT' => $Client['NOCLIENT'],
                 'NOM' => $Client['NOM'],
                 'PRENOM' => $Client['PRENOM'],
                 'MAIL' => $Client['MAIL'],
@@ -152,8 +140,65 @@ class Visiteur extends CI_Controller
             $this->session->Connexion="Echec";
             redirect("Visiteur/Home");
         }
-    }
+    
    }// Connexion
+
+   public function CreerChantier()
+   {
+    $this->session->TitreDeLaPage = "Créer un chantier";
+    If ($this->input->post('boutonAjouterChantier'))
+    {
+        if ($this->input->post('TypeChantier')==1)
+        {
+            $type="Neuf";
+        }
+        else
+        {
+            $type="Rénovation";
+        }
+        $donneesAInserer = array(
+          
+          'NOCLIENT' => $this->session->Client['NOCLIENT'],
+          'NOCATEGORIE'=> $this->input->post('CategorieChantier'),
+          'NOM'=> $this->input->post('PieceChantier').", ".$this->session->Client['NOM'],
+          'TYPE'=> $this->input->post('TypeChantier'),
+          'PIECE'=> $this->input->post('PieceChantier'),
+          'DETAIL'=> $this->input->post('DetailsChantier'),
+          'STATUT'=> 'Attente',
+          'ACCORD'=> $this->input->post('AccordImage'),
+          'ADRESSE' => $this->input->post('AdresseClient'),
+          'CP' => $this->input->post('CPClient'),
+          'VILLE' => $this->input->post('VilleClient'),
+          
+        );
+        $this->ModeleChantier->InsererUnChantier($donneesAInserer); // appel du modèle
+        redirect("visiteur/voschantiers");
+      }
+      else
+      {
+        $DonneesInjectees['Categories']=$this->ModeleChantier->RecupererLesCategories();
+        $DonneesInjectees['Pieces']=array
+        (
+          "Salon" => "Salon",
+          "Salle à manger" => "Salle à manger",
+          "Cuisine" => "Cuisine",
+          "Salle de bain" => "Salle de bain",
+          "Extérieur" => "Extérieur",
+          "Cave / Garage / Grenier" => "Cave / Garage / Grenier",
+          "Chambre" => "Chambre"
+        );
+        $this->load->view('templates/Entete');
+        $this->load->view('Visiteur/CréerChantier', $DonneesInjectees);
+      }
+   }// Créer un chantier
+
+   public function VosChantiers()
+    {
+      $DonneesInjectees['TitreDeLaPage'] = 'Liste de vos chantiers';
+      $DonneesInjectees['Chantiers']=$this->ModeleChantier->RecupererLesChantiersDUnClient($this->session->Client['NOCLIENT']);
+      $this->load->view('templates/Entete');
+      $this->load->view('Visiteur/Chantiers', $DonneesInjectees);
+    }
 
    public function Image() {
     $this->session->TitreDeLaPage = "Image";

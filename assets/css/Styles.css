@@ -13,13 +13,13 @@
 }
 .Page
 {
-    padding: 15px;
+    padding: 30px;
 }
-table
+.Liste
 {
     border-collapse: collapse
 }
-td, th
+.Liste td, .Liste th
 {
     padding: 15px;
     text-align: center;

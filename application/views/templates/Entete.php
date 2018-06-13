@@ -21,6 +21,8 @@ else
 {
 ?>
 <div onclick="document.getElementById('id02').style.display='block'" class="Buiselec-Button">Deconnexion</div>
+<a class="Buiselec-Button" href="<?php echo site_url('visiteur/VosChantiers') ?>">Vos Chantiers</a>
+
 <?php
 }
 if($this->session->Profil!=1 && $this->session->Profil!=2)
@@ -102,7 +104,7 @@ if (isset($this->session->Profil) && $this->session->Profil==2)
             echo form_input('MailClient','',array('pattern' =>'^[a-zA-Z0-9\-_]+[a-zA-Z0-9\.\-_]*@[a-zA-Z0-9\-_]+\.[a-zA-Z\.\-_]{1,}[a-zA-Z\-_]+','required'=>'required')).'<BR>';
 
             echo form_label("Telephone : ", 'lbltTel').'<BR>';
-            echo form_input('TelClient','',array('pattern' =>'^[0-9]{10,10}$')).'<BR>';
+            echo form_input('TelClient','',array('pattern' =>'^([0-9]{10,10}|\+[0-9]{11})$')).'<BR>';
 
             echo form_label("Adresse : ", 'lbltAdresse').'<BR>';
             echo form_input('AdresseClient','',array('required'=>'required')).'<BR>';
