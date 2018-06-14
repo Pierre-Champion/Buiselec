@@ -1,5 +1,5 @@
 <h2><?php echo $TitreDeLaPage ?></h2>
-<table>
+<table class="Liste">
     <tr>
         <th>Actions:</th><th>Nom</th><th>Prénom</th><th>Adresse mail</th><th>N° de téléphone</th><th>Statut</th>
     </tr>

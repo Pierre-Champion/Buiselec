@@ -104,6 +104,9 @@ if (isset($this->session->Profil) && $this->session->Profil==2)
 
             echo form_label("Email : ", 'lbltEmail').'<BR>';
             echo form_input('MailClient','',array('pattern' =>'^[a-zA-Z0-9\-_]+[a-zA-Z0-9\.\-_]*@[a-zA-Z0-9\-_]+\.[a-zA-Z\.\-_]{1,}[a-zA-Z\-_]+','required'=>'required')).'<BR>';
+  
+            echo form_label("Mot de passe : ", 'lbltMDP');
+            echo form_password('MdpClient','',array('required'=>'required')).'<BR>';
 
             echo form_label("Telephone : ", 'lbltTel').'<BR>';
             echo form_input('TelClient','',array('pattern' =>'^([0-9]{10,10}|\+[0-9]{11})$')).'<BR>';

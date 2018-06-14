@@ -16,7 +16,8 @@
       </div>
 
       <div class="item">
-        <img src="chicago.jpg" alt="Chicago" style="width:100%;">
+        <?php echo img("Dragongold.jgp", "Image Avant"); ?>
+        <?php echo img("Home.png", "Image Après"); ?>
       </div>
     
       <div class="item">

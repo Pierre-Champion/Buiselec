@@ -69,6 +69,35 @@ class Administrateur extends CI_Controller
 
     public function AjouterUnClient()
     {
+      
+      $path=random_int(0,2);
+      if($path==2)
+          {
+              $MDP=$path=chr(random_int(97,122));
+          }
+      elseif($path==1)
+          {
+              $MDP=$path=chr(random_int(65,90));
+          }
+      else
+          {
+              $MDP=$path=chr(random_int(48,57));
+          }
+      for ($i=1; $i <= 10; $i++) { 
+          $path=random_int(0,2);
+          if($path==2)
+          {
+             $MDP=$MDP.$path=chr(random_int(97,122));
+          }
+          elseif($path==1)
+          {
+              $MDP=$MDP.$path=chr(random_int(65,90));
+          }
+          else
+          {
+              $MDP=$MDP.$path=chr(random_int(48,57));
+          }
+      }
     $this->load->helper('form');
     $this->load->library('form_validation');
     $DonneesInjectees['TitreDeLaPage'] = 'Ajouter Un client';
@@ -78,11 +107,11 @@ class Administrateur extends CI_Controller
           'NOM' => $this->input->post('NomClient'),
           'PRENOM' => $this->input->post('PrenomClient'),
           'MAIL' => $this->input->post('MailClient'),
+          'MDP' => $MDP,
           'TELEPHONE' => $this->input->post('TelClient'),
           'ADRESSE' => $this->input->post('AdresseClient'),
           'CP' => $this->input->post('CPClient'),
           'VILLE' => $this->input->post('VilleClient'),
-          'MDP' => $this->input->post('MdpClient'),
           'STATUT' => $this->input->post('StatutClient'),
         );
         $this->ModeleUtilisateur->InsererUnClient($donneesAInserer); // appel du modèle
@@ -92,8 +121,8 @@ class Administrateur extends CI_Controller
       {
         $DonneesInjectees['Statuts']=array
         (
-          "Propriétaire" => "Propriétaire",
-          "Locataire" => "Locataire",
+          "1" => "Propriétaire",
+          "0" => "Locataire",
         );
         $this->load->view('templates/Entete');
         $this->load->view('Administrateur/AjouterUnClient', $DonneesInjectees);

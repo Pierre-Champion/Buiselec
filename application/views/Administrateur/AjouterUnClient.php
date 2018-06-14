@@ -13,10 +13,7 @@ echo form_label("Email : ", 'lbltEmail');
 echo form_input('MailClient','',array('pattern' =>'^[a-zA-Z0-9\-_]+[a-zA-Z0-9\.\-_]*@[a-zA-Z0-9\-_]+\.[a-zA-Z\.\-_]{1,}[a-zA-Z\-_]+','required'=>'required')).'<BR>';
 
 echo form_label("Telephone : ", 'lbltTel');
-echo form_input('TelClient','',array('pattern' =>'^[0-9]{10,10}$')).'<BR>';
-  
-echo form_label("Mot de passe : ", 'lbltMDP');
-echo form_password('MdpClient','',array('required'=>'required')).'<BR>';
+echo form_input('TelClient','',array('pattern' =>'^([0-9]{10,10}|\+[0-9]{11})$')).'<BR>';
 
 echo form_label("Adresse : ", 'lbltAdresse');
 echo form_input('AdresseClient','',array('required'=>'required')).'<BR>';
@@ -32,9 +29,9 @@ echo form_label("Statut du client : ", 'lbltPiece');
 <select name="StatutClient" required>
 <option value="" selected>Selectionner</option>
 <?php
-foreach ($Statuts as $unstatut)
+foreach ($Statuts as $key => $unstatut)
 {
-    echo '<option value ="'.$unstatut.'">'.$unstatut.'</option>';
+    echo '<option value ="'.$key.'">'.$unstatut.'</option>';
 }
 ?>
 </select><BR>

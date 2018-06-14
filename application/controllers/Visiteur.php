@@ -33,39 +33,11 @@ class Visiteur extends CI_Controller
 
    public function Inscription()
     {
-        $path=random_int(0,2);
-        if($path==2)
-            {
-                $MDP=$path=chr(random_int(97,122));
-            }
-        elseif($path==1)
-            {
-                $MDP=$path=chr(random_int(65,90));
-            }
-        else
-            {
-                $MDP=$path=chr(random_int(48,57));
-            }
-        for ($i=1; $i <= 10; $i++) { 
-            $path=random_int(0,2);
-            if($path==2)
-            {
-               $MDP=$MDP.$path=chr(random_int(97,122));
-            }
-            elseif($path==1)
-            {
-                $MDP=$MDP.$path=chr(random_int(65,90));
-            }
-            else
-            {
-                $MDP=$MDP.$path=chr(random_int(48,57));
-            }
-        }
         $donneesAInserer = array(
           'NOM' => $this->input->post('NomClient'),
           'PRENOM' => $this->input->post('PrenomClient'),
           'MAIL' => $this->input->post('MailClient'),
-          'MDP' => $MDP,
+          'MDP' => $this->input->post('MdpClient'),
           'TELEPHONE' => $this->input->post('TelClient'),
           'ADRESSE' => $this->input->post('AdresseClient'),
           'CP' => $this->input->post('CPClient'),
@@ -131,6 +103,7 @@ class Visiteur extends CI_Controller
                 'STATUT' => $Client['STATUT'],
             );
             $this->session->Profil=0;
+            unset($this->session->DonneesConnexion);
             $this->session->Connexion="Reussite";
             redirect("Visiteur/Home");
         } 

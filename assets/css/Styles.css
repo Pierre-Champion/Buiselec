@@ -1,7 +1,9 @@
 .PiedDePage
 {
-    position: absolute;
-    display:block;
+    position: fixed;
+    bottom: 0%;
+    width: 100%;
+    display: block;
     background-color: rgb(220,220,220);
     padding-top: 26px;
     padding-bottom: 26px;
