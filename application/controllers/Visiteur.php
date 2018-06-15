@@ -19,14 +19,15 @@ class Visiteur extends CI_Controller
    } // __construct
 
    public function Home() {
-    $this->session->TitreDeLaPage = "Page d'acceuil"; 
+    $DonneesInjectees['TitreDeLaPage']="Page d'accueil";
+    $DonneesInjectees['Chantiers']=$this->ModeleChantier->GetChantiersPublics();
     $this->load->view('templates/Entete');
-    $this->load->view("Visiteur/Home");
+    $this->load->view("Visiteur/Home", $DonneesInjectees);
     $this->load->view('templates/PiedDePage');
    }// Page d'acceuil
 
    public function Contact() {
-    $this->session->TitreDeLaPage = "Contact";
+    $DonneesInjectees['TitreDeLaPage'] = "Contact";
     $this->load->view('templates/Entete');
     $this->load->view("Visiteur/Contact");
    }// Contact
@@ -118,7 +119,7 @@ class Visiteur extends CI_Controller
 
    public function CreerChantier()
    {
-    $this->session->TitreDeLaPage = "Créer un chantier";
+    $DonneesInjectees['TitreDeLaPage'] = "Créer un chantier";
     If ($this->input->post('boutonAjouterChantier'))
     {
         if ($this->input->post('TypeChantier')==1)
@@ -181,14 +182,14 @@ class Visiteur extends CI_Controller
       $this->load->view('Visiteur/DetailsChantier', $DonneesInjectees);
     }
    public function Image() {
-    $this->session->TitreDeLaPage = "Image";
+    $DonneesInjectees['TitreDeLaPage'] = "Image";
     $this->load->view('templates/Entete');
     $this->load->view("Visiteur/Image");
    }// Image
    
    public function MentionsLegales()
    {
-    $this->session->TitreDeLaPage = "Mentions légales";
+    $DonneesInjectees['TitreDeLaPage'] = "Mentions légales";
     $this->load->view('templates/Entete');
     $this->load->view("MentionsLegales");
    }//Mentions légales
