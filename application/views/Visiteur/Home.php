@@ -4,25 +4,41 @@
   <div id="myCarousel" class="carousel slide" data-ride="carousel">
     <!-- Indicators -->
     <ol class="carousel-indicators">
-      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-      <li data-target="#myCarousel" data-slide-to="1"></li>
-      <li data-target="#myCarousel" data-slide-to="2"></li>
+    <?php
+    $i=0;
+    foreach ($Chantiers as $value) {
+      if($i==0)
+      {
+        echo '<li data-target="#myCarousel" data-slide-to="' . $i . '" class="active inverted"></li>';
+      }
+      else
+      {
+        echo '<li data-target="#myCarousel" data-slide-to="' . $i . '" class="inverted"></li>';
+      }
+      $i+=1;
+    }
+    ?>
     </ol>
 
     <!-- Wrapper for slides -->
-    <div class="carousel-inner">
-      <div class="item active">
-        <img src="la.jpg" alt="Los Angeles" style="width:100%;">
-      </div>
-
-      <div class="item">
-        <?php echo img("Dragongold.jgp", "Image Avant"); ?>
-        <?php echo img("Home.png", "Image Après"); ?>
-      </div>
-    
-      <div class="item">
-        <img src="ny.jpg" alt="New york" style="width:100%;">
-      </div>
+    <div class="carousel-inner Images">
+    <?php
+    $i=0;
+    foreach ($Chantiers as $value) {
+      if($i==0)
+      {
+        echo '<div class="item active Images">';
+      }
+      else
+      {
+        echo '<div class="item Images">';
+      }
+      echo img($value['IMAGEAVANT'], 'Avant', array('class'=>'ImageAvant'));
+      echo img($value['IMAGEAPRES'], 'Après', array('class'=>'ImageApres'));
+      echo '</div>';
+      $i+=1;
+    }
+    ?>
     </div>
 
     <!-- Left and right controls -->
