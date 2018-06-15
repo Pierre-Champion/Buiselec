@@ -5,14 +5,17 @@ class ModeleUtilisateur extends CI_Model
     {
         $this->load->database();
     } // __construct 
+
     public function RecupererLesClients()
      {
         return $this->db->get('Client')->result_array();
      } // récupérerLesClients
+
      public function RecupererLePersonnel()
      {
         return $this->db->get('personnel')->result_array();
      } // récupérerLePersonnel
+
     public function RecupererUnClient($DonneesClient)
      {
         if(is_array($DonneesClient))
@@ -29,13 +32,29 @@ class ModeleUtilisateur extends CI_Model
      {
          return $this->db->insert('personnel', $pDonneesAInserer);
      } // insererUnPersonnel
+
     public function RecupererUnPersonnel($pDonneesPersonnel)
      {
          return $this->db->get_where('personnel', $pDonneesPersonnel)->row_array();
      } // recupererUnPersonnel
+
      public function InsererUnClient($pDonneesAInserer)
      {
          return $this->db->insert('client', $pDonneesAInserer);
      } // insererUneCatégorie
+
+     public function ModifierUnCLient($pDonneesAInserer, $id)
+     {
+        $this->db->where('NOCLIENT', $id);
+        return $this->db->update('client', $pDonneesAInserer);
+     } // modifierUnClient
+
+     public function ModifierUnPersonnel($pDonneesAInserer, $id)
+     {
+        $this->db->where('NOPERSONNEL', $id);
+        return $this->db->update('personnel', $pDonneesAInserer);
+     } // modifierUnClient
+
+
 
 }

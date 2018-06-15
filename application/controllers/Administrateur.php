@@ -67,6 +67,36 @@ class Administrateur extends CI_Controller
       }
     } // ajouterUnPersonnel
 
+    public function ModifierUnPersonnel()
+    {
+      $this->load->helper('form');
+      $DonneesInjectees['TitreDeLaPage'] = 'Modifier un Client';
+      $DonneesInjectees['LesPersonnels']=$this->ModeleUtilisateur->RecupererLePersonnel();
+
+          If ($this->input->post('boutonModificationPersonnel'))
+      {
+        $donneesAInserer = array(
+          'NOM' => $this->input->post('NomPersonnel'),
+          'PRENOM' => $this->input->post('PrenomPersonnel'),
+          'MAIL' => $this->input->post('MailPersonnel'),
+          'MDP' => $this->input->post('MdpPersonnel'),
+          'TELEPHONE' => $this->input->post('TelPersonnel'),
+          'STATUT' => $this->input->post('StatutPersonnel'),
+        );
+        $id = $this->input->post('NoPersonnel');
+        $this->ModeleUtilisateur->ModifierUnPersonnel($donneesAInserer, $id);// appel du modèle
+        $this->load->helper('url'); // helper chargé pour utilisation de site_url (dans la vue)
+        $this->load->view('templates/Entete');
+        $this->load->view('Administrateur/InsertionReussie');
+      }
+      else
+      {
+        $this->load->view('templates/Entete');
+        $this->load->view('Administrateur/ModifierUnPersonnel', $DonneesInjectees);
+        $this->load->view('templates/PiedDePage');
+      }
+    } // ModificationUnCLient
+
     public function AjouterUnClient()
     {
       
@@ -127,7 +157,44 @@ class Administrateur extends CI_Controller
         $this->load->view('templates/Entete');
         $this->load->view('Administrateur/AjouterUnClient', $DonneesInjectees);
       }
-    } // ajouterUnPersonnel
+    } // ajouterUnClient
+
+    public function ModifierUnCLient()
+    {
+      $this->load->helper('form');
+      $DonneesInjectees['TitreDeLaPage'] = 'Modifier un Client';
+      $DonneesInjectees['LesClients']=$this->ModeleUtilisateur->RecupererLesClients();
+      $DonneesInjectees['Statuts']=array
+        (
+          "1" => "Propriétaire",
+          "0" => "Locataire",
+        );
+      If ($this->input->post('boutonModificationClient'))
+      {
+        $donneesAInserer = array(
+          'NOM' => $this->input->post('NomClient'),
+          'PRENOM' => $this->input->post('PrenomClient'),
+          'MAIL' => $this->input->post('MailClient'),
+          'TELEPHONE' => $this->input->post('TelClient'),
+          'ADRESSE' => $this->input->post('AdresseClient'),
+          'CP' => $this->input->post('CPClient'),
+          'VILLE' => $this->input->post('VilleClient'),
+          'STATUT' => $this->input->post('StatutClient'),
+          
+        );
+        $id = $this->input->post('NoClient');
+        $this->ModeleUtilisateur->ModifierUnCLient($donneesAInserer, $id);// appel du modèle
+        $this->load->helper('url'); // helper chargé pour utilisation de site_url (dans la vue)
+        $this->load->view('templates/Entete');
+        $this->load->view('Administrateur/InsertionReussie');
+      }
+      else
+      {
+        $this->load->view('templates/Entete');
+        $this->load->view('Administrateur/ModifierUnClient', $DonneesInjectees);
+        $this->load->view('templates/PiedDePage');
+      }
+    } // ModificationUnCLient
 
     public function Clients()
     {
@@ -230,14 +297,30 @@ class Administrateur extends CI_Controller
       $DonneesInjectees['TitreDeLaPage'] = 'Modifier un Chantier';
       $DonneesInjectees['lesChantiers'] = $this->ModeleChantier->RecupererLesChantiers();
       $DonneesInjectees['lesCategories'] = $this->ModeleChantier->RecupererLesCategories();
+      $DonneesInjectees['Pieces']=array
+        (
+          "Salon" => "Salon",
+          "Salle à manger" => "Salle à manger",
+          "Cuisine" => "Cuisine",
+          "Salle de bain" => "Salle de bain",
+          "Extérieur" => "Extérieur",
+          "Cave / Garage / Grenier" => "Cave / Garage / Grenier",
+          "Chambre" => "Chambre"
+        );
       If ($this->input->post('boutonModification'))
       {
         $donneesAInserer = array(
-          'NOCHANTIER' => $this->input->post('NoChantier'),
           'NOCATEGORIE' => $this->input->post('NoCategorie'),
+          'NOM'=> $this->input->post('NomChantier'),
+          'TYPE'=> $this->input->post('TypeChantier'),
+          'PIECE'=> $this->input->post('PieceChantier'),
+          'DETAIL'=> $this->input->post('DetailsChantier'),
+          'ADRESSE' => $this->input->post('AdresseChantier'),
+          'CP' => $this->input->post('CPChantier'),
+          'VILLE' => $this->input->post('VilleChantier'),
           
         );
-        $id = $this->input->post('NoProduit');
+        $id = $this->input->post('NoChantier');
         $this->ModeleChantier->ModifierUnChantier($donneesAInserer, $id);// appel du modèle
         $this->load->helper('url'); // helper chargé pour utilisation de site_url (dans la vue)
         $this->load->view('templates/Entete');
@@ -250,6 +333,7 @@ class Administrateur extends CI_Controller
         $this->load->view('templates/PiedDePage');
       }
     } // ModificationUnChantier
+
     public function AjouterImageAvant()
     {
       $this->load->helper('form');
