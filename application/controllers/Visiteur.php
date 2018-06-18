@@ -29,7 +29,7 @@ class Visiteur extends CI_Controller
    public function Contact() {
     $DonneesInjectees['TitreDeLaPage'] = "Contact";
     $this->load->view('templates/Entete');
-    $this->load->view("Visiteur/Contact");
+    $this->load->view("Visiteur/Contact", $DonneesInjectees);
    }// Contact
 
    public function Inscription()
@@ -184,7 +184,7 @@ class Visiteur extends CI_Controller
    public function Image() {
     $DonneesInjectees['TitreDeLaPage'] = "Image";
     $this->load->view('templates/Entete');
-    $this->load->view("Visiteur/Image");
+    $this->load->view("Visiteur/Image", $DonneesInjectees);
    }// Image
    
    public function MentionsLegales()
