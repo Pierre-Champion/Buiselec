@@ -40,7 +40,7 @@ class Administrateur extends CI_Controller
     public function Home()
     {
       $this->load->view('templates/Entete');
-      $this->load->view('Administrateur/home');
+      $this->load->view('Administrateur/Home');
     }
     public function AjouterPersonnel()
     {
