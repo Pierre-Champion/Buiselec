@@ -334,31 +334,39 @@ class Administrateur extends CI_Controller
       }
     } // ModificationUnChantier
 
-    public function AjouterImageAvant()
+    public function AjouterImageAvant($NoChantier)
     {
       $this->load->helper('form');
-      $DonneesInjectees['TitreDeLaPage'] = 'Modifier un Chantier';
-      $DonneesInjectees['lesChantiers'] = $this->ModeleChantier->RecupererLesChantiers();
-      $DonneesInjectees['lesCategories'] = $this->ModeleChantier->RecupererLesCategories();
+      $DonneesInjectees['TitreDeLaPage'] = 'Ajouter l\'image avant';
       If ($this->input->post('boutonModification'))
       {
         if(isset($_FILES['avatar']))
         { 
           $dossier = "C:/xampp/htdocs/buiselec/assets/images/";
           $fichier = basename($_FILES['avatar']['name']);
-          if(move_uploaded_file($_FILES['avatar']['tmp_name'], $dossier . $fichier)) //Si la fonction renvoie TRUE, c'est que ça a fonctionné...
-          {
-            
-            $DonneesInjectees["Upload"]="Done";
-            $this->load->view('templates/Entete');
-            $this->load->view('Administrateur/ImageAvant', $DonneesInjectees);
+          if (strpos($fichier, ".png") !== FALSE || strpos($fichier, ".jpg") !== FALSE || strpos($fichier, ".jpeg") !== FALSE) {
+            if(move_uploaded_file($_FILES['avatar']['tmp_name'], $dossier . $fichier)) //Si la fonction renvoie TRUE, c'est que ça a fonctionné...
+            {
+              $DonneesInjectees["Upload"]="Done";
+              $this->ModeleChantier->AjouterImageAvant(array("IMAGEAVANT"=>$fichier), $NoChantier);
+              $this->load->view('templates/Entete');
+              $this->load->view('Administrateur/ImageAvant', $DonneesInjectees);
+            }
+            else //Sinon (la fonction renvoie FALSE).
+            {
+              $DonneesInjectees["Upload"]="Failed";
+              $this->load->view('templates/Entete');
+              $this->load->view('Administrateur/ImageAvant', $DonneesInjectees);
+            }
+          
           }
-          else //Sinon (la fonction renvoie FALSE).
+          else
           {
             $DonneesInjectees["Upload"]="Failed";
             $this->load->view('templates/Entete');
             $this->load->view('Administrateur/ImageAvant', $DonneesInjectees);
           }
+          
         }
       }
       else

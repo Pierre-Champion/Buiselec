@@ -9,12 +9,12 @@
 <tr><td>Statut :</td><td><?php if($Client["STATUT"]==0){ echo "Locataire"; } elseif($Client["STATUT"]==1) { echo "Propriétaire"; } ?></td></tr>
 </table>
 <br/>
-<table>
+<table class="Liste">
 <tr><th>Chantiers du client</th></tr>
 <?php 
 foreach ($Chantiers as $key => $UnChantier) 
 {
-    echo "<tr><td>".anchor('administrateur/DetailsChantier/'.$UnChantier["NOCHANTIER"], 'Chantier "'.$UnChantier["NOM"].'"')."</td></tr>";
+    echo "<tr><td>".anchor('administrateur/DetailsChantier/'.$UnChantier["NOCHANTIER"], '"'.$UnChantier["NOM"].'"')."</td></tr>";
 }
 ?>
 </table>

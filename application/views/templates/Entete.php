@@ -24,9 +24,14 @@ else
 {
 ?>
 <div onclick="document.getElementById('id02').style.display='block'" class="Buiselec-Button">Deconnexion</div>
+<?php
+if($this->session->Profil==0)
+{
+?>
 <a class="Buiselec-Button" href="<?php echo site_url('visiteur/VosChantiers') ?>">Vos Chantiers</a>
 
 <?php
+}
 }
 if($this->session->Profil!=1 && $this->session->Profil!=2)
 {?>
