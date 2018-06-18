@@ -26,11 +26,14 @@ if ( ! function_exists('img_url'))
 
 if ( ! function_exists('img'))
 {
-  function img($nom, $alt = '', $array)
+  function img($nom, $alt = '', $array = null)
   {
     $balise='<img src="' . img_url($nom) . '" alt="' . $alt . '" ';
-    foreach ($array as $key => $value) {
-      $balise.= $key . '="' . $value . '" ';
+    if($array)
+    {
+      foreach ($array as $key => $value) {
+        $balise.= $key . '="' . $value . '" ';
+      }
     }
     $balise.='/>';
     return $balise;
