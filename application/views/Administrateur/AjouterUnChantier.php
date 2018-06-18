@@ -4,8 +4,7 @@
 
 <?php
 echo form_open('Administrateur/AjouterUnChantier');
-echo 
-form_hidden('Noclient', $Client['NOCLIENT']);
+echo form_hidden('Noclient', $Client['NOCLIENT']);
 
 
 echo form_label("Nom du chantier : ", 'lbltNom');
