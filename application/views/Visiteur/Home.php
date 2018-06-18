@@ -1,3 +1,5 @@
+<?php echo img("Panneau.png"); ?>
+<h1> SITE EN CONSTRUCTION !!!!!</h1>
 
 <div class="container">
   <h2>Nos chantiers</h2>  

@@ -231,7 +231,7 @@ class Administrateur extends CI_Controller
       $this->load->view('templates/Entete');
       $this->load->view('Administrateur/Chantiers', $DonneesInjectees);
     }
-    public function DetailsChantier($NoChantier)
+    public function DetailsChantier($NoChantier=null)
     {
       $DonneesInjectees['TitreDeLaPage'] = 'Détails du chantier';
       $DonneesInjectees['Chantier']=$this->ModeleChantier->RecupererUnChantier($NoChantier);
@@ -291,11 +291,11 @@ class Administrateur extends CI_Controller
       }
     } // ajouterUnChantier
 
-    public function ModifierUnChantier()
+    public function ModifierUnChantier($NoChantier=null)
     {
       $this->load->helper('form');
       $DonneesInjectees['TitreDeLaPage'] = 'Modifier un Chantier';
-      $DonneesInjectees['lesChantiers'] = $this->ModeleChantier->RecupererLesChantiers();
+      $DonneesInjectees['Chantier'] = $this->ModeleChantier->RecupererUnChantier($NoChantier);
       $DonneesInjectees['lesCategories'] = $this->ModeleChantier->RecupererLesCategories();
       $DonneesInjectees['Pieces']=array
         (
@@ -322,12 +322,31 @@ class Administrateur extends CI_Controller
         );
         $id = $this->input->post('NoChantier');
         $this->ModeleChantier->ModifierUnChantier($donneesAInserer, $id);// appel du modèle
-        $this->load->helper('url'); // helper chargé pour utilisation de site_url (dans la vue)
-        $this->load->view('templates/Entete');
-        $this->load->view('Administrateur/InsertionReussie');
+        
+        redirect('administrateur/detailschantier/'.$NoChantier);
+        
       }
       else
       {
+        if(isset($NoChantier) && is_string($NoChantier))
+        {
+          $DonneesInjectees['Chantier'] = $this->ModeleChantier->RecupererUnChantier($NoChantier);
+          $DonneesInjectees['lesCategories'] = $this->ModeleChantier->RecupererLesCategories();
+          $DonneesInjectees['Pieces']=array
+        (
+          "Salon" => "Salon",
+          "Salle à manger" => "Salle à manger",
+          "Cuisine" => "Cuisine",
+          "Salle de bain" => "Salle de bain",
+          "Extérieur" => "Extérieur",
+          "Cave / Garage / Grenier" => "Cave / Garage / Grenier",
+          "Chambre" => "Chambre"
+        );
+        }
+        else
+        {
+          redirect("Administrateur/Chantiers");
+        }
         $this->load->view('templates/Entete');
         $this->load->view('Administrateur/ModifierUnChantier', $DonneesInjectees);
         $this->load->view('templates/PiedDePage');

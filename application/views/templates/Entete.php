@@ -44,7 +44,6 @@ if (isset($this->session->Profil) && $this->session->Profil==2)
 <a class="Buiselec-Button" href="<?php echo site_url('Administrateur/Clients') ?>">Liste des clients</a>
 <a class="Buiselec-Button" href="<?php echo site_url('Administrateur/Personnel') ?>">Liste du personnel</a>
 <a class="Buiselec-Button" href="<?php echo site_url('Administrateur/Chantiers') ?>">Liste des chantiers</a>
-<a class="Buiselec-Button" href="<?php echo site_url('Administrateur/ModifierUnChantier') ?>">Modifier chantier</a>
 <a class="Buiselec-Button" href="<?php echo site_url('Administrateur/ModifierUnClient') ?>">Modifier client</a>
 <a class="Buiselec-Button" href="<?php echo site_url('Administrateur/ModifierUnPersonnel') ?>">Modifier Personnel</a>
 <!--<a class="Buiselec-Button" href="<//?php echo site_url('Administrateur/ModifierUnChantier') ?>">Modifier un chantier</a>
