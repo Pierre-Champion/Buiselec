@@ -19,9 +19,9 @@
                     echo "<td>Administrateur</td>";
                 }
             }
-            elseif($key=="NOCLIENT")
+            elseif($key=="NOPERSONNEL")
             {
-                
+                echo "<td>".anchor('administrateur/DetailsPersonnel/'.$value, 'Détails du Personnel')."</td>";
             }
             elseif($key!="MDP")
             {

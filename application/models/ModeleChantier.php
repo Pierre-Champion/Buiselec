@@ -53,6 +53,11 @@ class ModeleChantier extends CI_Model
      {
          return $this->db->get_where('CHANTIER', array("NOCLIENT"=>$NoClient))->result_array();
      }
+     public function RecupererLesChantiersDUnPersonnel($NoPersonnel)
+     {
+         return $this->db->get_where('PARTICIPE', array("NOPERSONNEL"=>$NoPersonnel))->result_array();
+     }
+
     public function RecupererUnChantier($NoChantier)
      {
          return $this->db->get_where('CHANTIER', array("NOCHANTIER"=>$NoChantier))->row_array();
