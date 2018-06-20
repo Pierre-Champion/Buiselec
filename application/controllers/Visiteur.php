@@ -190,8 +190,9 @@ class Visiteur extends CI_Controller
       $this->load->view('templates/Entete');
       $this->load->view('Visiteur/DetailsChantier', $DonneesInjectees);
     }
-   public function Image() {
-    $DonneesInjectees['TitreDeLaPage'] = "Image";
+   public function Galerie() {
+    $DonneesInjectees['TitreDeLaPage'] = "Galerie";
+    $DonneesInjectees['Chantiers'] = $this->ModeleChantier->GetChantiersPublics();
     $this->load->view('templates/Entete');
     $this->load->view("Visiteur/Image", $DonneesInjectees);
    }// Image

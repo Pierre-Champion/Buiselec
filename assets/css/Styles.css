@@ -10,29 +10,64 @@
     padding-left: 5%;
     font-size: 25px;
 }
-.ImageAvant
+.AvantApres
 {
     position: absolute;
-    top: 0%;
-    left: 0px;
-    bottom: 0%;
-    height: 100%;
-    width: 50%;
+    left: 12.5%;
+    border-collapse: collapse;
+    width: 75%;
 }
-.ImageAprès
+.AvantApres tr
 {
-    position: absolute;
-    top: 0%;
-    right: -300px;
-    bottom: 0%;
-    height: 100%;
-    width: 50%;
+    border-bottom: 3px solid grey
 }
-.Images
+.AvantApres tr:last-child
 {
-    padding-right: 0%;
-    height: 270px;
-    width: 970px;
+    border-bottom: none
+}
+.AvantApres td, .AvantApres th
+{
+    width: 50%;
+    padding: 15px;
+    background-color: rgb(230, 230, 230);
+}
+.AvantApres th
+{
+    border: 1px solid grey;
+    text-align: center;
+    background-color: white;
+}
+.AvantApres th:first-child
+{
+    border-right: 1px solid black
+}
+.AvantApres th:last-child
+{
+    border-left: 1px solid black
+}
+.AvantApres td:first-child
+{
+    border-right: 1px solid black
+}
+.AvantApres td:last-child
+{
+    border-left: 1px solid black
+}
+.AvantApres img
+{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: 350px;
+}
+.Pub
+{
+    max-width: 350px;
+}
+.Pub img
+{
+    width: 100%;
+    max-height: 350px;
 }
 .Page
 {
@@ -40,7 +75,11 @@
 }
 .Liste
 {
-    border-collapse: collapse
+    border-collapse: collapse;
+}
+.Liste img
+{
+    height: 350px;
 }
 .Liste td, .Liste th
 {

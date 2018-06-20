@@ -14,7 +14,7 @@
 
 <div class="Entete">
 <a class="Buiselec-Button" href="<?php echo site_url('visiteur/Home') ?>">Page d'acceuil<?php if (isset($this->session->Profil) && ($this->session->Profil==1 || $this->session->Profil==2)) echo " des clients";?></a>
-<a class="Buiselec-Button" href="<?php echo site_url('visiteur/Image') ?>">Image</a>
+<a class="Buiselec-Button" href="<?php echo site_url('visiteur/Galerie') ?>">Galerie</a>
 <?php if (!isset($this->session->Profil))
 {?>
 <div onclick="document.getElementById('id01').style.display='block'" class="Buiselec-Button">Connexion / Inscription</div>

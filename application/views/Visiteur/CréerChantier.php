@@ -49,6 +49,10 @@ echo form_input('CPClient',$this->session->Client["CP"],array('pattern' =>'^[0-9
 echo form_label("Ville : ", 'lbltAdresse');
 echo form_input('VilleClient',$this->session->Client["VILLE"],array('pattern' =>'^[A-Z][a-zA-Z \-]{3,24}$','required'=>'required')).'<BR>';
 
+echo form_label("Êtes vous d'accord pour afficher les images de votre chantier sur la page principale et la galerie?", 'lbltAccord').'<BR>';
+echo form_radio('AccordImage',"0", 'checked').'Non<BR>';
+echo form_radio('AccordImage',"1", '').'Oui<BR>';
+
 
 echo form_submit('boutonAjouterChantier', 'Ajouter Un chantier').'<BR>';
 echo form_close();

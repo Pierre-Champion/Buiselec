@@ -1,7 +1,7 @@
 <?php echo img("Panneau.png"); ?>
 <h1> SITE EN CONSTRUCTION !!!!!</h1>
 
-<div class="container">
+<div class="container Pub">
   <h2>Nos chantiers</h2>  
   <div id="myCarousel" class="carousel slide" data-ride="carousel">
     <!-- Indicators -->
@@ -34,15 +34,16 @@
       {
         if($i==0)
         {
-          echo '<div class="item active Images">';
+          echo '<div class="item active">';
+          echo img($value['IMAGEAPRES'], 'Après', array('class'=>'ImageApres'));
+          echo '</div>';
         }
         else
         {
-          echo '<div class="item Images">';
+          echo '<div class="item">';
+          echo img($value['IMAGEAPRES'], 'Après', array('class'=>'ImageApres'));
+          echo '</div>';
         }
-        echo img($value['IMAGEAVANT'], 'Avant', array('class'=>'ImageAvant'));
-        echo img($value['IMAGEAPRES'], 'Après', array('class'=>'ImageApres'));
-        echo '</div>';
         $i+=1;
       }
     }
