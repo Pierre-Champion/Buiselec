@@ -28,13 +28,64 @@ if($Chantier["IMAGEAVANT"]!=null)
 ?>
     <tr><td>Image avant :</td><td><?php echo img($Chantier["IMAGEAVANT"]); ?></td></tr>
 <?php 
-}
 if($Chantier["IMAGEAPRES"]!=null)
 {
 ?>
     <tr><td>Image après :</td><td><?php echo img($Chantier["IMAGEAPRES"]); ?></td></tr>
 <?php
 }
+else
+{
+    echo '<tr><td>Image avant :</td><td>'.'<form method="POST" action="'.base_url().'index.php/administrateur/AjouterImageApres/'.$Chantier["NOCHANTIER"].'" enctype="multipart/form-data">
+    <!-- On limite le fichier à 100Ko -->';
+    //<input type="hidden" name="MAX_FILE_SIZE" value="10000000">';
+    if(isset($this->session->Upload))
+    {
+        switch ($this->session->Upload) {
+            case 'Failed':
+                echo "<div class='echec'>Echec de l'upload de l'image.</div>";
+                break;
+            case 'FlawedType':
+                echo "<div class='echec'>Le type de l'image est incorrect.</div>";
+                break;
+            case 'Error':
+                echo "<div class='echec'>Une erreur est survenue!</div>";
+                break;
+            default:
+                break;
+    }
+    }
+    echo 'Fichier : <input type="file" name="ImageApres" required>
+    <input type="submit" name="boutonModification" value="Envoyer le fichier">
+    </form>'.'</td></tr>';
+}
+}
+else
+{
+    echo '<tr><td>Image avant :</td><td>'.'<form method="POST" action="'.base_url().'index.php/administrateur/AjouterImageAvant/'.$Chantier["NOCHANTIER"].'" enctype="multipart/form-data">
+    <!-- On limite le fichier à 100Ko -->';
+    //<input type="hidden" name="MAX_FILE_SIZE" value="10000000">';
+    if(isset($this->session->Upload))
+    {
+        switch ($this->session->Upload) {
+            case 'Failed':
+                echo "<div class='echec'>Echec de l'upload de l'image.</div>";
+                break;
+            case 'FlawedType':
+                echo "<div class='echec'>Le type de l'image est incorrect.</div>";
+                break;
+            case 'Error':
+                echo "<div class='echec'>Une erreur est survenue!</div>";
+                break;
+            default:
+                break;
+    }
+    }
+    echo 'Fichier : <input type="file" name="ImageAvant" required>
+    <input type="submit" name="boutonModification" value="Envoyer le fichier">
+    </form>'.'</td></tr>';
+}
+$this->session->Upload="";
 ?>
 <tr><td>Profil :</td><td><?php if($Chantier["ACCORD"]==0){ echo "Privé"; }elseif($Chantier["ACCORD"]==1){ echo "Public"; } ?></td></tr>
 </table>

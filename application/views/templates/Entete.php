@@ -61,7 +61,7 @@ if (isset($this->session->Profil) && $this->session->Profil==2)
 
   <div id="id01" class="w3-modal">
       <?php
-      if($this->session->Connexion=="Echec")
+      if($this->session->Connexion=="Echec" || $this->session->Inscription=="MailExistant")
       {
         echo "<script> document.getElementById('id01').style.display='block' </script>";
       }
@@ -103,32 +103,45 @@ if (isset($this->session->Profil) && $this->session->Profil==2)
             
             echo form_open('Visiteur/Inscription');
             echo form_label("Nom : ", 'lbltNom').'<BR>';
-            echo form_input('NomClient','',array('pattern' =>'^[a-zA-Z]{3,24}$','required'=>'required')).'<BR>';
+            echo form_input('NomClient',$this->session->DonneesInscription['NOM'],array('pattern' =>'^[a-zA-Z]{3,24}$','required'=>'required')).'<BR>';
 
             echo form_label("Prenom : ", 'lbltPrenom').'<BR>';
-            echo form_input('PrenomClient','',array('pattern' =>'^[a-zA-Z]{3,24}$','required'=>'required')).'<BR>';
+            echo form_input('PrenomClient',$this->session->DonneesInscription['PRENOM'],array('pattern' =>'^[a-zA-Z]{3,24}$','required'=>'required')).'<BR>';
 
             echo form_label("Email : ", 'lbltEmail').'<BR>';
-            echo form_input('MailClient','',array('pattern' =>'^[a-zA-Z0-9\-_]+[a-zA-Z0-9\.\-_]*@[a-zA-Z0-9\-_]+\.[a-zA-Z\.\-_]{1,}[a-zA-Z\-_]+','required'=>'required')).'<BR>';
+            echo form_input('MailClient',$this->session->DonneesInscription['MAIL'],array('pattern' =>'^[a-zA-Z0-9\-_]+[a-zA-Z0-9\.\-_]*@[a-zA-Z0-9\-_]+\.[a-zA-Z\.\-_]{1,}[a-zA-Z\-_]+','required'=>'required')).'<BR>';
   
+            if($this->session->Inscription=="MailExistant")
+            {
+                echo "<div class='echec'>Mail déja utilisé.</div>";
+            }
+            
             echo form_label("Mot de passe : ", 'lbltMDP').'<BR>';
-            echo form_password('MdpClient','',array('required'=>'required')).'<BR>';
+            echo form_password('MdpClient',$this->session->DonneesInscription['MDP'],array('required'=>'required')).'<BR>';
 
             echo form_label("Telephone : ", 'lbltTel').'<BR>';
-            echo form_input('TelClient','',array('pattern' =>'^([0-9]{10,10}|\+[0-9]{11})$')).'<BR>';
+            echo form_input('TelClient',$this->session->DonneesInscription['TELEPHONE'],array('pattern' =>'^[0-9]{10,10}$')).'<BR>';
 
             echo form_label("Adresse : ", 'lbltAdresse').'<BR>';
-            echo form_input('AdresseClient','',array('required'=>'required')).'<BR>';
+            echo form_input('AdresseClient',$this->session->DonneesInscription['ADRESSE'],array('required'=>'required')).'<BR>';
 
             echo form_label("Code Postale : ", 'lbltCP').'<BR>';
-            echo form_input('CPClient','',array('pattern' =>'^[0-9]{5,5}$','required'=>'required')).'<BR>';
+            echo form_input('CPClient',$this->session->DonneesInscription['CP'],array('pattern' =>'^[0-9]{5,5}$','required'=>'required')).'<BR>';
 
-            echo form_label("Ville : ", 'lbltAdresse').'<BR>';
-            echo form_input('VilleClient','',array('pattern' =>'^[a-zA-Z\-]{3,24}$','required'=>'required')).'<BR><BR>';
+            echo form_label("Ville : ", 'lbltVille').'<BR>';
+            echo form_input('VilleClient',$this->session->DonneesInscription['VILLE'],array('pattern' =>'^[a-zA-Z\-]{3,24}$','required'=>'required')).'<BR><BR>';
 
             echo form_label("Etes-vous : ", 'lbltStatut').'<BR>';
-            echo form_radio('StatutClient','1', "checked", 'required').'Propriétaire<BR><BR>';
-            echo form_radio('StatutClient','0', "", 'required').'Locataire<BR><BR>';
+            if(isset($this->session->DonneesInscription['STATUT']) && $this->session->DonneesInscription['STATUT']=="0")
+            {
+              echo form_radio('StatutClient','1', "", 'required').'Propriétaire<BR><BR>';
+              echo form_radio('StatutClient','0', "checked", 'required').'Locataire<BR><BR>';
+            }
+            else
+            {
+              echo form_radio('StatutClient','1', "checked", 'required').'Propriétaire<BR><BR>';
+              echo form_radio('StatutClient','0', "", 'required').'Locataire<BR><BR>';
+            }
             ?>
             <table class="consent">
                 <tr>
@@ -147,6 +160,7 @@ if (isset($this->session->Profil) && $this->session->Profil==2)
             <?php
             echo form_submit('boutonInscription', 'Inscription').'<BR>';
             echo form_close();
+            $this->session->Inscription="";
         ?>
             </td>
         </tr>

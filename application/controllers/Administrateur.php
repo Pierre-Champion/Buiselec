@@ -377,43 +377,102 @@ class Administrateur extends CI_Controller
 
     public function AjouterImageAvant($NoChantier)
     {
+      ini_set('upload_max_filesize', '10M');
+      ini_set('post_max_size', '10M');
+      ini_set('max_input_time', 300);
+      ini_set('max_execution_time', 300);
       $this->load->helper('form');
-      $DonneesInjectees['TitreDeLaPage'] = 'Ajouter l\'image avant';
-      If ($this->input->post('boutonModification'))
+      $DonneesInjectees['NoChantier'] = $NoChantier;
+      if ($this->input->post('boutonModification'))
       {
-        if(isset($_FILES['avatar']))
-        { 
-          $dossier = "C:/xampp/htdocs/buiselec/assets/images/";
-          $fichier = basename($_FILES['avatar']['name']);
-          if (strpos($fichier, ".png") !== FALSE || strpos($fichier, ".jpg") !== FALSE || strpos($fichier, ".jpeg") !== FALSE) {
-            if(move_uploaded_file($_FILES['avatar']['tmp_name'], $dossier . $fichier)) //Si la fonction renvoie TRUE, c'est que ça a fonctionné...
+        if(isset($_FILES['ImageAvant']))
+        {
+          $dossier = "C:\\xampp\htdocs\Buiselec\assets\images\\";
+          $_FILES['ImageAvant']['name']=$_FILES['ImageAvant']['name'] = str_replace(' ', '_', $_FILES['ImageAvant']['name']);
+          $fichier = basename($_FILES['ImageApres']['name']);
+          /*if (strpos($fichier, ".png") !== FALSE || strpos($fichier, ".jpg") !== FALSE || strpos($fichier, ".jpeg") !== FALSE)
+          {*/
+            $i=1;
+            do
             {
-              $DonneesInjectees["Upload"]="Done";
-              $this->ModeleChantier->AjouterImageAvant(array("IMAGEAVANT"=>$fichier), $NoChantier);
-              $this->load->view('templates/Entete');
-              $this->load->view('Administrateur/ImageAvant', $DonneesInjectees);
+              if(file_exists($dossier . $fichier))
+              {
+                $fichier=str_replace('.jpg', "(".strval($i).").jpg", $_FILES['ImageAvant']['name']);
+                $fichier=str_replace('.jpeg', "(".strval($i).").jpeg", $_FILES['ImageAvant']['name']);
+                $fichier=str_replace('.png', "(".strval($i).").png", $_FILES['ImageAvant']['name']);
+              }
+              if(move_uploaded_file($_FILES['ImageAvant']['tmp_name'], $dossier . $fichier)) //Si la fonction renvoie TRUE, c'est que ça a fonctionné...
+              {
+                $this->session->Upload="Done";
+                $this->ModeleChantier->AjouterImage(array("IMAGEAVANT"=>$fichier), $NoChantier);
+                redirect('administrateur/detailschantier/'.$NoChantier);
+              }
+              $i+=1;
             }
-            else //Sinon (la fonction renvoie FALSE).
-            {
-              $DonneesInjectees["Upload"]="Failed";
-              $this->load->view('templates/Entete');
-              $this->load->view('Administrateur/ImageAvant', $DonneesInjectees);
-            }
-          
-          }
+            while(file_exists($dossier . $fichier));
+            $this->session->Upload="Failed";
+            redirect('administrateur/detailschantier/'.$NoChantier);        
+          /*}
           else
           {
-            $DonneesInjectees["Upload"]="Failed";
-            $this->load->view('templates/Entete');
-            $this->load->view('Administrateur/ImageAvant', $DonneesInjectees);
-          }
-          
+            $this->session->Upload="FlawedType";
+            redirect('administrateur/detailschantier/'.$NoChantier);
+          }*/
         }
       }
       else
       {
-        $this->load->view('templates/Entete');
-        $this->load->view('Administrateur/ImageAvant', $DonneesInjectees);
+        $this->session->Upload="Error";
+        redirect('administrateur/detailschantier/'.$NoChantier);
+      }
+    }
+    public function AjouterImageApres($NoChantier)
+    {
+      ini_set('upload_max_filesize', '10M');
+      ini_set('post_max_size', '10M');
+      ini_set('max_input_time', 300);
+      ini_set('max_execution_time', 300);
+      $this->load->helper('form');
+      $DonneesInjectees['NoChantier'] = $NoChantier;
+      If ($this->input->post('boutonModification'))
+      {
+        if(isset($_FILES['ImageApres']))
+        { 
+          $dossier = "C:\\xampp\htdocs\Buiselec\assets\images\\";
+          $_FILES['ImageAvant']['name']=$_FILES['ImageAvant']['name'] = str_replace(' ', '_', $_FILES['ImageAvant']['name']);
+          $fichier = basename($_FILES['ImageApres']['name']);
+          if (strpos($fichier, ".png") !== FALSE || strpos($fichier, ".jpg") !== FALSE || strpos($fichier, ".jpeg") !== FALSE)
+          {
+            $i=1;
+            do
+            {
+              if(file_exists($dossier . $fichier))
+              {
+                $fichier=basename($_FILES['ImageApres']['name'])."(".strval($i).")";
+              }
+              if(move_uploaded_file($_FILES['ImageApres']['tmp_name'], $dossier . $fichier)) //Si la fonction renvoie TRUE, c'est que ça a fonctionné...
+              {
+               $this->session->Upload="Done";
+                $this->ModeleChantier->AjouterImage(array("IMAGEAPRES"=>$fichier), $NoChantier);
+                redirect('administrateur/detailschantier/'.$NoChantier);
+              }
+              $i+=1;
+            }
+            while(file_exists($dossier . $fichier));
+            $this->session->Upload="Failed";
+            redirect('administrateur/detailschantier/'.$NoChantier);
+          }
+          else
+          {
+            $this->session->Upload="FlawedType";
+            redirect('administrateur/detailschantier/'.$NoChantier);
+          }
+        }
+      }
+      else
+      {
+        $this->session->Upload="Error";
+        redirect('administrateur/detailschantier/'.$NoChantier);
       }
     }
 }
