@@ -1,7 +1,7 @@
 <h2><?php echo $TitreDeLaPage ?></h2>
 <table class="Liste">
     <tr>
-        <th>Actions:</th><th>Nom</th><th>Prénom</th><th>Adresse mail</th><th>N° de téléphone</th><th>Statut</th>
+        <th>Actions:</th><th>Nom</th><th>Prénom</th><th>Statut</th>
     </tr>
     <?php
     foreach ($Personnel as $UnPersonnel) {
@@ -19,11 +19,11 @@
                     echo "<td>Administrateur</td>";
                 }
             }
-            elseif($key=="NOCLIENT")
+            elseif($key=="NOPERSONNEL")
             {
-                
+                echo "<td>".anchor('administrateur/DetailsPersonnel/'.$value, 'Détails du Personnel')."</td>";
             }
-            elseif($key!="MDP")
+            elseif($key=="NOM" || $key=="PRENOM")
             {
                 echo "<td>".$value."</td>";
             }

@@ -8,7 +8,7 @@
 <tr><td>Pièce :</td><td><?php echo $Chantier["PIECE"]; ?></td></tr>
 <tr><td>Détails :</td><td><?php echo $Chantier["DETAIL"] ?></td></tr>
 <tr><td>Statut :</td><td><?php if($Chantier["STATUT"]=="Attente"){ echo "Ce dossier est en attente d'envoi d'un devis."; }elseif($Chantier["STATUT"]=="Devis"){ echo "Le devis a été envoyé, en attente de la réponse du client."; }elseif($Chantier["STATUT"]=="Confirmé"){ echo "Le chantier a été confirmé."; } ?></td></tr>
-<tr><td>Adresse :</td><td><?php echo $Chantier["ADRESSE"]."&nbsp;".$Chantier["CP"]."&nbsp;".$Chantier["VILLE"]; ?></td></tr>
+<tr><td>Adresse :</td><td><?php echo $Chantier["ADRESSE"].",&nbsp;".$Chantier["CP"].",&nbsp;".$Chantier["VILLE"]; ?></td></tr>
 <tr><td>Pièce :</td><td><?php echo $Chantier["PIECE"]; ?></td></tr>
 <?php 
 if($Chantier["DATEDEBUT"]!=null)

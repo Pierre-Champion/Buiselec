@@ -67,11 +67,10 @@ class Administrateur extends CI_Controller
       }
     } // ajouterUnPersonnel
 
-    public function ModifierUnPersonnel()
+    public function ModifierUnPersonnel($nopersonnel=null)
     {
       $this->load->helper('form');
-      $DonneesInjectees['TitreDeLaPage'] = 'Modifier un Client';
-      $DonneesInjectees['LesPersonnels']=$this->ModeleUtilisateur->RecupererLePersonnel();
+      $DonneesInjectees['TitreDeLaPage'] = 'Modifier un Personnel';
 
           If ($this->input->post('boutonModificationPersonnel'))
       {
@@ -91,6 +90,14 @@ class Administrateur extends CI_Controller
       }
       else
       {
+        if(isset($nopersonnel) && is_string($nopersonnel))
+        {
+          $DonneesInjectees['Personnel']=$this->ModeleUtilisateur->RecupererUnPersonnel($nopersonnel);
+        }
+        else
+        {
+          redirect("Administrateur/Personnel");
+        }
         $this->load->view('templates/Entete');
         $this->load->view('Administrateur/ModifierUnPersonnel', $DonneesInjectees);
         $this->load->view('templates/PiedDePage');
@@ -159,11 +166,10 @@ class Administrateur extends CI_Controller
       }
     } // ajouterUnClient
 
-    public function ModifierUnCLient()
+    public function ModifierUnCLient($noclient=null)
     {
       $this->load->helper('form');
       $DonneesInjectees['TitreDeLaPage'] = 'Modifier un Client';
-      $DonneesInjectees['LesClients']=$this->ModeleUtilisateur->RecupererLesClients();
       $DonneesInjectees['Statuts']=array
         (
           "1" => "Propriétaire",
@@ -184,12 +190,18 @@ class Administrateur extends CI_Controller
         );
         $id = $this->input->post('NoClient');
         $this->ModeleUtilisateur->ModifierUnCLient($donneesAInserer, $id);// appel du modèle
-        $this->load->helper('url'); // helper chargé pour utilisation de site_url (dans la vue)
-        $this->load->view('templates/Entete');
-        $this->load->view('Administrateur/InsertionReussie');
+        redirect('Administrateur/DetailsClient/'.$id);
       }
       else
       {
+        if(isset($noclient) && is_string($noclient))
+        {
+          $DonneesInjectees['Client']=$this->ModeleUtilisateur->RecupererUnClient($noclient);
+        }
+        else
+        {
+          redirect("Administrateur/Clients");
+        }
         $this->load->view('templates/Entete');
         $this->load->view('Administrateur/ModifierUnClient', $DonneesInjectees);
         $this->load->view('templates/PiedDePage');
@@ -218,6 +230,16 @@ class Administrateur extends CI_Controller
       $this->load->view('templates/Entete');
       $this->load->view('Administrateur/Personnel', $DonneesInjectees);
     }
+
+    public function DetailsPersonnel($NoPersonnel)
+    {
+      $DonneesInjectees['TitreDeLaPage'] = 'Détails du Personnel';
+      $DonneesInjectees['Personnel']=$this->ModeleUtilisateur->RecupererUnPersonnel($NoPersonnel);
+      $DonneesInjectees['Chantiers']=$this->ModeleChantier->RecupererLesChantiersDUnPersonnel($NoPersonnel);
+      $this->load->view('templates/Entete');
+      $this->load->view('Administrateur/DetailsPersonnel', $DonneesInjectees);
+    }
+
     public function Chantiers()
     {
       $DonneesInjectees['TitreDeLaPage'] = 'Liste des chantiers';

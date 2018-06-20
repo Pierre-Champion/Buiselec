@@ -35,7 +35,14 @@ class ModeleUtilisateur extends CI_Model
 
     public function RecupererUnPersonnel($pDonneesPersonnel)
      {
-         return $this->db->get_where('PERSONNEL', $pDonneesPersonnel)->row_array();
+        if(is_array($pDonneesPersonnel))
+        {
+            return $this->db->get_where('PERSONNEL', $pDonneesPersonnel)->row_array();
+        }
+        else
+        {
+            return $this->db->get_where('PERSONNEL', array("NOPERSONNEL"=>$pDonneesPersonnel))->row_array();
+        }
      } // recupererUnPersonnel
 
      public function InsererUnClient($pDonneesAInserer)
