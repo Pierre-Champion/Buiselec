@@ -36,7 +36,7 @@ if($Chantier["IMAGEAPRES"]!=null)
 }
 else
 {
-    echo '<tr><td>Image avant :</td><td>'.'<form method="POST" action="'.base_url().'index.php/administrateur/AjouterImageAvant/'.$Chantier["NOCHANTIER"].'" enctype="multipart/form-data">
+    echo '<tr><td>Image avant :</td><td>'.'<form method="POST" action="'.base_url().'index.php/administrateur/AjouterImageApres/'.$Chantier["NOCHANTIER"].'" enctype="multipart/form-data">
     <!-- On limite le fichier à 100Ko -->';
     //<input type="hidden" name="MAX_FILE_SIZE" value="10000000">';
     if(isset($this->session->Upload))
