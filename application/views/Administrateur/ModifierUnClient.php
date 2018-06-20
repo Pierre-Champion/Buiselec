@@ -6,10 +6,10 @@ echo form_open('Administrateur/ModifierUnClient');
 echo form_hidden('NoClient', $Client['NOCLIENT']);
 
 echo form_label("Nom : ", 'lbltNom');
-echo form_input('NomClient',$Client["PRENOM"],array('pattern' =>'^[A-Z][a-zA-Z \-]{3,24}$','required'=>'required')).'<BR>';
+echo form_input('NomClient',$Client["NOM"],array('pattern' =>'^[A-Z][a-zA-Z \-]{3,24}$','required'=>'required')).'<BR>';
 
 echo form_label("Prenom : ", 'lbltPrenom');
-echo form_input('PrenomClient',$Client["NOM"],array('pattern' =>'^[A-Z][a-zA-Z \-]{3,24}$','required'=>'required')).'<BR>';
+echo form_input('PrenomClient',$Client["PRENOM"],array('pattern' =>'^[A-Z][a-zA-Z \-]{3,24}$','required'=>'required')).'<BR>';
 
 echo form_label("Email : ", 'lbltEmail');
 echo form_input('MailClient',$Client["MAIL"],array('pattern' =>'^[a-zA-Z0-9\-_]+[a-zA-Z0-9\.\-_]*@[a-zA-Z0-9\-_]+\.[a-zA-Z\.\-_]{1,}[a-zA-Z\-_]+','required'=>'required')).'<BR>';

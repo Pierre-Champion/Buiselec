@@ -67,11 +67,10 @@ class Administrateur extends CI_Controller
       }
     } // ajouterUnPersonnel
 
-    public function ModifierUnPersonnel()
+    public function ModifierUnPersonnel($nopersonnel=null)
     {
       $this->load->helper('form');
       $DonneesInjectees['TitreDeLaPage'] = 'Modifier un Personnel';
-      $DonneesInjectees['LesPersonnels']=$this->ModeleUtilisateur->RecupererLePersonnel();
 
           If ($this->input->post('boutonModificationPersonnel'))
       {
@@ -91,6 +90,14 @@ class Administrateur extends CI_Controller
       }
       else
       {
+        if(isset($nopersonnel) && is_string($nopersonnel))
+        {
+          $DonneesInjectees['Personnel']=$this->ModeleUtilisateur->RecupererUnPersonnel($nopersonnel);
+        }
+        else
+        {
+          redirect("Administrateur/Personnel");
+        }
         $this->load->view('templates/Entete');
         $this->load->view('Administrateur/ModifierUnPersonnel', $DonneesInjectees);
         $this->load->view('templates/PiedDePage');

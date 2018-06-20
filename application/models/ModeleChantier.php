@@ -16,6 +16,7 @@ class ModeleChantier extends CI_Model
         $requete = $this->db->get('CATEGORIE');
         return $requete->result_array();
      } // récupérerLesCatégories
+     
     public function RecupererUneCategorie($NoCategorie)
      {
         $requete = $this->db->get_where('CATEGORIE', array("NOCATEGORIE"=>$NoCategorie));
@@ -26,6 +27,7 @@ class ModeleChantier extends CI_Model
         $requete = $this->db->get('CHANTIER');
         return $requete->result_array();
      } // récupérerLesCatégories
+
     public function GetChantiersPublics()
      {
         $this->db->order_by("NOCHANTIER", "desc");

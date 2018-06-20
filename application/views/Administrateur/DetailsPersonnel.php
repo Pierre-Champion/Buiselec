@@ -13,7 +13,7 @@
 <?php 
 foreach ($Chantiers as $key => $UnChantier) 
 {
-    echo "<tr><td>".anchor('administrateur/DetailsChantier/'.$UnChantier["NOCHANTIER"], '"'.$UnChantier["NOM"].'"')."</td></tr>";
+    echo "<tr><td>".anchor('administrateur/DetailsChantier/'.$UnChantier["NOCHANTIER"], '"'.$UnChantier["HORAIRE"].'"')."</td></tr>";
 }
 ?>
 </table>
