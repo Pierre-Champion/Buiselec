@@ -163,3 +163,14 @@
     text-decoration: underline;
     padding-bottom: 25px;
 }
+.sharer
+{
+    position: relative; 
+   }
+
+#Youtube
+{
+    position: relative;
+    left: 65px;
+    bottom: 65px;
+}
