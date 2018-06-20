@@ -9,15 +9,18 @@
     <?php
     $i=0;
     foreach ($Chantiers as $value) {
-      if($i==0)
+      if($value['IMAGEAVANT'] && $value['IMAGEAPRES'])
       {
-        echo '<li data-target="#myCarousel" data-slide-to="' . $i . '" class="active inverted"></li>';
+        if($i==0)
+        {
+          echo '<li data-target="#myCarousel" data-slide-to="' . $i . '" class="active"></li>';
+        }
+        else
+        {
+          echo '<li data-target="#myCarousel" data-slide-to="' . $i . '"></li>';
+        }
+        $i+=1;
       }
-      else
-      {
-        echo '<li data-target="#myCarousel" data-slide-to="' . $i . '" class="inverted"></li>';
-      }
-      $i+=1;
     }
     ?>
     </ol>
@@ -27,18 +30,21 @@
     <?php
     $i=0;
     foreach ($Chantiers as $value) {
-      if($i==0)
+      if($value['IMAGEAVANT'] && $value['IMAGEAPRES'])
       {
-        echo '<div class="item active Images">';
+        if($i==0)
+        {
+          echo '<div class="item active Images">';
+        }
+        else
+        {
+          echo '<div class="item Images">';
+        }
+        echo img($value['IMAGEAVANT'], 'Avant', array('class'=>'ImageAvant'));
+        echo img($value['IMAGEAPRES'], 'Après', array('class'=>'ImageApres'));
+        echo '</div>';
+        $i+=1;
       }
-      else
-      {
-        echo '<div class="item Images">';
-      }
-      echo img($value['IMAGEAVANT'], 'Avant', array('class'=>'ImageAvant'));
-      echo img($value['IMAGEAPRES'], 'Après', array('class'=>'ImageApres'));
-      echo '</div>';
-      $i+=1;
     }
     ?>
     </div>

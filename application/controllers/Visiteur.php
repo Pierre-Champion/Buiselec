@@ -45,14 +45,23 @@ class Visiteur extends CI_Controller
           'VILLE' => $this->input->post('VilleClient'),
           'STATUT' => $this->input->post('StatutClient'),
         );
-        $this->ModeleUtilisateur->InsererUnClient($donneesAInserer); // appel du modèle
-        
-        $this->session->DonneesConnexion=array(
-            'MAIL' => $this->input->post('MailClient'),
-            'MDP' => $MDP,
-        );
-        redirect('Visiteur/SeConnecter');
-        
+        if ($this->ModeleUtilisateur->RecupererUnClient(array('MAIL' => $this->input->post('MailClient')))==null)
+        {
+            
+            $this->session->Inscription="MailNonExistant";
+            $this->ModeleUtilisateur->InsererUnClient($donneesAInserer); // appel du modèle
+            $this->session->DonneesConnexion=array(
+                'MAIL' => $this->input->post('MailClient'),
+                'MDP' => $this->input->post('MdpClient'),
+            );
+            redirect('Visiteur/SeConnecter');
+        }
+        else
+        {
+            $this->session->DonneesInscription=$donneesAInserer;
+            $this->session->Inscription="MailExistant";
+            redirect("Visiteur/Home");
+        }
     }// Inscription
     public function personnel()
     {

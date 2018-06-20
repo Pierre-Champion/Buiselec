@@ -38,7 +38,7 @@ class ModeleChantier extends CI_Model
         return $this->db->update('CHANTIER', $pDonneesAInserer);
      } // modifierUnChantier
 
-     public function AjouterImageAvant($pDonneesAInserer, $id)
+     public function AjouterImage($pDonneesAInserer, $id)
      {
         $this->db->where('NOCHANTIER', $id);
         return $this->db->update('CHANTIER', $pDonneesAInserer);
