@@ -125,7 +125,20 @@ class Visiteur extends CI_Controller
         }
     
    }// Connexion
-
+   public function ChantierConfirme($NoChantier)
+   {
+     $this->ModeleChantier->ModifierUnChantier(array("STATUT"=>"Confirmé"), $NoChantier);
+     
+     redirect('visiteur/detailschantier/'.$NoChantier);
+     
+   }
+   public function ChantierAnnule($NoChantier)
+   {
+     $this->ModeleChantier->ModifierUnChantier(array("STATUT"=>"Annulé"), $NoChantier);
+     
+     redirect('visiteur/detailschantier/'.$NoChantier);
+     
+   }
    public function CreerChantier()
    {
     $DonneesInjectees['TitreDeLaPage'] = "Créer un chantier";

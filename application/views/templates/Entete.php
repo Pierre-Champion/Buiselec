@@ -67,7 +67,7 @@ if (isset($this->session->Profil) && $this->session->Profil==2)
       }
       ?>
     <div class="w3-modal-content w3-animate-top w3-card-4">
-      <header class="w3-container"> 
+      <header class="w3-container w3-black"> 
         <span class="close" onclick="document.getElementById('id01').style.display='none'" 
           class="w3-button w3-display-topright">&times;</span>
         <h2>Connexion / Inscription</h2>

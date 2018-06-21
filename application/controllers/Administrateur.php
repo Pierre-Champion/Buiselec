@@ -312,7 +312,27 @@ class Administrateur extends CI_Controller
         $this->load->view('Administrateur/AjouterUnChantier', $DonneesInjectees);
       }
     } // ajouterUnChantier
-
+    public function DevisEnvoye($NoChantier)
+    {
+      $this->ModeleChantier->ModifierUnChantier(array("STATUT"=>"Devis"), $NoChantier);
+      
+      redirect('administrateur/detailschantier/'.$NoChantier);
+      
+    }
+    public function ChantierConfirme($NoChantier)
+    {
+      $this->ModeleChantier->ModifierUnChantier(array("STATUT"=>"Confirmé"), $NoChantier);
+      
+      redirect('administrateur/detailschantier/'.$NoChantier);
+      
+    }
+    public function ChantierAnnule($NoChantier)
+    {
+      $this->ModeleChantier->ModifierUnChantier(array("STATUT"=>"Annulé"), $NoChantier);
+      
+      redirect('administrateur/detailschantier/'.$NoChantier);
+      
+    }
     public function ModifierUnChantier($NoChantier=null)
     {
       $this->load->helper('form');
@@ -404,7 +424,7 @@ class Administrateur extends CI_Controller
               if(move_uploaded_file($_FILES['ImageAvant']['tmp_name'], $dossier . $fichier)) //Si la fonction renvoie TRUE, c'est que ça a fonctionné...
               {
                 $this->session->Upload="Done";
-                $this->ModeleChantier->AjouterImage(array("IMAGEAVANT"=>$fichier), $NoChantier);
+                $this->ModeleChantier->ModifierUnChantier(array("IMAGEAVANT"=>$fichier), $NoChantier);
                 redirect('administrateur/detailschantier/'.$NoChantier);
               }
               $i+=1;
@@ -453,7 +473,7 @@ class Administrateur extends CI_Controller
               if(move_uploaded_file($_FILES['ImageApres']['tmp_name'], $dossier . $fichier)) //Si la fonction renvoie TRUE, c'est que ça a fonctionné...
               {
                $this->session->Upload="Done";
-                $this->ModeleChantier->AjouterImage(array("IMAGEAPRES"=>$fichier), $NoChantier);
+                $this->ModeleChantier->ModifierUnChantier(array("IMAGEAPRES"=>$fichier), $NoChantier);
                 redirect('administrateur/detailschantier/'.$NoChantier);
               }
               $i+=1;

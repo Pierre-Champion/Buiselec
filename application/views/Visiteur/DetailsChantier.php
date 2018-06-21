@@ -5,7 +5,27 @@
 <tr><td>Type :</td><td><?php if($Chantier["TYPE"]=="0"){ echo "Rénovation"; }elseif($Chantier["TYPE"]=="1"){ echo "Neuf"; } ?></td></tr>
 <tr><td>Pièce :</td><td><?php echo $Chantier["PIECE"]; ?></td></tr>
 <tr><td>Détails :</td><td><?php echo $Chantier["DETAIL"] ?></td></tr>
-<tr><td>Statut :</td><td><?php if($Chantier["STATUT"]=="Attente"){ echo "Ce dossier est en attente d'envoi d'un devis."; }elseif($Chantier["STATUT"]=="Devis"){ echo "Le devis a été envoyé, en attente de la réponse du client."; }elseif($Chantier["STATUT"]=="Confirmé"){ echo "Le chantier a été confirmé."; } ?></td></tr>
+<tr><td>Statut :</td><td><?php 
+if($Chantier["STATUT"]=="Attente")
+{ 
+    echo "Ce dossier est en attente d'envoi d'un devis."."<br/>";
+    echo anchor('visiteur/chantierannule/'.$Chantier['NOCHANTIER'], 'Annuler le chantier');
+}
+elseif($Chantier["STATUT"]=="Devis")
+{ 
+    echo "Le devis a été envoyé, en attente de votre réponse.<br/>";
+    echo anchor('visiteur/chantierconfirme/'.$Chantier['NOCHANTIER'], 'Le client a accepté le devis.')."<br/>";
+    echo anchor('visiteur/chantierannule/'.$Chantier['NOCHANTIER'], 'Annuler le chantier');
+}
+elseif($Chantier["STATUT"]=="Confirmé")
+{ 
+    echo "Le chantier a été confirmé."; 
+}
+elseif($Chantier["STATUT"]=="Annulé")
+{
+    echo "Le chantier a été annulé.";
+}
+?></td></tr>
 <tr><td>Adresse :</td><td><?php echo $Chantier["ADRESSE"]."&nbsp;".$Chantier["CP"]."&nbsp;".$Chantier["VILLE"]; ?></td></tr>
 <tr><td>Pièce :</td><td><?php echo $Chantier["PIECE"]; ?></td></tr>
 <?php 
