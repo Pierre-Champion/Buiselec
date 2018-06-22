@@ -13,7 +13,7 @@
 </div>
 <div class="sharer">
 <div id="Facebook">
-            <iframe src="http://www.facebook.com/plugins/like.php?href=https://www.facebook.com/pages/Buiselec/134086977128833&layout=box_count&show_faces=true&width=65&action=like&font=arial&colorscheme=light&height=65" 
+            <iframe src="http://www.facebook.com/plugins/like.php?href=https://www.facebook.com/Buiselec-1905654506132370/&layout=box_count&show_faces=true&width=65&action=like&font=arial&colorscheme=light&height=65" 
             scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:65px; height:65px; margin-top:3px;" allowTransparency="true"></iframe>
 </div>
             <div id="Youtube">
