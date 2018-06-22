@@ -34,6 +34,18 @@ class ModeleChantier extends CI_Model
         $query = $this->db->get_where("CHANTIER", array("ACCORD"=>"1")); 
         return $query->result_array();
      }
+    public function RecupererLesChantiersDUnPersonnel($NoPersonnel)
+     {
+        $requete = "Select c.NOCHANTIER, NOM, STATUT, HORAIRE from CHANTIER c, PARTICIPE p where p.NOCHANTIER=c.NOCHANTIER and NOPERSONNEL = ".$NoPersonnel." order by c.NOCHANTIER desc";
+        $query=$this->db->query($requete);
+        return $query->result_array();
+     }
+    public function RecupererLesChantiersPasAssignesAPersonnel($NoPersonnel)
+     {
+        $requete = "Select * from CHANTIER where NOCHANTIER not in (select NOCHANTIER from PARTICIPE where NOPERSONNEL=$NoPersonnel) order by NOCHANTIER desc";
+        $query=$this->db->query($requete);
+        return $query->result_array();
+     }
     public function ModifierUnChantier($pDonneesAInserer, $id)
      {
         $this->db->where('NOCHANTIER', $id);
@@ -49,10 +61,10 @@ class ModeleChantier extends CI_Model
      {
          return $this->db->get_where('CHANTIER', array("NOCLIENT"=>$NoClient))->result_array();
      }
-     public function RecupererLesChantiersDUnPersonnel($NoPersonnel)
+     /*public function RecupererLesChantiersDUnPersonnel($NoPersonnel)
      {
          return $this->db->get_where('PARTICIPE', array("NOPERSONNEL"=>$NoPersonnel))->result_array();
-     }
+     }*/
 
     public function RecupererUnChantier($NoChantier)
      {

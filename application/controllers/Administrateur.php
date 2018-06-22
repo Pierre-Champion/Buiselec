@@ -239,7 +239,27 @@ class Administrateur extends CI_Controller
       $this->load->view('templates/Entete');
       $this->load->view('Administrateur/DetailsPersonnel', $DonneesInjectees);
     }
-
+    public function AssignerChantier($NoPersonnel=0, $NoChantier=0)
+    {
+      $DonneesInjectees['TitreDeLaPage'] = 'Assigner Un Chantier';
+      If ($NoChantier!=0)
+      {
+        $this->ModeleUtilisateur->AssignerChantier($NoPersonnel, $NoChantier);
+        redirect("Administrateur/DetailsPersonnel/".$NoPersonnel);
+      }
+      else
+      {
+        $DonneesInjectees['Chantiers']=$this->ModeleChantier->RecupererLesChantiersPasAssignesAPersonnel($NoPersonnel);
+        $DonneesInjectees['NoPersonnel']=$NoPersonnel;
+        $this->load->view('templates/Entete');
+        $this->load->view('Administrateur/AssignerChantier', $DonneesInjectees);
+      }
+    }
+    public function AjouterTemps($NoPersonnel, $NoChantier)
+    {
+      $this->ModeleUtilisateur->AjouterTemps($NoPersonnel, $NoChantier, $this->input->post("Heures"));
+      redirect('administrateur/detailspersonnel/'.$NoPersonnel);
+    }
     public function Chantiers()
     {
       $DonneesInjectees['TitreDeLaPage'] = 'Liste des chantiers';

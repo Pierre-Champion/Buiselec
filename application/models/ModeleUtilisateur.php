@@ -11,7 +11,7 @@ class ModeleUtilisateur extends CI_Model
         return $this->db->get('CLIENT')->result_array();
      } // récupérerLesClients
 
-     public function RecupererLePersonnel()
+    public function RecupererLePersonnel()
      {
         return $this->db->get('PERSONNEL')->result_array();
      } // récupérerLePersonnel
@@ -45,23 +45,33 @@ class ModeleUtilisateur extends CI_Model
         }
      } // recupererUnPersonnel
 
-     public function InsererUnClient($pDonneesAInserer)
+    public function InsererUnClient($pDonneesAInserer)
      {
          return $this->db->insert('CLIENT', $pDonneesAInserer);
      } // insererUneCatégorie
 
-     public function ModifierUnCLient($pDonneesAInserer, $id)
+    public function ModifierUnCLient($pDonneesAInserer, $id)
      {
         $this->db->where('NOCLIENT', $id);
         return $this->db->update('CLIENT', $pDonneesAInserer);
      } // modifierUnClient
 
-     public function ModifierUnPersonnel($pDonneesAInserer, $id)
+    public function ModifierUnPersonnel($pDonneesAInserer, $id)
      {
         $this->db->where('NOPERSONNEL', $id);
         return $this->db->update('PERSONNEL', $pDonneesAInserer);
      } // modifierUnClient
 
-
-
+    public function AssignerChantier($NoPersonnel, $NoChantier)
+     {
+        $this->db->insert('PARTICIPE', array("NOPERSONNEL"=>$NoPersonnel, "NOCHANTIER"=>$NoChantier, "HORAIRE"=>"0"));
+     }
+    public function AjouterTemps($NoPersonnel, $NoChantier, $Temps)
+     {
+        $this->db->set('HORAIRE', 'HORAIRE+'.$Temps, FALSE);
+        $this->db->where('NOCHANTIER', $NoChantier);
+        $this->db->where('NOPERSONNEL', $NoPersonnel);
+        $this->db->update('PARTICIPE');
+        return $this->db->affected_rows();
+     }
 }

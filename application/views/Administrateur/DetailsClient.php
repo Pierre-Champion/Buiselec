@@ -1,6 +1,6 @@
 <h2><?php echo $TitreDeLaPage ?></h2>
 
-<table>
+<table class="Liste">
 <tr><td>Nom :</td><td><?php echo $Client["NOM"]; ?></td></tr>
 <tr><td>Prénom :</td><td><?php echo $Client["PRENOM"]; ?></td></tr>
 <tr><td>Mail :</td><td><?php echo $Client["MAIL"]; ?></td></tr>
