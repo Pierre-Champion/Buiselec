@@ -215,7 +215,7 @@ class Visiteur extends CI_Controller
     $DonneesInjectees['Chantiers'] = $this->ModeleChantier->GetChantiersPublics();
     $this->load->view('templates/Entete');
     $this->load->view("Visiteur/Image", $DonneesInjectees);
-    $this->load->view('templates/PiedDePage');
+    //$this->load->view('templates/PiedDePage');
    }// Image
    
    public function MentionsLegales()

@@ -1,4 +1,8 @@
-
+body
+{
+    
+    background-color: rgb(75, 75, 100);
+}
 .PiedDePage
 {
     position: fixed;
@@ -72,9 +76,10 @@
 .Page
 {
     padding: 30px;
-    min-height: 75%;
+    min-height: 65%;
     border-left: 100px solid grey;
     border-right: 100px solid grey;
+    background-color: #ffffff;
     width: 100%
 }
 .footer
