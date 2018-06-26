@@ -53,6 +53,9 @@ echo form_input('CPClient',$Client["CP"],array('pattern' =>'^[0-9]{5,5}$','requi
 echo form_label("Ville : ", 'lbltAdresse');
 echo form_input('VilleClient',$Client["VILLE"],array('pattern' =>'^[A-Z][a-zA-Z \-]{3,24}$','required'=>'required')).'<BR>';
 
+echo form_label("Profil : ", 'lbltAccord').'<BR>';
+echo form_radio('AccordImage',"0", "checked").'Privé<BR>';
+echo form_radio('AccordImage',"1", "").'Public<BR>';
 
 echo form_submit('boutonAjouterChantier', 'Ajouter Un chantier').'<BR>';
 echo form_close();

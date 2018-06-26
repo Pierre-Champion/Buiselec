@@ -71,7 +71,7 @@ class Administrateur extends CI_Controller
       }
     } // ajouterUnPersonnel
 
-    public function ModifierUnPersonnel($nopersonnel=null)
+    public function ModifierUnPersonnel($NoPersonnel)
     {
       $this->load->helper('form');
       $DonneesInjectees['TitreDeLaPage'] = 'Modifier un Personnel';
@@ -86,16 +86,15 @@ class Administrateur extends CI_Controller
           'TELEPHONE' => $this->input->post('TelPersonnel'),
           'STATUT' => $this->input->post('StatutPersonnel'),
         );
-        $id = $this->input->post('NoPersonnel');
-        $this->ModeleUtilisateur->ModifierUnPersonnel($donneesAInserer, $id);// appel du modèle
+        $this->ModeleUtilisateur->ModifierUnPersonnel($donneesAInserer, $NoPersonnel);// appel du modèle
         $this->load->helper('url'); // helper chargé pour utilisation de site_url (dans la vue)
-        redirect('administrateur/detailspersonnel/'.$nopersonnel);
+        redirect('administrateur/detailspersonnel/'.$NoPersonnel);
       }
       else
       {
-        if(isset($nopersonnel) && is_string($nopersonnel))
+        if(isset($NoPersonnel) && is_string($NoPersonnel))
         {
-          $DonneesInjectees['Personnel']=$this->ModeleUtilisateur->RecupererUnPersonnel($nopersonnel);
+          $DonneesInjectees['Personnel']=$this->ModeleUtilisateur->RecupererUnPersonnel($NoPersonnel);
         }
         else
         {
