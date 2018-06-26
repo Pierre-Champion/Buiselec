@@ -30,7 +30,7 @@ if($this->session->Profil==0)
 {
 ?>
 <a class="Buiselec-Button" href="<?php echo site_url('visiteur/VosChantiers') ?>">Vos Chantiers</a>
-
+<a class="Buiselec-Button" href="<?php echo site_url('visiteur/profil/'.$this->session->Client["NOCLIENT"]) ?>">Profil</a>
 <?php
 }
 }

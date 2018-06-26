@@ -96,6 +96,79 @@ class Visiteur extends CI_Controller
             $this->load->view('templates/PiedDePage');
         }
     }
+    public function ModifierProfil($noclient=null)
+    {
+      $this->load->helper('form');
+      $DonneesInjectees['TitreDeLaPage'] = 'Modifier mon profil';
+      $DonneesInjectees['Statuts']=array
+        (
+          "1" => "Propriétaire",
+          "0" => "Locataire",
+        );
+      If ($this->input->post('boutonModificationClient'))
+      {
+        $donneesAInserer = array(
+          'NOM' => $this->input->post('NomClient'),
+          'PRENOM' => $this->input->post('PrenomClient'),
+          'MAIL' => $this->input->post('MailClient'),
+          'TELEPHONE' => $this->input->post('TelClient'),
+          'ADRESSE' => $this->input->post('AdresseClient'),
+          'CP' => $this->input->post('CPClient'),
+          'VILLE' => $this->input->post('VilleClient'),
+          'STATUT' => $this->input->post('StatutClient'),
+          
+        );
+        $id = $this->input->post('NoClient');
+        $this->ModeleUtilisateur->ModifierUnCLient($donneesAInserer, $id);// appel du modèle
+        $this->session->Modif="Reussie";
+        redirect('Visiteur/profil/'.$id);
+      }
+      else
+      {
+        $DonneesInjectees['Client']=$this->ModeleUtilisateur->RecupererUnClient($noclient);
+        $this->load->view('templates/Entete');
+        $this->load->view('Visiteur/ModifierUnClient', $DonneesInjectees);
+        $this->load->view('templates/PiedDePage');
+      }
+    } // ModificationUnCLient
+    public function ModifierMDP($NoClient)
+    {
+        $DonneesInjectees['TitreDeLaPage'] = 'Modifier mot de passe';
+        If ($this->input->post('boutonModificationMDP'))
+      {
+        $AncienMDP = array(
+          'NOCLIENT'=>$NoClient,
+          'MDP' => $this->input->post('AnciMdpClient'),
+        );
+        if($this->ModeleUtilisateur->RecupererUnCLient($AncienMDP))
+        {
+            $this->ModeleUtilisateur->ModifierUnCLient(array("MDP"=>$this->input->post('NouvMdpClient')), $NoClient);
+            $this->session->Modif="Reussie";
+            redirect('Visiteur/profil/'.$NoClient);
+        }
+        else
+        {
+            $DonneesInjectees["MDP"]="Incorrect";
+            $this->load->view('templates/Entete');
+            $this->load->view('Visiteur/ModifMDP', $DonneesInjectees);
+            $this->load->view('templates/PiedDePage');
+        }
+      }
+      else
+      {
+        $this->load->view('templates/Entete');
+        $this->load->view('Visiteur/ModifMDP', $DonneesInjectees);
+        $this->load->view('templates/PiedDePage');
+      }
+    }
+    public function Profil($NoClient)
+    {
+      $DonneesInjectees['TitreDeLaPage'] = 'Mon Profil';
+      $DonneesInjectees['Client']=$this->ModeleUtilisateur->RecupererUnClient($NoClient);
+      $this->load->view('templates/Entete');
+      $this->load->view('Visiteur/DetailsClient', $DonneesInjectees);
+      $this->load->view('templates/PiedDePage');
+    }
    public function SeConnecter() {
     if(!isset($this->session->DonneesConnexion))
     {

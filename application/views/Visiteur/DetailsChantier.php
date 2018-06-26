@@ -61,3 +61,7 @@ if($Chantier["IMAGEAPRES"]!=null)
 <tr><td>Profil :</td><td><?php if($Chantier["ACCORD"]=="0"){ echo "Privé"; }elseif($Chantier["ACCORD"]=="1"){ echo "Public"; } ?></td></tr>
 
 </table>
+
+<?php
+echo anchor('visiteur/ModifierUnChantier/'.$Chantier["NOCHANTIER"], 'Modifier le chantier'); 
+?>
