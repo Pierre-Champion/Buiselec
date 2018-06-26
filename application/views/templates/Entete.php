@@ -41,16 +41,22 @@ if($this->session->Profil!=1 && $this->session->Profil!=2)
 }
 ?>
 </div>
+
 <?php
-if (isset($this->session->Profil) && $this->session->Profil==2)
+if (isset($this->session->Profil) && ($this->session->Profil==1 || $this->session->Profil==2))
 {?>
 <div class="Admin">
 <a class="Buiselec-Button" href="<?php echo site_url('administrateur/Home') ?>">Page d'acceuil personnel</a>
+<a class="Buiselec-Button" href="<?php echo site_url('Administrateur/DetailsPersonnel/'.$this->session->personnel["NOPERSONNEL"]) ?>">Mon profil</a>
+<?php
+if ($this->session->Profil==2)
+{?>
 <a class="Buiselec-Button" href="<?php echo site_url('Administrateur/Clients') ?>">Liste des clients</a>
 <a class="Buiselec-Button" href="<?php echo site_url('Administrateur/Personnel') ?>">Liste du personnel</a>
 <a class="Buiselec-Button" href="<?php echo site_url('Administrateur/Chantiers') ?>">Liste des chantiers</a>
-<!--<a class="Buiselec-Button" href="<//?php echo site_url('Administrateur/ModifierUnChantier') ?>">Modifier un chantier</a>
-<a class="Buiselec-Button" href="<//?php echo site_url('Administrateur/AjouterUnChantier') ?>">Ajouter un chantier</a>-->
+<?php
+}
+?>
 </div>
 <?php
 }

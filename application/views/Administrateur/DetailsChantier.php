@@ -1,12 +1,12 @@
 <h2><?php echo $TitreDeLaPage ?></h2>
 
 <table class="Liste">
-<tr><td>Nom :</td><td><?php echo $Chantier["NOM"]; ?></td></tr>
-<tr><td>Client :</td><td><?php echo $Client["PRENOM"]."&nbsp;".$Client["NOM"]; ?></td></tr>
-<tr><td>Catégorie :</td><td><?php echo $Categorie; ?></td></tr>
-<tr><td>Type :</td><td><?php if($Chantier["TYPE"]=="0"){ echo "Rénovation"; }elseif($Chantier["TYPE"]=="1"){ echo "Neuf"; } ?></td></tr>
-<tr><td>Pièce :</td><td><?php echo $Chantier["PIECE"]; ?></td></tr>
-<tr><td>Détails :</td><td><?php echo $Chantier["DETAIL"] ?></td></tr>
+<tr><td>Nom :</td><td><?php echo $Chantier["NOM"]; ?></td>
+<td>Client :</td><td><?php echo anchor("administrateur/DetailsClient/".$Client["NOCLIENT"], $Client["PRENOM"]."&nbsp;".$Client["NOM"]); ?></td></tr>
+<tr><td>Catégorie :</td><td><?php echo $Categorie; ?></td>
+<td>Type :</td><td><?php if($Chantier["TYPE"]=="0"){ echo "Rénovation"; }elseif($Chantier["TYPE"]=="1"){ echo "Neuf"; } ?></td></tr>
+<tr><td>Pièce :</td><td><?php echo $Chantier["PIECE"]; ?></td>
+<td>Détails :</td><td><?php echo $Chantier["DETAIL"] ?></td></tr>
 <tr><td>Statut :</td><td><?php 
 if($Chantier["STATUT"]=="Attente")
 { 
@@ -36,29 +36,29 @@ elseif($Chantier["STATUT"]=="Terminé")
 {
     echo "Le chantier a été terminé.";
 }
-?></td></tr>
-<tr><td>Adresse :</td><td><?php echo $Chantier["ADRESSE"].",&nbsp;".$Chantier["CP"].",&nbsp;".$Chantier["VILLE"]; ?></td></tr>
-<tr><td>Pièce :</td><td><?php echo $Chantier["PIECE"]; ?></td></tr>
+?></td>
+<td>Adresse :</td><td><?php echo $Chantier["ADRESSE"].",&nbsp;".$Chantier["CP"].",&nbsp;".$Chantier["VILLE"]; ?></td></tr>
 <?php 
 if($Chantier["STATUT"]=="Confirmé"||$Chantier["STATUT"]=="Commencé"||$Chantier["STATUT"]=="Terminé")
 {
     if($Chantier["DATEDEBUT"]!=null)
     {
     ?>
-        <tr><td>Date de début :</td><td><?php echo date('d/m/Y', strtotime($Chantier["DATEDEBUT"])); ?></td></tr>
+        <tr><td>Date de début :</td><td><?php echo date('d/m/Y', strtotime($Chantier["DATEDEBUT"])); ?></td>
     <?php
         if($Chantier["DATEFIN"]!=null)
         {
         ?>
-            <tr><td>Date de fin :</td><td><?php echo date('d/m/Y', strtotime($Chantier["DATEDEBUT"])); ?></td></tr>
+            <td>Date de fin :</td><td><?php echo date('d/m/Y', strtotime($Chantier["DATEDEBUT"])); ?></td>
         <?php 
         }
-        else
+        elseif ($this->session->Profil==2)
         {
-            echo '<tr><td>Date de fin :</td><td>'.anchor("administrateur/finchantier/".$Chantier['NOCHANTIER'], "fin du chantier").'</td></tr>';
+            echo '<td>Date de fin :</td><td>'.anchor("administrateur/finchantier/".$Chantier['NOCHANTIER'], "fin du chantier").'</td>';
         }
+        echo "</tr>";
     }
-    else
+    elseif ($this->session->Profil==2)
     {
         echo '<tr><td>Date de début :</td><td>'.anchor("administrateur/debutchantier/".$Chantier['NOCHANTIER'], "Début du chantier").'</td></tr>';
     }
@@ -68,17 +68,17 @@ if($Chantier["STATUT"]=="Confirmé"||$Chantier["STATUT"]=="Commencé"||$Chantier
     if($Chantier["IMAGEAVANT"]!=null)
     {
     ?>
-        <tr><td>Image avant :</td><td><?php echo img($Chantier["IMAGEAVANT"]); ?></td></tr>
+        <tr><td>Image avant :</td><td><?php echo img($Chantier["IMAGEAVANT"]); ?></td>
     <?php 
     if($Chantier["IMAGEAPRES"]!=null)
     {
     ?>
-        <tr><td>Image après :</td><td><?php echo img($Chantier["IMAGEAPRES"]); ?></td></tr>
+        <td>Image après :</td><td><?php echo img($Chantier["IMAGEAPRES"]); ?></td>
     <?php
     }
-    else
+    elseif ($this->session->Profil==2)
     {
-        echo '<tr><td>Image avant :</td><td>'.'<form method="POST" action="'.base_url().'index.php/administrateur/AjouterImageApres/'.$Chantier["NOCHANTIER"].'" enctype="multipart/form-data">
+        echo '<td>Image avant :</td><td>'.'<form method="POST" action="'.base_url().'index.php/administrateur/AjouterImageApres/'.$Chantier["NOCHANTIER"].'" enctype="multipart/form-data">
         <!-- On limite le fichier à 100Ko -->';
         //<input type="hidden" name="MAX_FILE_SIZE" value="10000000">';
         if(isset($this->session->Upload))
@@ -100,10 +100,11 @@ if($Chantier["STATUT"]=="Confirmé"||$Chantier["STATUT"]=="Commencé"||$Chantier
         }
         echo 'Fichier : <input type="file" name="ImageApres" required>
         <input type="submit" name="boutonModification" value="Envoyer le fichier">
-        </form>'.'</td></tr>';
+        </form>'.'</td>';
     }
+    echo "<br/>";
     }
-    else
+    elseif ($this->session->Profil==2)
     {
         echo '<tr><td>Image avant :</td><td>'.'<form method="POST" action="'.base_url().'index.php/administrateur/AjouterImageAvant/'.$Chantier["NOCHANTIER"].'" enctype="multipart/form-data">
         <!-- On limite le fichier à 100Ko -->';
@@ -133,4 +134,9 @@ if($Chantier["STATUT"]=="Confirmé"||$Chantier["STATUT"]=="Commencé"||$Chantier
 ?>
 <tr><td>Profil :</td><td><?php if($Chantier["ACCORD"]==0){ echo "Privé"; }elseif($Chantier["ACCORD"]==1){ echo "Public"; } ?></td></tr>
 </table>
-<?php echo anchor('administrateur/ModifierUnChantier/'.$Chantier["NOCHANTIER"], 'Modifier le chantier'); ?>
+<?php
+if ($this->session->Profil==2)
+{
+echo anchor('administrateur/ModifierUnChantier/'.$Chantier["NOCHANTIER"], 'Modifier le chantier'); 
+}
+?>
