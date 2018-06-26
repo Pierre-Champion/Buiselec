@@ -25,6 +25,10 @@ elseif($Chantier["STATUT"]=="Annulé")
 {
     echo "Le chantier a été annulé.";
 }
+elseif($Chantier["STATUT"]=="Commencé")
+{
+    echo "Le chantier a été commencé.";
+}
 ?></td></tr>
 <tr><td>Adresse :</td><td><?php echo $Chantier["ADRESSE"]."&nbsp;".$Chantier["CP"]."&nbsp;".$Chantier["VILLE"]; ?></td></tr>
 <tr><td>Pièce :</td><td><?php echo $Chantier["PIECE"]; ?></td></tr>
@@ -32,7 +36,7 @@ elseif($Chantier["STATUT"]=="Annulé")
 if($Chantier["DATEDEBUT"]!=null)
 {
 ?>
-    <tr><td>Date de début :</td><td><?php echo $Chantier["DATEDEBUT"]; ?></td></tr>
+    <tr><td>Date de début :</td><td><?php echo date('d/m/Y', strtotime($Chantier["DATEDEBUT"])); ?></td></tr>
 <?php
 }
 if($Chantier["DATEFIN"]!=null)

@@ -24,7 +24,14 @@ class ModeleChantier extends CI_Model
      } // récupérerUneCatégorie
     public function RecupererLesChantiers()
      {
-        $requete = $this->db->get('CHANTIER');
+        
+        $requete = "select * from CHANTIER where STATUT='Attente'
+        Union select * from CHANTIER where STATUT='Devis'
+        Union select * from CHANTIER where STATUT='Confirmé'
+        Union select * from CHANTIER where STATUT='Commencé'
+        Union select * from CHANTIER where STATUT='Terminé'
+        Union select * from CHANTIER where STATUT='Annulé'";
+        $requete=$this->db->query($requete);
         return $requete->result_array();
      } // récupérerLesCatégories
 

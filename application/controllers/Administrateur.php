@@ -151,8 +151,53 @@ class Administrateur extends CI_Controller
           'VILLE' => $this->input->post('VilleClient'),
           'STATUT' => $this->input->post('StatutClient'),
         );
-        $this->ModeleUtilisateur->InsererUnClient($donneesAInserer); // appel du modèle
-        redirect("Administrateur/Clients");
+        
+        {
+          $Mail=$donneesAInserer["MAIL"];
+          ini_set("SMTP","smtp.gmail.com");
+          ini_set("smtp_port","487");
+          ini_set('username','buiselec@gmail.com');
+          ini_set('password','????');
+          if (!preg_match("#^[a-z0-9._-]+@(hotmail|live|msn).[a-z]{2,4}$#", $Mail))
+          {
+              $passage_ligne = "\r\n";
+          }
+          else
+          {
+            $passage_ligne = "\n";
+          }
+          $message_txt = "Suites à votre demande, nous vous avons créé un compte sur le site buiselec.com. Vous pouvez vous-y connecter pour voir les demandes de chantiers que vous avez passé avec nous, ou modifier certaines données ou paramètres. Pour cela, vous aurez besoin de votre adresse mail et de votre mot de passe généré automatiquement: ".$MDP.".";
+          $message_html = "<html><head></head><body>Suites &agrave; votre demande, nous vous avons cr&eacute;&eacute; un compte sur le site buiselec.com. Vous pouvez vous-y connecter pour voir les demandes de chantiers que vous avez pass&eacute;es avec nous, ou modifier certaines donn&eacute;es ou param&egrave;tres. Pour cela, vous aurez besoin de votre adresse mail et de votre mot de passe g&eacute;n&eacute;r&eacute; automatiquement: ".$MDP.".<br/>".anchor('http://127.0.0.1/Buiselec', 'Revenir sur le site')."</body></html>";
+          $boundary = "-----=".md5(rand());
+          $sujet = "Inscription Buiselec";
+          $header = "From: \"Randotroll CK\"<RandotrollCK@gmail.com>".$passage_ligne;
+          $header .= "Reply-to: \"WeaponsB\" <$Mail>".$passage_ligne;
+          $header .= "MIME-Version: 1.0".$passage_ligne;
+          $header .= "Content-Type: multipart/alternative;".$passage_ligne." boundary=\"$boundary\"".$passage_ligne;
+          $message = $passage_ligne."--".$boundary.$passage_ligne;
+          $message.= "Content-Type: text/plain; charset=\"ISO-8859-1\"".$passage_ligne;
+          $message.= "Content-Transfer-Encoding: 8bit".$passage_ligne;
+          $message.= $passage_ligne.$message_txt.$passage_ligne;
+          $message.= $passage_ligne."--".$boundary.$passage_ligne;
+          $message.= "Content-Type: text/html; charset=\"ISO-8859-1\"".$passage_ligne;
+          $message.= "Content-Transfer-Encoding: 8bit".$passage_ligne;
+          $message.= $passage_ligne.$message_html.$passage_ligne;
+          $message.= $passage_ligne."--".$boundary."--".$passage_ligne;
+          $message.= $passage_ligne."--".$boundary."--".$passage_ligne;
+          $envoi=mail($Mail,$sujet,$message,$header);
+          if ($envoi)
+          {
+            $this->ModeleUtilisateur->InsererUnClient($donneesAInserer); // appel du modèle
+            redirect('administrateur/clients');
+          }
+          else
+          {
+              $DonneesInjectees["EnvoiMail"]="Failed";
+              $this->load->view('templates/Entete');
+              $this->load->view('Administrateur/AjouterUnClient', $DonneesInjectees);
+          }
+          //Tutoriel OpenClassroom: https://openclassrooms.com/courses/e-mail-envoyer-un-e-mail-en-php
+          }
       }
       else
       {
@@ -272,6 +317,16 @@ class Administrateur extends CI_Controller
       }
       $this->load->view('templates/Entete');
       $this->load->view('Administrateur/Chantiers', $DonneesInjectees);
+    }
+    public function DebutChantier($NoChantier)
+    {
+      $this->ModeleChantier->ModifierUnChantier(array("DATEDEBUT"=>date('Y-m-d'),"STATUT"=>"Commencé"), $NoChantier);
+      redirect('administrateur/detailschantier/'.$NoChantier);
+    }
+    public function FinChantier($NoChantier)
+    {
+      $this->ModeleChantier->ModifierUnChantier(array("DATEFIN"=>date('Y-m-d'),"STATUT"=>"Terminé"), $NoChantier);
+      redirect('administrateur/detailschantier/'.$NoChantier);
     }
     public function DetailsChantier($NoChantier=null)
     {
