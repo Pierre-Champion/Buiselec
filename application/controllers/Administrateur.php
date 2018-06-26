@@ -25,6 +25,7 @@ class Administrateur extends CI_Controller
       {   // formulaire non validé, on renvoie le formulaire
         $this->load->view('templates/Entete');
         $this->load->view('Administrateur/AjouterUneCategorie', $DonneesInjectees);
+        $this->load->view('templates/PiedDePage');
       }
       else
       {
@@ -35,12 +36,14 @@ class Administrateur extends CI_Controller
         $this->load->helper('url'); // helper chargé pour utilisation de site_url (dans la vue)
         $this->load->view('templates/Entete');
         $this->load->view('Administrateur/InsertionReussie');
+        $this->load->view('templates/PiedDePage');
       }
     } // ajouterUneCatégorie
     public function Home()
     {
       $this->load->view('templates/Entete');
       $this->load->view('Administrateur/Home');
+      $this->load->view('templates/PiedDePage');
     }
     public function AjouterPersonnel()
     {
@@ -64,6 +67,7 @@ class Administrateur extends CI_Controller
       {
         $this->load->view('templates/Entete');
         $this->load->view('Administrateur/AjouterPersonnel', $DonneesInjectees);
+        $this->load->view('templates/PiedDePage');
       }
     } // ajouterUnPersonnel
 
@@ -85,8 +89,7 @@ class Administrateur extends CI_Controller
         $id = $this->input->post('NoPersonnel');
         $this->ModeleUtilisateur->ModifierUnPersonnel($donneesAInserer, $id);// appel du modèle
         $this->load->helper('url'); // helper chargé pour utilisation de site_url (dans la vue)
-        $this->load->view('templates/Entete');
-        $this->load->view('Administrateur/InsertionReussie');
+        redirect('administrateur/detailspersonnel/'.$nopersonnel);
       }
       else
       {
@@ -195,6 +198,7 @@ class Administrateur extends CI_Controller
               $DonneesInjectees["EnvoiMail"]="Failed";
               $this->load->view('templates/Entete');
               $this->load->view('Administrateur/AjouterUnClient', $DonneesInjectees);
+              $this->load->view('templates/PiedDePage');
           }
           //Tutoriel OpenClassroom: https://openclassrooms.com/courses/e-mail-envoyer-un-e-mail-en-php
           }
@@ -208,6 +212,7 @@ class Administrateur extends CI_Controller
         );
         $this->load->view('templates/Entete');
         $this->load->view('Administrateur/AjouterUnClient', $DonneesInjectees);
+        $this->load->view('templates/PiedDePage');
       }
     } // ajouterUnClient
 
@@ -259,6 +264,7 @@ class Administrateur extends CI_Controller
       $DonneesInjectees['Clients']=$this->ModeleUtilisateur->RecupererLesClients();
       $this->load->view('templates/Entete');
       $this->load->view('Administrateur/Clients', $DonneesInjectees);
+      $this->load->view('templates/PiedDePage');
     }
     public function DetailsClient($NoClient)
     {
@@ -267,6 +273,7 @@ class Administrateur extends CI_Controller
       $DonneesInjectees['Chantiers']=$this->ModeleChantier->RecupererLesChantiersDUnClient($NoClient);
       $this->load->view('templates/Entete');
       $this->load->view('Administrateur/DetailsClient', $DonneesInjectees);
+      $this->load->view('templates/PiedDePage');
     }
     public function Personnel()
     {
@@ -274,6 +281,7 @@ class Administrateur extends CI_Controller
       $DonneesInjectees['Personnel']=$this->ModeleUtilisateur->RecupererLePersonnel();
       $this->load->view('templates/Entete');
       $this->load->view('Administrateur/Personnel', $DonneesInjectees);
+      $this->load->view('templates/PiedDePage');
     }
 
     public function DetailsPersonnel($NoPersonnel)
@@ -283,6 +291,7 @@ class Administrateur extends CI_Controller
       $DonneesInjectees['Chantiers']=$this->ModeleChantier->RecupererLesChantiersDUnPersonnel($NoPersonnel);
       $this->load->view('templates/Entete');
       $this->load->view('Administrateur/DetailsPersonnel', $DonneesInjectees);
+      $this->load->view('templates/PiedDePage');
     }
     public function AssignerChantier($NoPersonnel=0, $NoChantier=0)
     {
@@ -298,6 +307,7 @@ class Administrateur extends CI_Controller
         $DonneesInjectees['NoPersonnel']=$NoPersonnel;
         $this->load->view('templates/Entete');
         $this->load->view('Administrateur/AssignerChantier', $DonneesInjectees);
+        $this->load->view('templates/PiedDePage');
       }
     }
     public function AjouterTemps($NoPersonnel, $NoChantier)
@@ -317,6 +327,7 @@ class Administrateur extends CI_Controller
       }
       $this->load->view('templates/Entete');
       $this->load->view('Administrateur/Chantiers', $DonneesInjectees);
+      $this->load->view('templates/PiedDePage');
     }
     public function DebutChantier($NoChantier)
     {
@@ -336,6 +347,7 @@ class Administrateur extends CI_Controller
       $DonneesInjectees['Client']=$this->ModeleUtilisateur->RecupererUnClient($DonneesInjectees['Chantier']["NOCLIENT"]);
       $this->load->view('templates/Entete');
       $this->load->view('Administrateur/DetailsChantier', $DonneesInjectees);
+      $this->load->view('templates/PiedDePage');
     }
     public function AjouterUnChantier($noclient=null)
     {
@@ -385,6 +397,7 @@ class Administrateur extends CI_Controller
         );
         $this->load->view('templates/Entete');
         $this->load->view('Administrateur/AjouterUnChantier', $DonneesInjectees);
+        $this->load->view('templates/PiedDePage');
       }
     } // ajouterUnChantier
     public function DevisEnvoye($NoChantier)
@@ -575,7 +588,7 @@ class Administrateur extends CI_Controller
     $Libelle = $this->input->post('recherche');
     if (empty($Libelle))
      {   // pas d'article correspondant au n°
-         show_404();
+        $DonneesInjectees['Champ']="Vide";
      }
     $DonneesInjectees['Search'] = $this->ModeleChantier->RechercherUnChantier($Libelle);
     $DonneesInjectees['TitreDeLaPage'] = 'Resultats de votre recherche';

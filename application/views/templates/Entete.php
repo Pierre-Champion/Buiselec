@@ -11,7 +11,8 @@
 <link rel="icon" type="image/png" href="<?=base_url();?>assets/images/favicon.ico" />
 </head>
 <body>
-<?php echo img("buiselec.gif", "", array("style"=>"width: 100%")); ?>
+<div class="GifBuiselec">
+<?php echo img("buiselec.gif", "", array("style"=>"width: 50%; display: block;margin-left: auto; margin-right: auto;")); ?></div>
 <div class="Entete">
 <a class="Buiselec-Button" href="<?php echo site_url('visiteur/Home') ?>">Page d'acceuil<?php if (isset($this->session->Profil) && ($this->session->Profil==1 || $this->session->Profil==2)) echo " des clients";?></a>
 <a class="Buiselec-Button" href="<?php echo site_url('visiteur/Galerie') ?>">Galerie</a>

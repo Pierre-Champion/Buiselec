@@ -1,4 +1,8 @@
-
+</div>
+<?php
+if(isset($TitreDeLaPage) && $TitreDeLaPage=="Page d'accueil")
+{
+?>
 <script>
     function HideContent() 
     {
@@ -11,6 +15,9 @@
         Ok
     </div>
 </div>
+<?php
+}
+?>
 <div class="sharer">
 <div id="Facebook">
             <iframe src="http://www.facebook.com/plugins/like.php?href=https://www.facebook.com/Buiselec-1905654506132370/&layout=box_count&show_faces=true&width=65&action=like&font=arial&colorscheme=light&height=65" 
@@ -23,5 +30,5 @@
             
        </div>
 </div>
-
+<div class="footer"></div>
 </body>

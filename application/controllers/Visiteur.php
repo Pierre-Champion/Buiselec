@@ -30,6 +30,7 @@ class Visiteur extends CI_Controller
     $DonneesInjectees['TitreDeLaPage'] = "Contact";
     $this->load->view('templates/Entete');
     $this->load->view("Visiteur/Contact", $DonneesInjectees);
+    $this->load->view('templates/PiedDePage');
    }// Contact
 
    public function Inscription()
@@ -85,12 +86,14 @@ class Visiteur extends CI_Controller
                 $DonneesInjectees['Connexion']=false;
                 $this->load->view('templates/Entete');
                 $this->load->view('Administrateur/SeConnecter', $DonneesInjectees);
+                $this->load->view('templates/PiedDePage');
             }
         }
         else
         {
             $this->load->view('templates/Entete');
             $this->load->view('Administrateur/SeConnecter', $DonneesInjectees);
+            $this->load->view('templates/PiedDePage');
         }
     }
    public function SeConnecter() {
@@ -185,6 +188,7 @@ class Visiteur extends CI_Controller
         );
         $this->load->view('templates/Entete');
         $this->load->view('Visiteur/CréerChantier', $DonneesInjectees);
+        $this->load->view('templates/PiedDePage');
       }
    }// Créer un chantier
 
@@ -194,6 +198,7 @@ class Visiteur extends CI_Controller
       $DonneesInjectees['Chantiers']=$this->ModeleChantier->RecupererLesChantiersDUnClient($this->session->Client['NOCLIENT']);
       $this->load->view('templates/Entete');
       $this->load->view('Visiteur/Chantiers', $DonneesInjectees);
+      $this->load->view('templates/PiedDePage');
     }
    public function DetailsChantier($NoChantier)
     {
@@ -202,6 +207,7 @@ class Visiteur extends CI_Controller
       $DonneesInjectees['Categorie']=$this->ModeleChantier->RecupererUneCategorie($DonneesInjectees['Chantier']["NOCATEGORIE"])["NOM"];
       $this->load->view('templates/Entete');
       $this->load->view('Visiteur/DetailsChantier', $DonneesInjectees);
+      $this->load->view('templates/PiedDePage');
     }
    public function Galerie() 
    {
@@ -209,6 +215,7 @@ class Visiteur extends CI_Controller
     $DonneesInjectees['Chantiers'] = $this->ModeleChantier->GetChantiersPublics();
     $this->load->view('templates/Entete');
     $this->load->view("Visiteur/Image", $DonneesInjectees);
+    $this->load->view('templates/PiedDePage');
    }// Image
    
    public function MentionsLegales()
@@ -216,6 +223,7 @@ class Visiteur extends CI_Controller
     $DonneesInjectees['TitreDeLaPage'] = "Mentions légales";
     $this->load->view('templates/Entete');
     $this->load->view("MentionsLegales");
+    $this->load->view('templates/PiedDePage');
    }//Mentions légales
    public function Deconnexion()
    {

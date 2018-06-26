@@ -1,6 +1,6 @@
 <?php echo form_open('Administrateur/ResultatRechercher'); ?>
                   <li><input type="text" placeholder="Recherche.." name="recherche">
-                  <button type="submit">Submit</button></li>
+                  <button type="submit">Rechercher</button></li>
                <?php echo form_close();?>
 
 <h2><?php echo $TitreDeLaPage ?></h2>
