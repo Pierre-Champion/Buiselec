@@ -70,5 +70,12 @@ class ModeleChantier extends CI_Model
      {
          return $this->db->get_where('CHANTIER', array("NOCHANTIER"=>$NoChantier))->row_array();
      }
+     public function RechercherUnChantier($pLibelle = False)
+     {
+        $this->db->like('NOM', $pLibelle, 'both');
+        $this->db->or_like('STATUT', $pLibelle, 'after');
+        $requete = $this->db->get('CHANTIER');
+        return $requete->result_array(); // retour d'un tableau associatif
+     } //RechercherUnProduit
 
 }

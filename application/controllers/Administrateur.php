@@ -515,4 +515,17 @@ class Administrateur extends CI_Controller
         redirect('administrateur/detailschantier/'.$NoChantier);
       }
     }
+    public function ResultatRechercher()
+   { 
+    $Libelle = $this->input->post('recherche');
+    if (empty($Libelle))
+     {   // pas d'article correspondant au n°
+         show_404();
+     }
+    $DonneesInjectees['Search'] = $this->ModeleChantier->RechercherUnChantier($Libelle);
+    $DonneesInjectees['TitreDeLaPage'] = 'Resultats de votre recherche';
+    $this->load->view('templates/Entete');
+    $this->load->view('Administrateur/ResultatRechercher', $DonneesInjectees);
+    $this->load->view('templates/PiedDePage');
+  } // ResultatRechercheUnArticle
 }

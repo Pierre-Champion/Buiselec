@@ -209,12 +209,15 @@
 }
 .sharer
 {
-    position: relative; 
+    
+    position: absolute;
+    top: 490px;
+    right: 100px; 
    }
 
 #Youtube
 {
-    position: relative;
+    position: absolute;
     left: 65px;
-    bottom: 65px;
+    bottom: 40px;
 }

@@ -1,7 +1,14 @@
+<?php echo form_open('Administrateur/ResultatRechercher'); ?>
+                  <li><input type="text" placeholder="Recherche.." name="recherche">
+                  <button type="submit">Submit</button></li>
+               <?php echo form_close();?>
+
 <h2><?php echo $TitreDeLaPage ?></h2>
+
+
 <table class="Liste">
     <tr>
-        <th>Actions:</th><th>Client</th><th>Nom</th><th>Statut</th>
+        <th>Actions:</th><th>Client</th><th>Nom chantier</th><th>Statut</th>
     </tr>
     <?php
     foreach ($Chantiers as $UnChantier) {
