@@ -15,7 +15,7 @@ $i=0;
 foreach ($Chantiers as $UnChantier) 
 {
     echo "<tr><td>".anchor('administrateur/DetailsChantier/'.$UnChantier["NOCHANTIER"], '"'.$UnChantier["NOM"].'"')."</td><td>".intval($UnChantier["HORAIRE"])."h<br/><br/>";
-    if ($this->session->Profil==2)'<div id="Ajouter'.$i.'" onclick="document.getElementById(\'Temps'.$i.'\').style.display=\'block\'; document.getElementById(\'Ajouter'.$i.'\').style.display=\'none\'">Ajouter</div>';
+    if ($this->session->Profil==2) echo '<div id="Ajouter'.$i.'" onclick="document.getElementById(\'Temps'.$i.'\').style.display=\'block\'; document.getElementById(\'Ajouter'.$i.'\').style.display=\'none\'">Ajouter</div>';
     echo "<div id='Temps".$i."' class='AjouterTemps'>".
     form_open('administrateur/ajoutertemps/'.$Personnel["NOPERSONNEL"].'/'.$UnChantier["NOCHANTIER"]).
     form_label('Nombre d\'heures', 'lblHeures')."<br/>".
