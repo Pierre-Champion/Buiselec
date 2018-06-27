@@ -1,6 +1,6 @@
-<?php echo img("Panneau.png"); ?>
-<h1> SITE EN CONSTRUCTION !!!!!</h1>
-
+<?php /*echo img("Panneau.png");*/ ?>
+<!--<h1> SITE EN CONSTRUCTION !!!!!</h1>-->
+<?php if($this->session->ChantierInvalide){ echo "<div class='echec'>Veuillez selectionner un de vos chantiers!</div>";$this->session->ChantierInvalide=false; } ?>
 <div class="container Pub">
   <h2>Nos chantiers</h2>  
   <div id="myCarousel" class="carousel slide" data-ride="carousel">

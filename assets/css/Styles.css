@@ -76,7 +76,7 @@ body
 .Page
 {
     padding: 30px;
-    min-height: 65%;
+    min-height: 68%;
     border-left: 100px solid grey;
     border-right: 100px solid grey;
     background-color: #ffffff;
@@ -232,7 +232,7 @@ body
     
     position: absolute;
     top: 40px;
-    right: 100px; 
+    right: 150px; 
    }
 
 #Youtube

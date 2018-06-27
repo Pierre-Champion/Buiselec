@@ -17,7 +17,7 @@ class Visiteur extends CI_Controller
       $this->load->model('ModeleChantier');
       $this->load->model('ModeleUtilisateur');
    } // __construct
-
+   
    public function Home() {
     $DonneesInjectees['TitreDeLaPage']="Page d'accueil";
     $DonneesInjectees['Chantiers']=$this->ModeleChantier->GetChantiersPublics();
@@ -215,6 +215,74 @@ class Visiteur extends CI_Controller
      redirect('visiteur/detailschantier/'.$NoChantier);
      
    }
+   public function ModifierUnChantier($NoChantier=null)
+   {
+     $this->load->helper('form');
+     $DonneesInjectees['TitreDeLaPage'] = 'Modifier un Chantier';
+     $DonneesInjectees['Chantier'] = $this->ModeleChantier->RecupererUnChantier($NoChantier);
+     if($DonneesInjectees['Chantier']["NOCLIENT"]==$this->session->Client["NOCLIENT"])
+     {
+         $DonneesInjectees['lesCategories'] = $this->ModeleChantier->RecupererLesCategories();
+         $DonneesInjectees['Pieces']=array
+           (
+             "Salon" => "Salon",
+             "Salle à manger" => "Salle à manger",
+             "Cuisine" => "Cuisine",
+             "Salle de bain" => "Salle de bain",
+             "Extérieur" => "Extérieur",
+             "Cave / Garage / Grenier" => "Cave / Garage / Grenier",
+             "Chambre" => "Chambre"
+           );
+         If ($this->input->post('boutonModification'))
+         {
+           $donneesAInserer = array(
+             'NOCATEGORIE' => $this->input->post('NoCategorie'),
+             'TYPE'=> $this->input->post('TypeChantier'),
+             'PIECE'=> $this->input->post('PieceChantier'),
+             'DETAIL'=> $this->input->post('DetailsChantier'),
+             'ADRESSE' => $this->input->post('AdresseChantier'),
+             'CP' => $this->input->post('CPChantier'),
+             'VILLE' => $this->input->post('VilleChantier'),
+             'ACCORD' => $this->input->post('AccordImages'),
+           );
+           $id = $this->input->post('NoChantier');
+           $this->ModeleChantier->ModifierUnChantier($donneesAInserer, $id);// appel du modèle
+           
+           redirect('visiteur/detailschantier/'.$NoChantier);
+           
+         }
+         else
+         {
+           if(isset($NoChantier) && is_string($NoChantier))
+           {
+             $DonneesInjectees['Chantier'] = $this->ModeleChantier->RecupererUnChantier($NoChantier);
+             $DonneesInjectees['lesCategories'] = $this->ModeleChantier->RecupererLesCategories();
+             $DonneesInjectees['Pieces']=array
+           (
+             "Salon" => "Salon",
+             "Salle à manger" => "Salle à manger",
+             "Cuisine" => "Cuisine",
+             "Salle de bain" => "Salle de bain",
+             "Extérieur" => "Extérieur",
+             "Cave / Garage / Grenier" => "Cave / Garage / Grenier",
+             "Chambre" => "Chambre"
+           );
+           }
+           else
+           {
+             redirect("visiteur/VosChantiers");
+           }
+           $this->load->view('templates/Entete');
+           $this->load->view('Visiteur/ModifierUnChantier', $DonneesInjectees);
+           $this->load->view('templates/PiedDePage');
+         }
+     }
+     else
+     {
+         $this->session->ChantierInvalide=true;
+         redirect('visiteur/home');
+     }
+   } // ModificationUnChantier
    public function CreerChantier()
    {
     $DonneesInjectees['TitreDeLaPage'] = "Créer un chantier";
@@ -275,12 +343,20 @@ class Visiteur extends CI_Controller
     }
    public function DetailsChantier($NoChantier)
     {
-      $DonneesInjectees['TitreDeLaPage'] = 'Détails du chantier';
-      $DonneesInjectees['Chantier']=$this->ModeleChantier->RecupererUnChantier($NoChantier);
-      $DonneesInjectees['Categorie']=$this->ModeleChantier->RecupererUneCategorie($DonneesInjectees['Chantier']["NOCATEGORIE"])["NOM"];
-      $this->load->view('templates/Entete');
-      $this->load->view('Visiteur/DetailsChantier', $DonneesInjectees);
-      $this->load->view('templates/PiedDePage');
+        $DonneesInjectees['TitreDeLaPage'] = 'Détails du chantier';
+        $DonneesInjectees['Chantier']=$this->ModeleChantier->RecupererUnChantier($NoChantier);
+        if($DonneesInjectees['Chantier']["NOCLIENT"]==$this->session->Client["NOCLIENT"])
+        {
+          $DonneesInjectees['Categorie']=$this->ModeleChantier->RecupererUneCategorie($DonneesInjectees['Chantier']["NOCATEGORIE"])["NOM"];
+          $this->load->view('templates/Entete');
+          $this->load->view('Visiteur/DetailsChantier', $DonneesInjectees);
+          $this->load->view('templates/PiedDePage');
+        }
+        else
+        {
+            $this->session->ChantierInvalide=true;
+            redirect('visiteur/home');
+        }
     }
    public function Galerie() 
    {

@@ -447,7 +447,7 @@ class Administrateur extends CI_Controller
           'ADRESSE' => $this->input->post('AdresseChantier'),
           'CP' => $this->input->post('CPChantier'),
           'VILLE' => $this->input->post('VilleChantier'),
-          
+          'ACCORD' => $this->input->post('AccordImages'),
         );
         $id = $this->input->post('NoChantier');
         $this->ModeleChantier->ModifierUnChantier($donneesAInserer, $id);// appel du modèle

@@ -1,7 +1,7 @@
 <h2><?php echo $TitreDeLaPage ?></h2>
 
 <?php
-echo form_open('Administrateur/ModifierUnChantier/'.$Chantier['NOCHANTIER']);
+echo form_open('Visiteur/ModifierUnChantier/'.$Chantier['NOCHANTIER']);
 
 echo form_hidden('NoChantier', $Chantier['NOCHANTIER']);
 
@@ -23,8 +23,6 @@ foreach ($lesCategories as $uneCategorie)
 ?>
 </select><BR>
 <?php
-echo form_label("Nom du chantier : ", 'lbltNom').'<BR>';
-echo form_input('NomChantier',$Chantier['NOM'],array('pattern' =>'^[A-Z][a-zA-Z, \-]{2,24}$','required'=>'required')).'<BR>';
 
 echo form_label("Type de chantier : ", 'lbltType').'<BR>';
 if($Chantier['TYPE']=="0")
