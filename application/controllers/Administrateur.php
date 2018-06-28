@@ -159,7 +159,7 @@ class Administrateur extends CI_Controller
           ini_set("SMTP","smtp.gmail.com");
           ini_set("smtp_port","487");
           ini_set('username','buiselec@gmail.com');
-          ini_set('password','????');
+          ini_set('password','google1329');
           if (!preg_match("#^[a-z0-9._-]+@(hotmail|live|msn).[a-z]{2,4}$#", $Mail))
           {
               $passage_ligne = "\r\n";
@@ -172,8 +172,8 @@ class Administrateur extends CI_Controller
           $message_html = "<html><head></head><body>Suites &agrave; votre demande, nous vous avons cr&eacute;&eacute; un compte sur le site buiselec.com. Vous pouvez vous-y connecter pour voir les demandes de chantiers que vous avez pass&eacute;es avec nous, ou modifier certaines donn&eacute;es ou param&egrave;tres. Pour cela, vous aurez besoin de votre adresse mail et de votre mot de passe g&eacute;n&eacute;r&eacute; automatiquement: ".$MDP.".<br/>".anchor('http://127.0.0.1/Buiselec', 'Revenir sur le site')."</body></html>";
           $boundary = "-----=".md5(rand());
           $sujet = "Inscription Buiselec";
-          $header = "From: \"Randotroll CK\"<RandotrollCK@gmail.com>".$passage_ligne;
-          $header .= "Reply-to: \"WeaponsB\" <$Mail>".$passage_ligne;
+          $header = "From: \"Buiselec\"<buiselec@gmail.com>".$passage_ligne;
+          $header .= "Reply-to: \"$Mail\" <$Mail>".$passage_ligne;
           $header .= "MIME-Version: 1.0".$passage_ligne;
           $header .= "Content-Type: multipart/alternative;".$passage_ligne." boundary=\"$boundary\"".$passage_ligne;
           $message = $passage_ligne."--".$boundary.$passage_ligne;
@@ -199,8 +199,7 @@ class Administrateur extends CI_Controller
               $this->load->view('Administrateur/AjouterUnClient', $DonneesInjectees);
               $this->load->view('templates/PiedDePage');
           }
-          //Tutoriel OpenClassroom: https://openclassrooms.com/courses/e-mail-envoyer-un-e-mail-en-php
-          }
+        }
       }
       else
       {
