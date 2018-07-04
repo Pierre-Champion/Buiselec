@@ -10,6 +10,7 @@ class Visiteur extends CI_Controller
       $this->load->library("pagination");
       $this->load->library('form_validation');
       $this->load->library('session');
+      $this->load->library('encrypt');
       if (!isset($this->session))
       {
           session_start();
@@ -188,11 +189,11 @@ class Visiteur extends CI_Controller
       {
         $AncienMDP = array(
           'NOCLIENT'=>$NoClient,
-          'MDP' => $this->input->post('AnciMdpClient'),
+          'MDP' => $this->encrypt->encode($this->input->post('AnciMdpClient')),
         );
         if($this->ModeleUtilisateur->RecupererUnCLient($AncienMDP))
         {
-            $this->ModeleUtilisateur->ModifierUnCLient(array("MDP"=>$this->input->post('NouvMdpClient')), $NoClient);
+            $this->ModeleUtilisateur->ModifierUnCLient(array("MDP"=>$this->encrypt->encode($this->input->post('NouvMdpClient'))), $NoClient);
             $this->session->Modif="Reussie";
             redirect('Visiteur/profil/'.$NoClient);
         }
@@ -222,7 +223,7 @@ class Visiteur extends CI_Controller
    public function SeConnecter() {
     if(!isset($this->session->DonneesConnexion))
     {
-        $this->session->DonneesConnexion=array("MAIL"=>$this->input->post('MailClient'), "MDP"=>$this->input->post('MDP'));
+        $this->session->DonneesConnexion=array("MAIL"=>$this->input->post('MailClient'), "MDP"=>$this->encrypt->encode($this->input->post('MDP')));
     }
         $Client=$this->ModeleUtilisateur->RecupererUnClient($this->session->DonneesConnexion);
         if($Client)

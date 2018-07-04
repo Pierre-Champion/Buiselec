@@ -1,6 +1,5 @@
 body
 {
-    
     background-color: rgb(75, 75, 100);
 }
 .PiedDePage
@@ -73,10 +72,19 @@ body
     width: 100%;
     max-height: 350px;
 }
-.Page
+.PageV
 {
     padding: 30px;
     min-height: 68%;
+    border-left: 100px solid grey;
+    border-right: 100px solid grey;
+    background-color: #ffffff;
+    width: 100%
+}
+.PageA
+{
+    padding: 30px;
+    min-height: 63%;
     border-left: 100px solid grey;
     border-right: 100px solid grey;
     background-color: #ffffff;

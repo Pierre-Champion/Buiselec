@@ -78,7 +78,7 @@ if($Chantier["STATUT"]=="Confirmé"||$Chantier["STATUT"]=="Commencé"||$Chantier
     }
     elseif ($this->session->Profil==2)
     {
-        echo '<td>Image avant :</td><td>'.'<form method="POST" action="'.base_url().'index.php/administrateur/AjouterImageApres/'.$Chantier["NOCHANTIER"].'" enctype="multipart/form-data">
+        echo '<td>Image après :</td><td>'.'<form method="POST" action="'.base_url().'index.php/administrateur/AjouterImageApres/'.$Chantier["NOCHANTIER"].'" enctype="multipart/form-data">
         <!-- On limite le fichier à 100Ko -->';
         //<input type="hidden" name="MAX_FILE_SIZE" value="10000000">';
         if(isset($this->session->Upload))

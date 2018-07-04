@@ -196,4 +196,13 @@ if ($this->session->Profil==2)
     </div>
   </div>
 </div>
-<div class="Page">
+<?php
+if (isset($this->session->Profil) && ($this->session->Profil==1 || $this->session->Profil==2))
+{
+  echo '<div class="PageA">';
+}
+else
+{
+  echo '<div class="PageV">';
+}
+?>

@@ -543,22 +543,24 @@ class Administrateur extends CI_Controller
       If ($this->input->post('boutonModification'))
       {
         if(isset($_FILES['ImageApres']))
-        { 
+        {
           $dossier = "C:\\xampp\htdocs\Buiselec\assets\images\\";
-          $_FILES['ImageAvant']['name']=$_FILES['ImageAvant']['name'] = str_replace(' ', '_', $_FILES['ImageAvant']['name']);
+          $_FILES['ImageApres']['name']=$_FILES['ImageApres']['name'] = str_replace(' ', '_', $_FILES['ImageApres']['name']);
           $fichier = basename($_FILES['ImageApres']['name']);
-          if (strpos($fichier, ".png") !== FALSE || strpos($fichier, ".jpg") !== FALSE || strpos($fichier, ".jpeg") !== FALSE)
-          {
+          /*if (strpos($fichier, ".png") !== FALSE || strpos($fichier, ".jpg") !== FALSE || strpos($fichier, ".jpeg") !== FALSE)
+          {*/
             $i=1;
             do
             {
               if(file_exists($dossier . $fichier))
               {
-                $fichier=basename($_FILES['ImageApres']['name'])."(".strval($i).")";
+                $fichier=str_replace('.jpg', "(".strval($i).").jpg", $_FILES['ImageApres']['name']);
+                $fichier=str_replace('.jpeg', "(".strval($i).").jpeg", $_FILES['ImageApres']['name']);
+                $fichier=str_replace('.png', "(".strval($i).").png", $_FILES['ImageApres']['name']);
               }
               if(move_uploaded_file($_FILES['ImageApres']['tmp_name'], $dossier . $fichier)) //Si la fonction renvoie TRUE, c'est que ça a fonctionné...
               {
-               $this->session->Upload="Done";
+                $this->session->Upload="Done";
                 $this->ModeleChantier->ModifierUnChantier(array("IMAGEAPRES"=>$fichier), $NoChantier);
                 redirect('administrateur/detailschantier/'.$NoChantier);
               }
@@ -566,13 +568,13 @@ class Administrateur extends CI_Controller
             }
             while(file_exists($dossier . $fichier));
             $this->session->Upload="Failed";
-            redirect('administrateur/detailschantier/'.$NoChantier);
-          }
+            redirect('administrateur/detailschantier/'.$NoChantier);        
+          /*}
           else
           {
             $this->session->Upload="FlawedType";
             redirect('administrateur/detailschantier/'.$NoChantier);
-          }
+          }*/
         }
       }
       else
